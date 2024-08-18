@@ -1,9 +1,10 @@
-#  Rentel
-### Slogan : Rent Smart, Borrow Easy.
+# Rentel
 
-  Rentel is a location-based platform designed to connect nearby users, 
-  making it easy to borrow and rent items. With Rentel, users can effortlessly find and rent items they need, 
-  or offer items they own for rent. Notifications within a 1km radius ensure convenient and efficient borrowing.
+## Slogan: Rent Smart, Borrow Easy
+
+Rentel is a location-based platform designed to connect nearby users,
+making it easy to borrow and rent items. With Rentel, users can effortlessly find and borrow items they need,
+or offer items they own for rent. Notifications within a 6km radius ensure convenient and efficient borrowing.
 
 ## Technologies:
 
@@ -11,7 +12,7 @@
 - **Back-End** : PHP
 - **Database**
   - Firebase : Location based queries, Storage, Hoisting
-  - MySQL :  database based
+  - MySQL : database based
 - **Version control** : Github
 - **Websocket** : Socket.io || Pusher
 - **webserver** : Apache Server
@@ -25,6 +26,13 @@
 - Real-Time Notifications
 - Item insurance
 - User Reviews
+- Chat & Call Integration
+- Advanced Search Filters
+- Transaction History
+- Payment Gateway Integration
+- Wishlist & Favorites
+- Multi-language Support
+- Fraud Detection & Reporting
 
 ## Models
 
@@ -34,15 +42,15 @@
 - Messages `Sender_id` `reciver_id` `content` `time`
 - reviews `reviewer` `reviewed` `rating` `comment`
 
-
 ## System Users
 
 `**Admin**` | `**Leander**` | `**Borrower**`
 
 ## Usage Scenarios
-  Borrowing: Need a power drill for a weekend project? Post an announcement on Rentel and get offers from nearby users within a 1km radius.
-  
-  Lending: Have a set of camping gear collecting dust? List it on Rentel and get notified when someone nearby needs it.
+
+Borrowing: Need a power drill for a weekend project? Post an announcement on Rentel and get offers from nearby users within a 6km radius.
+
+Lending: Have a motorcycle? List it on Rental and get notified when someone nearby needs it.
 
 ## Borrower Use Cases
 

@@ -36,11 +36,11 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
 
 ## Models
 
-- user `Full Name` `Usernaem` `Phone` `Address` `profilePic` `idPic`
-- Item `Name` `description` `itemImage` `avalible` `Stutus` `Price` `duration`
-- Rental `borrower_id` `lender_id` `item_id` `start_date` `end_date` `price`
+- users `First Name` `Last Name` `Username` `Phone` `Address` `profilePic` `idPic`
+- Items `Name` `description` `itemImage` `avalible` `Stutus` `Price` `duration` `lender_id`
+- Rentals `borrower_id` `lender_id` `item_id` `start_date` `end_date` `price` `status`
 - Messages `Sender_id` `reciver_id` `content` `time`
-- reviews `reviewer` `reviewed` `rating` `comment`
+- reviews `reviewer_id` `reviewed_id` `rating` `comment`
 
 ## System Users
 
@@ -75,3 +75,36 @@ Lending: Have a motorcycle? List it on Rental and get notified when someone near
 - Approve or Deny requests
 - check user messages
 - Generate reports
+
+## Full Script :
+
+Createing admin account requires approvel from the development team.
+
+- The process goes here
+  - Send a formal email via our website or our email
+  - Review the personal data informations.
+  - Interview the applicant for this role and feedback him/her.
+
+Admins responsibles
+
+- approve or deny posts.
+- Remove comments.
+- Ban users.
+- activate or deactivate users.
+- Review reports and complaints.
+- Refund process when necessary.
+
+- Lender Responsibilities
+
+  - Offer Items for rent.
+  - Respond to Borrow Requests.
+  - Manage Item Availability.
+  - Message Borrowers.
+  - Review Borrowers.
+
+- Borrower Responsibilities
+  - Post a Request for Items.
+  - Specify Borrowing Duration.
+  - Message Lenders.
+  - Review Lenders.
+  - Manage Requests.

@@ -17,3 +17,7 @@ Task 1 :
   - preper card component
 
   - Frame 2 or 5 from figma https://www.figma.com/design/hlctZzdcPWNHhwHsH0LYWB/Floopyinn-Rental-Website-Ui--kit-(Community)?node-id=1-24&node-type=frame&t=1NLAinbMKgGgAsTf-0
+
+Resources :
+
+    - Laravel Auth : https://medium.com/@noumcpe0007/laravel-11-rest-api-authentication-using-sanctum-tutorial-12231b02354b

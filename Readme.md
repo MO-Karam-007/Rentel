@@ -36,7 +36,7 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
 
 ## Models
 
-- users `First Name` `Last Name` `Username` `Phone` `Address` `profilePic` `idPic`
+- users `First Name` `Last Name` `Username` `Phone` `Address` `ProfilePic` `idPic`
 - Items `Name` `description` `itemImage` `avalible` `Stutus` `Price` `duration` `lender_id`
 - Rentals `borrower_id` `lender_id` `item_id` `start_date` `end_date` `price` `status`
 - Messages `Sender_id` `reciver_id` `content` `time`

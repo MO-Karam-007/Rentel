@@ -17,6 +17,8 @@ return new class extends Migration
             $table->string('description');
             $table->enum('status', ['booking', 'completed', 'cancelled']);
             $table->string('thumbnail');
+            $table->foreignId('user_id')->constrained('users');
+            
             $table->timestamps();
         });
     }

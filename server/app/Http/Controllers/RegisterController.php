@@ -6,6 +6,7 @@ use App\Models\User;
 use COM;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends BaseController
@@ -43,5 +44,19 @@ class RegisterController extends BaseController
         return $this->sendResponse($success, 'User registration successful');
     }
 
-    public function login() {}
+    public function login(Request $request): JsonResponse
+    {
+
+
+        if (Auth::attempt(['email' => $request->email, 'passwrod' => $request->password])) {
+
+            $user = Auth::user();
+            $success['token'] =  $user->createToken('MyApp')->plainTextToken;
+            $success['name'] =  $user->first_name . ' ' . $user->last_name;
+            return $this->sendResponse($success, 'User login successful');
+        } else {
+
+            return $this->sendError('Unauthorised', ['Unauthorised  '], 401);
+        }
+    }
 }

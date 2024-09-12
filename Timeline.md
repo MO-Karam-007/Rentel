@@ -5,6 +5,7 @@ Task 1 :
 - Laravel
 
   1- Migrate a Users model with necessary attributes.
+  [status] => Taken
 
   2- Migrate a Items model.
 

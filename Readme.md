@@ -36,11 +36,25 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
 
 ## Models
 
-- users `First Name` `Last Name` `Username` `Phone` `Address` `ProfilePic` `idPic`
-- Items `Name` `description` `itemImage` `avalible` `Stutus` `Price` `duration` `lender_id`
-- Rentals `borrower_id` `lender_id` `item_id` `start_date` `end_date` `price` `status`
-- Messages `Sender_id` `reciver_id` `content` `time`
+- Users `first_name` `last_name` `username` `email` `phone` `address` `profile_pic` `id_pic` `role[Enum('admin', 'user')]`
+- Items `name` `description` `item_image` `stutus[Enum("available", "rented", "under maintenance")]` `price` `duration` `lender_id`
+- Item_images `item_id` `image`
+- Item_specifications `item_id` `key` `value`
+- Rentals `borrower_id` `lender_id` `item_id` `start_date` `end_date` `price` `status[Enum("requested", "approved", "active", "returned")]`
+- Messages `sender_id` `reciver_id` `content` `time`
 - reviews `reviewer_id` `reviewed_id` `rating` `comment`
+
+## Relations
+
+- Users One-To-Many Items
+
+- Users One-To-Many Reviews
+
+- Users One-To-Many Messages
+
+- Users Many-To-Many Items
+
+- Users Many-To-Many Rentals
 
 ## System Users
 

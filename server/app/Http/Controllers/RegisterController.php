@@ -25,7 +25,7 @@ class RegisterController extends BaseController
             'profile_picture' => "required",
             'identification_scan' => "required",
             'password' => "required",
-            'c_password' => "required|same:password",
+            'password_confirmation' => "required|same:password",
         ]);
         // Check if there any validation failures
         if ($validator->fails()) {

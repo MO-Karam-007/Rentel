@@ -11,14 +11,17 @@ return new class extends Migration
      */
     public function up(): void
     {
+       
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->string('description');
-            $table->enum('status', ['booking', 'completed', 'cancelled']);
-            $table->string('thumbnail');
-            $table->foreignId('user_id')->constrained('users');
-            
+            $table->string('name');
+            $table->text('description');
+            $table->string('item_image')->nullable();
+            $table->boolean('available')->default(true);
+            $table->enum('status', ['available', 'rented', 'unavailable']);
+            $table->decimal('price', 10, 2);
+            $table->integer('duration'); 
+            $table->foreignId('lender_id')->constrained('users')->onDelete('cascade');
             $table->timestamps();
         });
     }

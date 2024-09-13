@@ -8,6 +8,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Laravel\Socialite\Facades\Socialite;
 
 class RegisterController extends BaseController
 {
@@ -58,5 +59,16 @@ class RegisterController extends BaseController
 
             return $this->sendError('Unauthorised', ['Unauthorised  '], 401);
         }
+    }
+
+    public function appleRedirect()
+    {
+        return Socialite::driver('apple')->redirect();
+    }
+
+
+    public function googleRedirect()
+    {
+        return Socialite::driver('google')->redirect();
     }
 }

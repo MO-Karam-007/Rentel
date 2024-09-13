@@ -48,7 +48,7 @@ Resources :
 
   - https://medium.com/@davidepassafaro/angular-forms-new-unified-control-state-change-events-9e8e361c4777
 
-  - Angular Form Array :
+- Angular Form Array :
 
   - https://medium.com/front-end-weekly/a-step-by-step-tutorial-on-angular-formarray-implementation-ce09cec51b01
 

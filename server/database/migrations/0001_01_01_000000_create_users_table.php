@@ -17,26 +17,27 @@ return new class extends Migration
             $table->string('last_name');
             $table->string('username')->unique();
             $table->string('email')->unique();
-            $table->string('phone')->nullable();
-            $table->string('address')->nullable();
-            $table->string('profile_pic')->nullable();
-            $table->string('id_pic')->nullable();
+            $table->string('phone');
+            $table->string('address');
+            $table->string('profile_picture');
+            $table->string('identification_scan');
             $table->enum('role', ['admin', 'user'])->default('user');
+            $table->string('password');
             $table->timestamps();
         });
-    
+
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
             $table->string('email')->primary();
             $table->string('token');
-            $table->timestamp('created_at')->nullable();
+            $table->timestamp('created_at');
         });
 
         Schema::create('sessions', function (Blueprint $table) {
             $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
+            $table->foreignId('user_id')->index();
+            $table->string('ip_address', 45);
+            $table->text('user_agent');
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });

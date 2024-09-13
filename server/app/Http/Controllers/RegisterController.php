@@ -61,14 +61,29 @@ class RegisterController extends BaseController
         }
     }
 
-    public function appleRedirect()
+    public function xRedirect()
     {
-        return Socialite::driver('apple')->redirect();
+        return Socialite::driver('x')->redirect();
     }
 
 
     public function googleRedirect()
     {
         return Socialite::driver('google')->redirect();
+    }
+
+    public function xCallback()
+    {
+        $user = Socialite::driver('x')->user();
+
+        dd($user);
+        // $user->token
+    }
+    public function googleCallback()
+    {
+        $user = Socialite::driver('google')->user();
+
+        // $user->token
+        dd($user);
     }
 }

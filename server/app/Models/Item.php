@@ -17,4 +17,5 @@ class Item extends Model
         'price',
         'duration',
         'lender_id',
-    ];}
+    ];
+}

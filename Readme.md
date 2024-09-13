@@ -43,6 +43,7 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
 - Rentals `borrower_id` `lender_id` `item_id` `start_date` `end_date` `price` `status[Enum("requested", "approved", "active", "returned")]`
 - Messages `sender_id` `reciver_id` `content` `time`
 - reviews `reviewer_id` `reviewed_id` `rating` `comment`
+- social_accounts `user_id` `provider` `provider_id`
 
 ## Relations
 

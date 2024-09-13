@@ -15,8 +15,8 @@ Route::middleware('web')->group(function () {
         Route::post('/login', [RegisterController::class, 'login']);
         // Route::post('/logout', [RegisterController::class, 'logout']);
         // Route::post('/login', 'LoginController@store');
-        Route::get('/oauth/apple/redirect', [RegisterController::class, 'appleRedirect']);
-        Route::get('/oauth/apple/callback', [RegisterController::class, 'appleCallback']);
+        Route::get('/oauth/x/redirect', [RegisterController::class, 'xRedirect']);
+        Route::get('/oauth/x/callback', [RegisterController::class, 'xCallback']);
         Route::get('/oauth/google/redirect', [RegisterController::class, 'googleRedirect']);
         Route::get('/oauth/google/callback', [RegisterController::class, 'googleCallback']);
     });

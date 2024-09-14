@@ -18,4 +18,9 @@ class Item extends Model
         'duration',
         'lender_id',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

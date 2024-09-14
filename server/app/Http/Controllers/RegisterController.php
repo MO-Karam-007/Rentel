@@ -74,7 +74,7 @@ class RegisterController extends BaseController
     // Social redirects X & Goole
     public function xRedirect()
     {
-        return Socialite::driver('x')->redirect();
+        return Socialite::driver('twitter')->redirect();
     }
 
     public function googleRedirect()
@@ -84,7 +84,7 @@ class RegisterController extends BaseController
 
     public function xCallback()
     {
-        $user = Socialite::driver('x')->user();
+        $user = Socialite::driver('twitter')->user();
 
         dd($user);
         // $user->token
@@ -93,7 +93,7 @@ class RegisterController extends BaseController
     {
         $user = Socialite::driver('google')->user();
 
-        // $user->token
         dd($user);
+        // $user->token
     }
 }

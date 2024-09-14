@@ -15,13 +15,18 @@ Route::middleware('api')->group(function () {
         Route::post('/login', [RegisterController::class, 'login']);
         // Route::post('/logout', [RegisterController::class, 'logout']);
         // Route::post('/login', 'LoginController@store');
+
+    });
+});
+
+Route::middleware('web')->group(function () {
+    Route::controller(RegisterController::class)->group(function () {
         Route::get('/oauth/x/redirect', [RegisterController::class, 'xRedirect']);
         Route::get('/oauth/x/callback', [RegisterController::class, 'xCallback']);
         Route::get('/oauth/google/redirect', [RegisterController::class, 'googleRedirect']);
         Route::get('/oauth/google/callback', [RegisterController::class, 'googleCallback']);
     });
 });
-
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::apiResource('items', ItemController::class);

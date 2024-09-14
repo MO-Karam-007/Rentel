@@ -47,16 +47,28 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
 
 ## Relations
 
-- Users One-To-Many Items
+- One-To-Many Relationships
 
-- Users One-To-Many Reviews
+  - Users → Items `One User can offer many Items.`
+  - Users → Reviews: `One User can write or receive many Reviews.`
+  - Users → Messages: `One User can send or receive many Messages.`
 
-- Users One-To-Many Messages
+- Many-To-Many Relationships :
 
-- Users Many-To-Many Items
+  - Users ↔ Rentals: `Many Users can rent many Items through Rentals.`
 
-- Users Many-To-Many Rentals
+  - Users ↔ Items (As Borrowers and Lenders):`Many Users can rent many Items (either as Borrowers or Lenders).`
 
+# Workflow Example (Rental Process)
+
+<p>A user (lender) offers an item for rent.
+Another user (borrower) requests to rent that item, creating a new entry in the Rentals table with a requested status.
+The lender approves the request, changing the status to approved.
+Once the rental starts, the status changes to active.
+After the item is returned, the status is updated to returned.
+Both the lender and borrower can leave reviews for each other after the rental is completed.
+This system allows for flexibility, where users can seamlessly act as both lenders and borrowers, with detailed tracking of items, rentals, and interactions through reviews and messages.
+</p>
 ## System Users
 
 `**Admin**` | `**Leander**` | `**Borrower**`

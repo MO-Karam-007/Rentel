@@ -34,9 +34,7 @@ Day 2 :
   - Frame 7 With Form Array
 
   - Frame 3
-    Notice (`srearch query` ,'`categoy` , `locations`) required with options
-
-  - Filter using price range -- Not in the UI so we can have a discuss about this
+    Notice (`srearch query` , `Max destance`) required with options
 
 Resources :
 

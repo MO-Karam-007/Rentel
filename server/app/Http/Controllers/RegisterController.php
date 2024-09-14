@@ -11,24 +11,18 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Laravel\Socialite\Facades\Socialite;
 
+use Illuminate\Support\Str;
+
 class RegisterController extends BaseController
 {
-    //
+    // Done
     public function register(Request $request): JsonResponse
     {
-
         //  Add validation to the body 
         $validator = Validator::make($request->all(), [
-            'first_name' => 'required|string',
-            'last_name' => 'required|string',
-            'username' => 'required|string',
-            'email' => 'required|string',
-            'phone' => 'required|string',
-            'address' => 'required|string',
-            'profile_picture' => 'required|string',
-            'identification_scan' => 'required|string',
-            'password' => 'required',
-            'password_confirmation' => 'required|same:password',
+            'username' => 'required|string|unique:users',
+            'email' => 'required|email|unique:users',
+            'password' => 'required|min:8|confirmed'
         ]);
         // Check if there any validation failures
         if ($validator->fails()) {
@@ -40,19 +34,24 @@ class RegisterController extends BaseController
         $data['password'] = bcrypt($data['password']);
         $user = User::create($data);
 
-        $success['token'] =  $user->createToken('mk')->plainTextToken;
-        $success['name'] =  $user->first_name . ' ' . $user->last_name;
-
+        $success['token'] =  $user->createToken($request->username)->plainTextToken;
 
         return $this->sendResponse($success, 'User registration successful');
     }
+
+
+
+
+    public function completeRegister() {}
+    // Login
+
 
     public function login(Request $request): JsonResponse
     {
 
         $request->validate([
-            'email' => 'string|required',
-            'password' => 'string|required'
+            'email' => 'email|required|exists:users',
+            'password' => 'required'
         ]);
 
         $user = User::where('email', $request->email)->first();
@@ -64,12 +63,23 @@ class RegisterController extends BaseController
         // if (Auth::attempt(['email' => $request->email, 'passwrod' => $request->password])) {
 
         //     $user = Auth::user();
-        $success['token'] =  $user->createToken('mk')->plainTextToken;
-        $success['name'] =  $user->first_name . ' ' . $user->last_name;
+        $success['token'] =  $user->createToken($user->username)->plainTextToken;
         return $this->sendResponse($success, 'User login successful');
         // } else {
 
         // }
+    }
+
+
+    public function logout(Request $request)
+    {
+
+        // $user = $request->user()->tokens()->delete();
+        if (!$request->user()->tokens()->delete()) {
+            $this->sendError('No user to log out', 403);
+        }
+        $request->user()->tokens()->delete();
+        return response()->json(['message' => 'User successfully logged out'], 200);
     }
     // Social redirects X & Goole
     public function xRedirect()
@@ -79,7 +89,7 @@ class RegisterController extends BaseController
 
     public function googleRedirect()
     {
-        return Socialite::driver('google')->redirect();
+        return Socialite::driver('google')->stateless()->redirect();
     }
 
     public function xCallback()
@@ -91,9 +101,46 @@ class RegisterController extends BaseController
     }
     public function googleCallback()
     {
-        $user = Socialite::driver('google')->user();
 
-        dd($user);
-        // $user->token
+        $googleUser = Socialite::driver('google')->stateless()->user();
+        // dump($googleUser);
+        try {
+            // dump('hello');
+
+            dump($googleUser->getEmail());
+            $user = User::firstOrCreate(
+                ['email' => $googleUser->getEmail()],
+                [
+                    'first_name' => $googleUser->user['given_name'] ?? null,
+                    'last_name' => $googleUser->user['family_name'] ?? null,
+                    'username' => $googleUser->getNickname() ?: $googleUser->getEmail(),
+                    'email' => $googleUser->getEmail(),
+                    'profile_picture' => $googleUser->getAvatar(),
+                    'google_id' => $googleUser->getId(),
+                    'password' => Hash::make(Str::random(24))
+
+                ]
+            );
+
+            Auth::login($user);
+
+            return redirect()->intended('/');
+        } catch (\Exception $e) {
+            dump($e);
+            // return redirect('/oauth/google/redirect')->with('error', 'Failed to login with Google');
+        }
     }
 }
+
+
+
+// 'first_name' => 'string',
+// 'last_name' => 'string',
+// 'username' => 'required|string',
+// 'email' => 'required|string',
+// 'phone' => 'string',
+// 'address' => 'string',
+// 'profile_picture' => 'string',
+// 'identification_scan' => 'required|string',
+// 'password' => 'required',
+// 'password_confirmation' => 'required|same:password',

@@ -9,15 +9,7 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // })->middleware('auth:sanctum');
 
-Route::middleware('api')->group(function () {
-    Route::controller(RegisterController::class)->group(function () {
-        Route::post('/register', [RegisterController::class, 'register']);
-        Route::post('/login', [RegisterController::class, 'login']);
-        // Route::post('/logout', [RegisterController::class, 'logout']);
-        // Route::post('/login', 'LoginController@store');
 
-    });
-});
 
 Route::middleware('web')->group(function () {
     Route::controller(RegisterController::class)->group(function () {
@@ -28,6 +20,20 @@ Route::middleware('web')->group(function () {
     });
 });
 
-Route::middleware('auth:sanctum')->group(function () {
-    Route::apiResource('items', ItemController::class);
+
+Route::middleware('api')->group(function () {
+    // Route::controller(RegisterController::class)->group(function () {
+    Route::post('/register', [RegisterController::class, 'register']);
+    Route::patch('/complete-register', [RegisterController::class, 'completeRegister']);
+    Route::post('/login', [RegisterController::class, 'login']);
+    Route::post('/logout', [RegisterController::class, 'logout'])->middleware('auth:sanctum');
+    // Route::post('/login', 'LoginController@store');
+
+    // });
 });
+
+
+
+// Route::middleware('auth:sanctum')->group(function () {
+Route::apiResource('items', ItemController::class);
+// });

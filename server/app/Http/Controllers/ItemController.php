@@ -5,12 +5,13 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use Illuminate\Http\Request;
 
-class ItemController extends Controller
+class ItemController extends BaseController
 {
     public function index()
     {
-       // $items = Item::all();
-        return response()->json("ok", 200);
+        $items = Item::all();
+        // return response()->json("ok", 200);
+        return $this->sendResponse($items, 'Data retrived successfully');
     }
 
     public function store(Request $request)

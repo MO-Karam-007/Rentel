@@ -51,3 +51,11 @@ Resources :
   - https://medium.com/front-end-weekly/a-step-by-step-tutorial-on-angular-formarray-implementation-ce09cec51b01
 
   - https://www.youtube.com/watch?v=hvL-Pnmd65M
+
+  Sep 14 12:36
+
+  Registration process
+
+  Google and twitter register without password full functionalities dependent on provider
+
+  our registeration close to noon website

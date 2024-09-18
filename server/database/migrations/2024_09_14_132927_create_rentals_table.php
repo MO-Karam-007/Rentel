@@ -12,7 +12,12 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rentals', function (Blueprint $table) {
-            $table->id();
+            $table->id('rental_id'); 
+            $table->foreignId('item_id')->constrained()->onDelete('cascade'); 
+            $table->date('start_date');
+            $table->date('end_date');
+            $table->enum('status', ['requested', 'approved', 'active', 'returned']);
+            $table->decimal('rental_price', 10, 2)->nullable();
             $table->timestamps();
         });
     }

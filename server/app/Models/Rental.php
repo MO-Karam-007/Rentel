@@ -8,4 +8,26 @@ use Illuminate\Database\Eloquent\Model;
 class Rental extends Model
 {
     use HasFactory;
+    protected $fillable = [
+     'item_id', 'start_date', 'end_date', 'status', 'rental_price'
+    ];
+
+    protected $casts = [
+        'start_date' => 'date',
+        'end_date' => 'date',
+        'rental_price' => 'decimal:2',
+    ];
+
+
+    public function item()
+    {
+        return $this->belongsTo(Item::class);
+    }
+    
+    public function borrowers()
+{
+    return $this->belongsToMany(User::class, 'rental_user');
+}
+
+    
 }

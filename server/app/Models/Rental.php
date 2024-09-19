@@ -9,7 +9,11 @@ class Rental extends Model
 {
     use HasFactory;
     protected $fillable = [
-     'item_id', 'start_date', 'end_date', 'status', 'rental_price'
+        'item_id',
+        'start_date',
+        'end_date',
+        'status',
+        'rental_price'
     ];
 
     protected $casts = [
@@ -23,11 +27,9 @@ class Rental extends Model
     {
         return $this->belongsTo(Item::class);
     }
-    
-    public function borrowers()
-{
-    return $this->belongsToMany(User::class, 'rental_user');
-}
 
-    
+    public function borrowers()
+    {
+        return $this->belongsToMany(User::class, 'rental_user');
+    }
 }

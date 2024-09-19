@@ -14,8 +14,8 @@ return new class extends Migration
         Schema::create('rental_user', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->foreignId('rental_id')->constrained('rentals', 'rental_id')->onDelete('cascade');
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('lender_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('borrower_id')->constrained('users')->onDelete('cascade');
         });
     }
 

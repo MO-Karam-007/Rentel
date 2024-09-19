@@ -12,8 +12,8 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rentals', function (Blueprint $table) {
-            $table->id('rental_id'); 
-            $table->foreignId('item_id')->constrained()->onDelete('cascade'); 
+            $table->id('borrower_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('item_id')->constrained('users')->onDelete('cascade');
             $table->date('start_date');
             $table->date('end_date');
             $table->enum('status', ['requested', 'approved', 'active', 'returned']);

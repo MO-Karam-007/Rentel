@@ -1,0 +1,40 @@
+:host {
+    display: flex;
+    min-height: 100vh;
+}
+.imged {
+    background-image:url('../../../assets/2015_10_18_18_31_50_345.jpg');
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+}
+.logo {
+    position: relative;
+    width: 25px;
+    height: 25px;
+    border-top: 4px solid #ea4335;
+    border-right: 4px solid #4285f4;
+    border-bottom: 4px solid #34a853;
+    border-left: 4px solid #fbbc05;
+    border-radius: 50%;
+}
+.logo::before {
+    content: "";
+    position: absolute;
+    background-color: #4285f4;
+    width: 8px;
+    height: 4px;
+    top: 50%;
+    right: -3px;
+    transform: translateY(-50%);
+}
+.logo::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 0;
+    top: -4px;
+    right: -4px;
+    border-top: 11px solid transparent;
+    border-right: 11px solid #f3f4f6;
+}

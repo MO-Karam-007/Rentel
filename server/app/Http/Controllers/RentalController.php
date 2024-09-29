@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Item;
 use App\Models\Rental;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class RentalController extends BaseController implements HasMiddleware
@@ -26,21 +28,21 @@ class RentalController extends BaseController implements HasMiddleware
 
     public function store(Request $request)
     {
+        $user = Auth::user();
+
         $validated = $request->validate([
-            'item_id' => 'required|exists:items,item_id',
-            'borrower_ids' => 'required|array',
-            'borrower_ids.*' => 'exists:users,id',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
             'status' => 'required|in:requested,approved,active,returned',
             'rental_price' => 'nullable|numeric',
+            'item_id' => 'required|exists:items,id'
         ]);
 
-        $rental = Rental::create($validated);
-        
-        $rental->borrowers()->attach($validated['borrower_ids']);
+        $validated['borrower_id'] = $user->id;
 
-        return response()->json(['message' => 'Rental created successfully', 'rental' => $rental], 201);
+        $rental = Rental::create($validated);
+
+        return $this->sendResponse(['message' => 'Rental created successfully', 'rental' => $rental], 201);
     }
 
     public function show($id)
@@ -59,21 +61,18 @@ class RentalController extends BaseController implements HasMiddleware
         Gate::authorize('modify', $rental);
 
         $validated = $request->validate([
-            'item_id' => 'required|exists:items,item_id',
-            'borrower_ids' => 'required|array',
-            'borrower_ids.*' => 'exists:users,id',
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'status' => 'required|in:requested,approved,active,returned',
+            'start_date' => 'date',
+            'end_date' => 'date|after_or_equal:start_date',
+            'status' => 'in:requested,approved,active,returned',
             'rental_price' => 'nullable|numeric',
         ]);
 
         $rental->update($validated);
 
         // Sync borrowers
-        $rental->borrowers()->sync($validated['borrower_ids']);
+        // $rental->borrowers()->sync($validated['borrower_ids']);
 
-        return $this->sendResponse(['message' => 'Rental updated successfully', 'rental' => $rental], 200);
+        return $this->sendResponse(['message' => 'Rental updated successfully',  $rental], 200);
     }
 
     public function destroy(Rental $rental)

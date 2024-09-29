@@ -12,8 +12,9 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('rentals', function (Blueprint $table) {
-            $table->id('borrower_id')->constrained('users')->onDelete('cascade');
-            $table->foreignId('item_id')->constrained('users')->onDelete('cascade');
+            $table->id();
+            $table->foreignId('borrower_id')->constrained('users');
+            $table->foreignId('item_id')->constrained('items');
             $table->date('start_date');
             $table->date('end_date');
             $table->enum('status', ['requested', 'approved', 'active', 'returned']);
@@ -23,7 +24,7 @@ return new class extends Migration
     }
 
     /**
-     * Reverse the migrations.
+     * Reverse the migrations.numeric
      */
     public function down(): void
     {

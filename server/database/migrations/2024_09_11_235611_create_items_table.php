@@ -17,11 +17,13 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->string('item_image')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
             $table->boolean('status')->default(false);  // The admin change the status to make item visible
             $table->enum('available', ['available', 'rented', 'unavailable']);
             $table->decimal('price', 10, 2);
             $table->integer('duration');
-            $table->foreignId('lender_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('lender_id')->constrained('users');
             $table->timestamps();
         });
     }

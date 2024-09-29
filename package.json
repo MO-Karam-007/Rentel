@@ -4,8 +4,13 @@
   "description": "Rentel is a location-based platform designed to connect nearby users,\r making it easy to borrow and rent items. With Rentel, users can effortlessly find and borrow items they need,\r or offer items they own for rent. Notifications within a 6km radius ensure convenient and efficient borrowing.",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "php": "cd server && php artisan serve",
+    "ng": "cd client && ng serve -o",
+    "start": "concurrently \"npm run php\" \"npm run ng\""
   },
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.0.1"
+  }
 }

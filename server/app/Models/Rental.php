@@ -13,7 +13,8 @@ class Rental extends Model
         'start_date',
         'end_date',
         'status',
-        'rental_price'
+        'rental_price',
+        'borrower_id'
     ];
 
     protected $casts = [
@@ -30,6 +31,6 @@ class Rental extends Model
 
     public function borrowers()
     {
-        return $this->belongsToMany(User::class, 'rental_user');
+        return $this->belongsTo(User::class, 'borrower_id');
     }
 }

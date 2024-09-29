@@ -6,12 +6,12 @@
     <h2 class="capitalize text-2xl">create an account</h2>
     <p class="text-gray-400">we'de love to you on board. join over +500 <br> customers around the globe and enhance the productivity</p>
 
-    <div class="bg-gray-100 w-1/2 flex justify-evenly items-center  my-2 p-3 rounded-3xl">
+    <div class="bg-gray-100 w-1/2 flex cursor-pointer justify-evenly items-center  my-2 p-3 rounded-3xl">
         <i class="fa-brands fa-facebook text-blue-600 fa-xl"></i>
         <span class="text-lg font-medium">continue with facebook</span>
     </div>
-    <div class="bg-gray-100 w-1/2 flex justify-evenly items-center  my-2 p-3 rounded-3xl">
-        <i class="fa-brands fa-google text-blue-600 fa-xl"></i>
+    <div class="bg-gray-100 w-1/2 flex cursor-pointer justify-evenly items-center  my-2 p-3 rounded-3xl">
+        <i class="logo"></i>
         <span class="text-lg font-medium">continue with google</span>
     </div>
 
@@ -30,6 +30,10 @@
             <label for="pw" class="capitalize block mb-1">password*</label>
             <input type="password" name="pw" id="pw" class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow" placeholder="Enter Your Name">
         </div>
+        <div class="my-4">
+            <label for="pw" class="capitalize block mb-1">confirm password*</label>
+            <input type="password" name="pw" id="pw" class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow" placeholder="Enter Your Name">
+        </div>
         
     </form>
 
@@ -39,9 +43,10 @@
         </div>
         <label for="terms" class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I agree with the <a href="#" class="text-blue-600 hover:underline dark:text-blue-500">terms and conditions</a></label>
     </div>
+    
 
     <button class="bg-black text-center text-white capitalize text-xl p-3 w-1/2 rounded-lg">sign up</button>
 
-    <p class="ms-8 mt-4">already have an account? <a href="" class="underline">login here</a></p>
+    <p class="ms-8 mt-4">already have an account? <a routerLink="/login" class="underline">login here</a></p>
 
 </div>

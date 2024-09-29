@@ -1,0 +1,31 @@
+version: '3.8'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    image: my-laravel-app
+    container_name: my_laravel_app
+    ports:
+      - "9000:9000"
+    volumes:
+      - .:/var/www
+    networks:
+      - app-network
+
+  db:
+    image: postgres:13
+    container_name: my_postgres_db
+    environment:
+      POSTGRES_DB: olighvuv
+      POSTGRES_USER: olighvuv
+      POSTGRES_PASSWORD: oOfpF4JyEwkXqKYrdkyk7LcauqejKdiA
+    ports:
+      - "5432:5432"
+    networks:
+      - app-network
+
+networks:
+  app-network:
+    driver: bridge

@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "c267f0d8e637e2be837b29bf3d8e46d5",
+=======
+    "content-hash": "fb0a9309a21f6c340c15b9a022f565cf",
+>>>>>>> rentelx/main
     "packages": [
         {
             "name": "brick/math",

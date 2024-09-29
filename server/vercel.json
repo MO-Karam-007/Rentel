@@ -1,0 +1,12 @@
+{
+    "version": 2,
+    "functions": {
+        "api/(.*).php": { "runtime": "vercel-php@0.3.1" }
+    },
+    "routes": [{ "src": "/api/(.*)", "dest": "/api/$1.php" }],
+    "env": {
+        "APP_ENV": "production",
+        "APP_DEBUG": "true",
+        "APP_URL": "https://yourproductionurl.com"
+    }
+}

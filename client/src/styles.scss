@@ -5,3 +5,25 @@
 
 @import "primeng/resources/themes/lara-light-blue/theme.css";
 @import "primeng/resources/primeng.css";
+
+
+.notifiable{
+    position: relative;
+cursor: pointer;
+
+}
+
+.notification{
+    position: absolute;
+    width: 15px;
+    height: 15px;
+    background-color: red;
+    left: 0;
+    top: 0;
+    transform: translate(-50%,-50%);
+    border-radius: 50%;
+    font-size: 0.7rem;
+    text-align: center;
+color: white;
+font-weight: 900;
+}

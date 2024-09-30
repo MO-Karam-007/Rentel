@@ -1,0 +1,41 @@
+<nav [ngClass]="{'bg-black': !token, 'text-white' : !token}" class="flex p-4 items-center md:justify-evenly justify-between">
+    <h2 class="text-2xl font-bold">Drivee</h2>
+    <ul class="hidden bg-inherit md:flex">
+        <li class="capitalize cursor-pointer group bg-inherit relative mx-2">hosting <i class=" mx-2 fa-solid fa-angle-down"></i>
+            
+            <div class="dropdown-menu  bg-inherit hidden group-hover:block left-0 top-full absolute">
+                <ul class="block m-4 bg-inherit">
+                    <li class="p-3 font-medium hover:text-blue-500"><a href="">Lorem.</a></li>
+                    <li class="p-3 font-medium hover:text-blue-500"><a href="">Lorem.</a></li>
+                    <li class="p-3 font-medium hover:text-blue-500"><a href="">Lorem.</a></li>
+                    <li class="p-3 font-medium hover:text-blue-500"><a href="">Lorem.</a></li>
+                </ul>
+            </div>
+        </li>
+        <li class="capitalize cursor-pointer mx-2">contact us</li>
+        <li class="capitalize bg-inherit group relative cursor-pointer mx-2">account <i class="mx-2 fa-solid fa-angle-down"></i>
+        
+
+            <div class="dropdown-menu bg-inherit hidden opacity-0 group-hover:opacity-100 transition-all group-hover:block left-0 top-full absolute">
+                <ul class="block m-4 bg-inherit">
+                    <li class="p-3 font-medium hover:text-blue-500"><a  href="">Lorem.</a></li>
+                    <li class="p-3 font-medium hover:text-blue-500"><a  href="">Lorem.</a></li>
+                    <li class="p-3 font-medium hover:text-blue-500"><a  href="">Lorem.</a></li>
+                    <li class="p-3 font-medium hover:text-blue-500"><a  href="">Lorem.</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+
+    
+   @if (!token) {
+    <div class="">
+        <button type="button" class="text-white bg-black border border-white focus:outline-none hover:bg-gray-900 focus:ring-4 focus:ring-gray-100 font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">sign in</button>
+        <button type="button" class="text-black bg-white border border-white focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">sign up</button>
+    </div>
+   }@else {
+    <div class="size-12 overflow-hidden rounded-full">
+        <img src="../../../assets/IMG_6774.JPG" class="w-full" alt="profile pecture">
+    </div>
+   }
+</nav>

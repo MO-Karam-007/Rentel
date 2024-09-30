@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 
-class User extends Authenticatable implements MustVerifyEmail
+class User extends Authenticatable
 {
     use HasFactory, Notifiable, HasApiTokens;
 
@@ -29,7 +29,9 @@ class User extends Authenticatable implements MustVerifyEmail
         'profile_picture',
         'identification_scan',
         'password',
-        'google_id',
+        'twitter_id',
+        'facebook_id',
+        'google_id'
     ];
 
     /**
@@ -66,9 +68,8 @@ class User extends Authenticatable implements MustVerifyEmail
     }
 
 
-public function rentals()
-{
-    return $this->hasMany(Rental::class, 'item_id');
-}
-
+    public function rentals()
+    {
+        return $this->hasMany(Rental::class, 'item_id');
+    }
 }

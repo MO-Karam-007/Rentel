@@ -18,12 +18,16 @@ return new class extends Migration
             $table->string('password');
             $table->string('first_name')->nullable();
             $table->string('last_name')->nullable();
-            // $table->string('google_id')->nullable();    
             $table->string('phone')->nullable();
             $table->string('address')->nullable();
             $table->string('profile_picture')->nullable();
             $table->string('identification_scan')->nullable();
             $table->enum('role', ['admin', 'user'])->default('user');
+            $table->string('twitter_id')->nullable();
+            $table->string('facebook_id')->nullable();
+            $table->string('google_id')->nullable();
+            $table->decimal('latitude', 10, 7)->nullable();
+            $table->decimal('longitude', 10, 7)->nullable();
             $table->timestamp("email_verified_at")->nullable();
             $table->timestamps();
         });
@@ -41,7 +45,7 @@ return new class extends Migration
             $table->string('ip_address', 45);
             $table->text('user_agent');
             $table->longText('payload');
-            $table->integer('last_activity')->index();
+        $table->integer('last_activity')->index();
         });
     }
 

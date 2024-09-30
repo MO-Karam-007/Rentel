@@ -36,14 +36,15 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
 
 ## Models
 
-- Users `first_name` `last_name` `username` `email` `phone` `address` `profile_pic` `id_pic` `role[Enum('admin', 'user')]`
-- Items `name` `description` `item_image` `stutus[Enum("available", "rented", "under maintenance")]` `price` `duration` `lender_id`
+- Users `first_name` `last_name` `username` `email` `phone` `address` `profile_pic` `id_pic` `role[Enum('admin', 'user')]` `latitude` `longitude`
+- Items `name` `description` `item_image` `stutus[Enum("available", "rented", "under maintenance")]` `price` `duration` `lender_id` `latitude` `longitude`
 - Item_images `item_id` `image`
 - Item_specifications `item_id` `key` `value`
 - Rentals `borrower_id` `item_id` `start_date` `end_date` `status[Enum("requested", "approved", "active", "returned")]`
 - reviews `reviewer_id` `reviewed_id` `rating` `comment`
 - Messages `sender_id` `reciver_id` `content` `time`
 - social_accounts `user_id` `provider` `provider_id`
+  <!--  Updated -->
 
 ## Relations
 
@@ -54,9 +55,10 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
   - Users → Messages: `One User can send or receive many Messages.`
   - Items → Rentals: `One item can rented more than one time`
 
--Polymorphic 
-  - *Users ↔ Reviews* (One-to-Many Polymorphic)
-   - One User can review another User or an Item. Reviews will track the type (user or item).
+-Polymorphic
+
+- _Users ↔ Reviews_ (One-to-Many Polymorphic)
+- One User can review another User or an Item. Reviews will track the type (user or item).
 
 - Many-To-Many Relationships :
 
@@ -76,7 +78,7 @@ This system allows for flexibility, where users can seamlessly act as both lende
 </p>
 ## System Users
 
-`**Admin**` | `**Leander**` | `**Borrower**`
+`**Admin**` | `**Lender**` | `**Borrower**`
 
 ## Usage Scenarios
 

@@ -6,6 +6,7 @@ use App\Models\Item;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
 
 class ItemController extends BaseController implements HasMiddleware
@@ -34,10 +35,12 @@ class ItemController extends BaseController implements HasMiddleware
             'item_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'required|numeric',
             'duration' => 'required|integer',
-            'status' => 'required|in:available,rented,unavailable',
+            'status' => 'required|boolean',
+            'available' => 'required|in:available,rented,unavailable'
         ]);
 
-        $validated['leander_id']  = $request->user->id;
+        $user = Auth::user();
+        $validated['lender_id']  = $user->id;
 
         if ($request->hasFile('item_image')) {
             $imagePath = $request->file('item_image')->store('images', 'public');
@@ -66,12 +69,13 @@ class ItemController extends BaseController implements HasMiddleware
         Gate::authorize('modify', $item);
 
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required',
+            'name' => 'string|max:255',
+            'description' => 'string',
             'item_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'price' => 'required|numeric',
-            'duration' => 'required|integer',
-            'status' => 'required|in:available,rented,unavailable'
+            'price' => 'numeric',
+            'duration' => 'integer',
+            'status' => 'boolean',
+            'available' => 'in:available,rented,unavailable'
         ]);
 
         if ($request->hasFile('item_image')) {

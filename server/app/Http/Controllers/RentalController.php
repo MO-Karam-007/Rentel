@@ -35,6 +35,7 @@ class RentalController extends BaseController implements HasMiddleware
             'status' => 'required|in:requested,approved,active,returned',
             'rental_price' => 'nullable|numeric',
         ]);
+        
 
         $rental = Rental::create($validated);
         

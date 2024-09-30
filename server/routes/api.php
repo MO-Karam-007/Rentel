@@ -3,6 +3,8 @@
 use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RentalController;
+use App\Http\Controllers\ReviewController;
+
 
 use Illuminate\Support\Facades\Route;
 
@@ -38,5 +40,7 @@ Route::middleware('api')->group(function () {
 //Route::middleware('auth:sanctum')->group(function () {
 Route::apiResource('items', ItemController::class);
 Route::apiResource('rental', RentalController::class);
+Route::apiResource('review', ReviewController::class);
+
 
 //});

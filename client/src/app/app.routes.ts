@@ -13,6 +13,7 @@ import { DashBoardComponent } from './components/dash-board/dash-board.component
 import { ReviewComponent } from './review/review.component';
 import { ReviewFormComponent } from './review-form/review-form.component';
 import { MessageMainComponent } from './message-main/message-main.component';
+import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard.component';
 
 export const routes: Routes = [
     {
@@ -22,7 +23,7 @@ export const routes: Routes = [
             { path: "add-item", component: AddItemComponent, title: "Add New Item" },
             { path: "posts", component: CommunityComponent, title: "Discover others needs" },
             { path: "frame", component: Farme2Component, },
-            { path: "dashboard", component: DashBoardComponent },
+            // { path: "dashboard", component: DashBoardComponent },
 
         ]
     },
@@ -32,6 +33,14 @@ export const routes: Routes = [
             { path: "login", component: LoginComponent, title: "login" }
         ]
     },
+
+    {
+        path: "", component: DashboardLayoutComponent, children: [
+            { path: "dashboard", component: DashBoardComponent, title: "Dashboard" }
+        ]
+    },
+
+
     { path: "services", component: ServicesProviderComponent, title: "services" },
 
     { path: "review", component: MessageMainComponent, title: "review" },

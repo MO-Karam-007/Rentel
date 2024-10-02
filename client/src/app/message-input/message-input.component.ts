@@ -1,9 +1,10 @@
 import { Component, Output, EventEmitter } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import this!
+import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-message-input',
   standalone: true,
-  imports: [CommonModule],
+  imports: [FormsModule],
   templateUrl: './message-input.component.html',
   styleUrl: './message-input.component.scss'
 })

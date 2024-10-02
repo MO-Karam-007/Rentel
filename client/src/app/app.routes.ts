@@ -10,6 +10,9 @@ import { AddItemComponent } from './components/add-item/add-item.component';
 import { CommunityComponent } from './components/community/community.component';
 import { Farme2Component } from './components/farme2/farme2.component';
 import { DashBoardComponent } from './components/dash-board/dash-board.component';
+import { ReviewComponent } from './review/review.component';
+import { ReviewFormComponent } from './review-form/review-form.component';
+import { MessageMainComponent } from './message-main/message-main.component';
 
 export const routes: Routes = [
     {
@@ -30,5 +33,7 @@ export const routes: Routes = [
         ]
     },
     { path: "services", component: ServicesProviderComponent, title: "services" },
+
+    { path: "review", component: MessageMainComponent, title: "review" },
 
 ];

@@ -1,0 +1,15 @@
+<div class="message-details">
+    <div class="header">
+      <img [src]="activeMessage.image" alt="Profile Picture" class="profile-pic">
+      <div>
+        <h4>{{ activeMessage.name }}</h4>
+        <p>Recruiter at Nomad</p>
+      </div>
+    </div>
+    <div class="conversation">
+      <div *ngFor="let message of activeMessage.conversation">
+        <p>{{ message.sender }}: {{ message.text }}</p>
+      </div>
+    </div>
+    <app-message-input (messageSent)="sendMessage($event)"></app-message-input>
+  </div>

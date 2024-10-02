@@ -1,0 +1,16 @@
+.message-input {
+    display: flex;
+    align-items: center;
+    padding-top: 10px;
+    border-top: 1px solid #ddd;
+  }
+  
+  input {
+    flex-grow: 1;
+    padding: 10px;
+    margin-right: 10px;
+  }
+  
+  button {
+    padding: 10px;
+  }

@@ -1,0 +1,15 @@
+<div class="messages-list">
+    <div class="search-bar">
+      <input type="text" placeholder="Search messages" />
+    </div>
+    <ul>
+      <li *ngFor="let message of messages" (click)="selectMessage(message)" [class.active]="message.isActive">
+        <img [src]="message.image" alt="Profile Picture" class="profile-pic">
+        <div class="message-info">
+          <h4>{{ message.name }} <span class="time">{{ message.time }}</span></h4>
+          <p>{{ message.preview }}</p>
+        </div>
+      </li>
+    </ul>
+  </div>
+  

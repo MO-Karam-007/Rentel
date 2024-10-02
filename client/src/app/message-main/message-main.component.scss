@@ -1,0 +1,12 @@
+.container {
+    display: flex;
+    height: 100vh;
+  }
+  
+  app-messages-list {
+    width: 30%;
+  }
+  
+  app-message-details {
+    width: 70%;
+  }

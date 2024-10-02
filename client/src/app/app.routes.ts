@@ -18,8 +18,8 @@ export const routes: Routes = [
             { path: "items", component: ItemsComponent, title: "Items" },
             { path: "add-item", component: AddItemComponent, title: "Add New Item" },
             { path: "posts", component: CommunityComponent, title: "Discover others needs" },
-            { path: "frame", component: Farme2Component,  },
-            { path: "dashboard", component: DashBoardComponent,  },
+            { path: "frame", component: Farme2Component, },
+            { path: "dashboard", component: DashBoardComponent },
 
         ]
     },

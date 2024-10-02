@@ -1,2 +1,272 @@
-<div class=" justify-center flex">
-    <img src="assets/not-found.jpg" alt></div>
+<div class="flex h-screen pb-8">
+    <!-- Left Sidebar (1/4 width, fixed) -->
+    <div class="w-1/4 h-full bg-gray-200 sticky top-0">
+        <div class="p-4">
+            <!-- Left sidebar content here -->
+            <h2 class="text-xl font-bold">Left Sidebar</h2>
+            <p>Fixed content on the left.</p>
+        </div>
+    </div>
+
+    <!-- Main Content (1/2 width, scrollable) -->
+
+    <div class="w-1/2 h-full  pb-8">
+        <div class="p-4">
+
+            <!-- Icons Library -->
+
+            <div
+                class="w-full flex flex-col gap-1 p-2 border shadow-lg rounded-xl mx-2 bg-white dark:border-gray-400 dark:bg-gray-800">
+                <div class="flex items-center gap-2 pt-2">
+                    <img
+                        src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw3fHxwZW9wbGV8ZW58MHwwfHx8MTcxMTExMTM4N3ww&ixlib=rb-4.0.3&q=80&w=1080"
+                        alt="User profile"
+                        class="w-[3.5rem] h-[3.5rem] rounded-full" />
+                    <textarea rows="1"
+                        class="w-full resize-none truncate border border-gray-400 rounded-full p-[12px] text-left xs:text-sm sm:text-lg  dark:bg-gray-700 dark:text-white dark:border-gray-500"
+                        placeholder="Start a post, try writing with AI"></textarea>
+                </div>
+
+                <div class="flex sm:px-4 mt-2 justify-between">
+                    <div
+                        class="flex items-center gap-2 p-2 rounded-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <span
+                            class="material-symbols-outlined text-blue-400">panorama</span>
+                        <h3
+                            class="text-sm font-semibold text-gray-600 dark:text-gray-300">Media</h3>
+                    </div>
+
+                    <div
+                        class="flex items-center gap-2 p-2 rounded-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <span
+                            class="material-symbols-outlined text-yellow-700">calendar_month</span>
+                        <h3
+                            class="text-sm font-semibold text-gray-600 dark:text-gray-300">Event</h3>
+                    </div>
+
+                    <div
+                        class="flex items-center gap-2 sm:p-2 xs:p-1 rounded-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <span
+                            class="material-symbols-outlined text-orange-400">newsmode</span>
+                        <h3
+                            class="text-sm sm:font-semibold xs:truncate text-gray-600 dark:text-gray-300">Write
+                            article</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Main content area -->
+            <!-- <h1 class="text-2xl font-bold mb-4">My Posts</h1> -->
+
+            <!-- Posts section (scrollable if there are many posts) -->
+            <div
+                class="space-y-5 max-h-[500px] overflow-y-auto ext-4xl font-bold mb-4  rounded p-5 ">
+                <!-- Example Post Card -->
+                <div
+                    class="p-4 border border-gray-200 rounded-lg shadow">
+                    <h2 class="text-xl font-semibold">Post Title 1</h2>
+                    <p class="text-gray-600 mt-2">
+                        Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Quisque commodo massa sed ipsum
+                        porttitor facilisis...
+                    </p>
+                </div>
+
+                <div
+                    class="p-4  border border-gray-200 rounded-lg shadow">
+                    <h2 class="text-xl font-semibold">Post Title 2</h2>
+                    <p class="text-gray-600 mt-2">
+                        Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Phasellus vitae est eget dolor
+                        gravida placerat...
+                    </p>
+                </div>
+
+                <!-- More Posts -->
+                <div
+                    class="p-4 border border-gray-200 rounded-lg shadow">
+                    <h2 class="text-xl font-semibold">Post Title 3</h2>
+                    <p class="text-gray-600 mt-2">
+                        Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Nullam euismod neque a
+                        convallis lobortis...
+                    </p>
+                </div>
+                <div
+                    class="p-4 border border-gray-200 rounded-lg shadow">
+                    <h2 class="text-xl font-semibold">Post Title 4</h2>
+                    <p class="text-gray-600 mt-2">
+                        Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Nullam euismod neque a
+                        convallis lobortis...
+                    </p>
+                </div> <div
+                    class="p-4 border border-gray-200 rounded-lg shadow mb-10  ">
+                    <h2 class="text-xl font-semibold">Post Title 5</h2>
+                    <p class="text-gray-600 mt-2">
+                        Lorem ipsum dolor sit amet, consectetur
+                        adipiscing elit. Nullam euismod neque a
+                        convallis lobortis...
+                    </p>
+                </div>
+
+                <!-- You can add more post cards like this -->
+            </div>
+
+        </div>
+    </div>
+
+    <!-- Right Sidebar (1/4 width, fixed) -->
+    <div class="w-1/4 h-full sticky top-0">
+        <div class="p-4">
+
+            <div
+                class="p-3 flex items-center justify-between border-t cursor-pointer hover:bg-gray-200">
+                <div class="flex items-center">
+                    <img class="rounded-full h-10 w-10"
+                        src="https://loremflickr.com/g/600/600/girl">
+                    <div class="ml-2 flex flex-col">
+                        <div
+                            class="leading-snug text-sm text-gray-900 font-bold">Jane
+                            doe</div>
+                        <div
+                            class="leading-snug text-xs text-gray-600">ane</div>
+                    </div>
+                </div>
+                <button
+                    class="h-8 px-3 text-md font-bold text-blue-400 border border-blue-400 rounded-full hover:bg-blue-100">Follow</button>
+            </div>
+            <div
+                class="p-3 flex items-center justify-between border-t cursor-pointer hover:bg-gray-200">
+                <div class="flex items-center">
+                    <img class="rounded-full h-10 w-10"
+                        src="https://loremflickr.com/g/600/600/boy">
+                    <div class="ml-2 flex flex-col">
+                        <div
+                            class="leading-snug text-sm text-gray-900 font-bold">john
+                            doe</div>
+                        <div
+                            class="leading-snug text-xs text-gray-600">john</div>
+                    </div>
+                </div>
+                <button
+                    class="h-8 px-3 text-md font-bold text-blue-400 border border-blue-400 rounded-full hover:bg-blue-100">Follow</button>
+            </div>
+            <div
+                class="p-3 flex items-center justify-between border-t cursor-pointer hover:bg-gray-200">
+                <div class="flex items-center">
+                    <img class="rounded-full h-10 w-10"
+                        src="https://loremflickr.com/g/600/600/paris">
+                    <div class="ml-2 flex flex-col">
+                        <div
+                            class="leading-snug text-sm text-gray-900 font-bold">Paris</div>
+                        <div
+                            class="leading-snug text-xs text-gray-600">paris</div>
+                    </div>
+                </div>
+                <button
+                    class="h-8 px-3 text-md font-bold text-blue-400 border border-blue-400 rounded-full hover:bg-blue-100">Follow</button>
+            </div>
+        </div>
+        <div class="max-w-2xl mx-auto p-6">
+            <h1 class="text-2xl font-bold text-gray-900 mb-2">Trendy Items</h1>
+
+            <div class="grid w-full gap-2">
+                <!-- Nature Card -->
+                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
+                    <img class="w-ful h-30 object-cover rounded"
+                        src="https://loremflickr.com/300/300/nature"
+                        alt="Nature">
+                    <div class="mt-0 text-center">
+                        <h3 class="font-bold text-gray-900">Nature</h3>
+                    </div>
+                </div>
+
+                <!-- Travel Card -->
+                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
+                    <img class="w-full h-40 object-cover rounded"
+                        src="https://loremflickr.com/300/300/travel"
+                        alt="Travel">
+                    <div class="mt-4 text-center">
+                        <h3 class="font-bold text-gray-900">Travel</h3>
+                    </div>
+                </div>
+
+                <!-- Art Card -->
+                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
+                    <img class="w-full h-40 object-cover rounded"
+                        src="https://loremflickr.com/300/300/art" alt="Art">
+                    <div class="mt-4 text-center">
+                        <h3 class="font-bold text-gray-900">Art</h3>
+                    </div>
+                </div>
+
+                <!-- Music Card -->
+                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
+                    <img class="w-full h-40 object-cover rounded"
+                        src="https://loremflickr.com/300/300/music" alt="Music">
+                    <div class="mt-4 text-center">
+                        <h3 class="font-bold text-gray-900">Music</h3>
+                    </div>
+                </div>
+
+                <!-- Sports Card -->
+                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
+                    <img class="w-full h-40 object-cover rounded"
+                        src="https://loremflickr.com/300/300/sports"
+                        alt="Sports">
+                    <div class="mt-4 text-center">
+                        <h3 class="font-bold text-gray-900">Sports</h3>
+                    </div>
+                </div>
+
+                <!-- Animals Card -->
+                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
+                    <img class="w-full h-40 object-cover rounded"
+                        src="https://loremflickr.com/300/300/animals"
+                        alt="Animals">
+                    <div class="mt-4 text-center">
+                        <h3 class="font-bold text-gray-900">Animals</h3>
+                    </div>
+                </div>
+
+                <!-- Flowers Card -->
+                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
+                    <img class="w-full h-40 object-cover rounded"
+                        src="https://loremflickr.com/300/300/flower"
+                        alt="Flowers">
+                    <div class="mt-4 text-center">
+                        <h3 class="font-bold text-gray-900">Flowers</h3>
+                    </div>
+                </div>
+
+                <!-- Food Card -->
+                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
+                    <img class="w-full h-40 object-cover rounded"
+                        src="https://loremflickr.com/300/300/food" alt="Food">
+                    <div class="mt-4 text-center">
+                        <h3 class="font-bold text-gray-900">Food</h3>
+                    </div>
+                </div>
+
+                <!-- Design Card -->
+                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
+                    <img class="w-full h-40 object-cover rounded"
+                        src="https://loremflickr.com/300/300/design"
+                        alt="Design">
+                    <div class="mt-4 text-center">
+                        <h3 class="font-bold text-gray-900">Design</h3>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Load More Button -->
+            <div class="flex justify-center mt-8">
+                <button
+                    class="bg-blue-400 text-white font-bold py-2 px-6 rounded-full">Load
+                    More</button>
+            </div>
+        </div>
+
+    </div>
+</div>

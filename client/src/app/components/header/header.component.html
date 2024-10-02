@@ -1,0 +1,51 @@
+<header class="bg-white dark:bg-black text-gray-800 dark:text-white shadow-md">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div class="flex justify-between h-16 items-center">
+            <!-- Left Section (Logo) -->
+            <div class="flex-shrink-0 flex items-center">
+                <h1 class="font-bold text-xl">Rental</h1>
+            </div>
+
+            <!-- Search component -->
+            <app-search></app-search>
+
+            <!-- Center Section (Links) -->
+            <ul class="flex space-x-7  flex-shrink-0  items-center">
+                <li>
+                    <a href="#"
+                        class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Rental
+                        for Business</a>
+                </li>
+
+                <li>
+                    <a href="#"
+                        class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Start
+                        Renting</a>
+                </li>
+            </ul>
+
+            <!-- Right Section (Authentication) -->
+            <div class="flex items-center space-x-4">
+                <!-- If user is authenticated -->
+                @if(isAuthenticated){
+                <div
+                    class="flex items-center space-x-2">
+                    <img
+                        src=""
+                        alt="User Avatar"
+                        class="h-8 w-8 rounded-full">
+                </div>
+                }
+                @else{
+                <a href="#"
+                    class="text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white">Sign
+                    In</a>
+                <a href="#"
+                    class="px-4 py-2 bg-black text-white hover:bg-gray-700 dark:bg-white dark:text-black hover:dark:bg-gray-200 rounded-md">Sign
+                    Up</a>
+                }
+
+            </div>
+        </div>
+    </div>
+</header>

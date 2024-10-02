@@ -1,0 +1,104 @@
+<section class="overflow-auto mb">
+    <header class="p-8">
+        <h1 class="capitalize  text-6xl text-white ">unlock endless driving <br/> with Rental X</h1>
+        <p  class="text-gray-300 my-4 ms-2">To contribute to positive change and achieve our <br/> sustainability goals with many extraodinary</p>
+        <div class="mt-10">
+            <button class="bg-white text-black hover:bg-black hover:text-white border-transparent hover:border-white border py-3 mx-3 px-4 rounded-lg transition-all">Rent Car</button>
+            <button class="bg-black text-white hover:bg-white hover:text-black hover:border-transparent border-white border py-3 mx-3 px-4 rounded-lg transition-all">Rent Bike</button>
+        </div>
+    </header>
+    <div class="lg:relative">
+        <div class="absolute left-[8.3333333333333%] w-5/6 gap-2 border p-6 bg-white rounded-lg  -translate-y-1/2 border-gray-600 grid grid-cols-4">
+            <div class="flex flex-col">
+                <label for="location" class="my-3">location</label>
+                <input type="text" class="border-gray-500 placeholder:text-gray-500" placeholder="Select location" id="location">
+            </div>
+            <div class="flex flex-col">
+                <label for="Pack-UP" class="my-3">Pack-UP</label>
+                <input type="text" placeholder="select location" id="Pack-UP">
+            </div>
+            <div class="flex flex-col">
+                <label for="date" class="my-3">date</label>
+                <div class="flex xl:flex-row flex-col gap-0">
+                    <input type="date" [min]="min" (input)="showelement()" class="border-r-black xl:border-r-transparent  xl:border-b-black border-b-transparent" id="date" #start>
+                    <input type="date" [min]="start.value" [disabled]="!start.value" class="disabled:cursor-not-allowed border-l-black xl:border-l-transparent xl:border-t-black border-t-transparent" id="date">
+                </div>
+            </div>
+            <button class="mx-4 bg-black text-white hover:bg-white hover:text-black hover:border-black transition-all border-white border" >search now</button>
+        </div>
+    </div>
+    <div class="grid mt-28 grid-cols-1 lg:grid-cols-2">
+        <div class="mx-6 lg:ms-44 lg:mb-0 mb-6">
+            <h2 class="text-6xl capitalize">rent a car</h2>
+            <div class="mt-10 flex md:flex-row flex-col">
+                <p class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">luxury</p>
+                <p class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">comfort</p>
+                <p class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">prestige</p>
+            </div>
+            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">Booking a self-driving car with us is simple and easy.
+                 You can browse our selection of vehicles online.
+                  choose the car the best fit your needs, and book it for the duration your choice.
+                   Our user-friendly platfrom allows you to manage your booking and view your history with ease
+            </p>
+            <button class="bg-black text-white hover:bg-white border hover:border-black hover:text-black border-white py-3 mx-3 px-4 rounded-lg transition-all">Rent Car</button>
+        </div>
+        <img src="./assets/dealership-customer-service.png" class="w-full" alt="image for a happy customer">
+    </div>
+    <div class="grid mt-28 grid-cols-1 lg:grid-cols-2">
+        <img src="./assets/happy-motorcycle-customer.avif" class="w-full" alt="image for a happy customer">
+        <div class="mx-6 lg:ms-44 lg:mb-0 mb-6">
+            <h2 class="text-6xl capitalize">rent a motorCylce</h2>
+            <div class="mt-10 flex md:flex-row flex-col">
+                <p class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">luxury</p>
+                <p class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">comfort</p>
+                <p class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">prestige</p>
+            </div>
+            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">Booking a self-driving motorCylce with us is simple and easy.
+                 You can browse our selection of vehicles online.
+                  choose the motorCylce the best fit your needs, and book it for the duration your choice.
+                   Our user-friendly platfrom allows you to manage your booking and view your history with ease
+            </p>
+            <button class="bg-black text-white hover:bg-white border hover:border-black hover:text-black border-white py-3 mx-3 px-4 rounded-lg transition-all">Rent MotorCylce</button>
+        </div>
+    </div>
+    <div class="grid mt-28 mb-36 grid-cols-1 lg:grid-cols-2 ">
+        <div class="mx-6 lg:ms-44 lg:mb-0 mb-6 border p-6 border-gray-200 rounded-lg translate-x-36 translate-y-20 shadow-xl bg-white relative">
+            <h2 class="text-5xl capitalize">do you want to share your vehicle ?</h2>
+
+            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">Booking a self-driving car with us is simple and easy.
+                 You can browse our selection of vehicles online.
+                  choose the car the best fit your needs, and book it for the duration your choice.
+                   Our user-friendly platfrom allows you to manage your booking and view your history with ease
+            </p>
+            <button class="bg-black text-white hover:bg-white border hover:border-black hover:text-black border-white py-3 mx-3 px-4 rounded-lg transition-all">Learn More 
+                <i class="fa-solid fa-arrow-up rotate-45"></i>
+            </button>
+            <div class="absolute w-7 h-7 rounded-full top-0 end-0 mt-6 me-6 bg-gray-400"> </div>
+        </div>
+        <img src="./assets/Man-receiving-rental-car-keys-from-woman.webp" class="w-full h-[30rem]" alt="image for a happy customer">
+    </div>
+    <div class="flex mt-28 mb-36 items-center ">
+        <div class="w-1/2 mx-6 lg:ms-44 lg:mb-0 mb-6  p-6 rounded-lg  bg-white">
+            <h2 class="text-5xl capitalize">why choose us</h2>
+
+            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">Booking a self-driving car with us is simple and easy.
+                 You can browse our selection of vehicles online.
+                  choose the car the best fit your needs, and book it for the duration your choice.
+                   Our user-friendly platfrom allows you to manage your booking and view your history with ease
+            </p>
+
+
+        </div>
+        <div class="rounded-lg shadow-lg flex justify-evenly p-8    ">
+            <div class="flex mx-4 flex-col">
+                <span class="text-6xl">45k+</span>
+                <span class="text-gray-500">success tour</span></div>
+            <div class="flex mx-4 flex-col">
+                <span class="text-6xl">1M+</span>
+                <span class="text-gray-500">happy customers</span></div>
+            <div class="flex mx-4 flex-col">
+                <span class="text-6xl">3+</span>
+                <span class="text-gray-500">years experiences</span></div>
+        </div>
+    </div>
+</section>

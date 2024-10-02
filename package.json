@@ -1,0 +1,22 @@
+{
+  "name": "rentel",
+  "version": "1.0.0",
+  "description": "Rentel is a location-based platform designed to connect nearby users,\r making it easy to borrow and rent items. With Rentel, users can effortlessly find and borrow items they need,\r or offer items they own for rent. Notifications within a 6km radius ensure convenient and efficient borrowing.",
+  "main": "index.js",
+  "scripts": {
+    "start": "concurrently \"npm run serve:php\" \"npm run serve:ng\"",
+    "serve:php": "cd server && php artisan serve ",
+    "serve:ng": "cd client && ng serve -o",
+    "i:ng": "cd client && npm install",
+    "i:php": "cd server && composer install",
+    "i:all": "npm run i:ng && npm run i:php",
+    "build:ng": "cd client && ng build --prod",
+    "build:php": "cd server && php artisan optimize:clear && php artisan optimize",
+    "build:all": "npm run build:ng && npm run build:php"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "concurrently": "^9.0.1"
+  }
+}

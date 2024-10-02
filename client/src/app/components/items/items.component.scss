@@ -1,0 +1,11 @@
+.items-cover{
+    height: 50vh;
+    width: 100%;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    background-size: cover;
+    object-fit:cover;
+    // border-image:fill 0 linear-gradient(#0003,#000);
+    // position: absolute;
+    bottom: 0;
+}

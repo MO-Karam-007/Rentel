@@ -1,0 +1,29 @@
+<div class="relative">
+    <img src="assets/items.jpg" class="items-cover object-bottom"
+        alt="Car Rental">
+    <h2
+        class="text-center text-3xl font-semibold  absolute inset-0 flex items-center justify-center text-white">
+        Rent your needs <br> Rent Your Freedom
+    </h2>
+</div>
+<app-search></app-search>
+<section class="bg-gray-100 flex justify-center">
+    <!-- <div class="container"> -->
+    <div
+        class="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-[8%] mb-4 w-5/6">
+        <!-- Car Card -->
+        @for (item of cars; track $index) {
+        <div class="p-4 bg-white rounded-lg shadow border-[#cbd5e1] border-2 ">
+            <img src="assets/24.png" class="w-5/6 m-auto" alt>
+            <h3 class="text-xl font-semibold">Jeep Renegade</h3>
+            <p class="mt-2 text-gray-600">Seats: 4</p>
+            <p class="text-gray-600">Horsepower: 500</p>
+            <p class="text-gray-600">Price: $56</p>
+            <button
+                class="mt-4 w-full py-2 bg-blue-600 text-white rounded-lg">Rent
+                Now</button>
+        </div>
+        }
+    </div>
+    <!-- Repeat for other cars -->
+</section>

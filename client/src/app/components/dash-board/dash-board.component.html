@@ -5,11 +5,12 @@
         <div class="head-title">
             <div class="left">
                 <h1>Dashboard</h1>
+
                 <ul class="breadcrumb">
                     <li>
                         <a href="#">Dashboard</a>
                     </li>
-                    <li><i class="bx text-grey-400 bx-chevron-right"></i></li>
+                    <li><i class="fa-solid fa-chevron-right"></i></li>
                     <li>
                         <a class="active" href="#">Home</a>
                     </li>
@@ -19,24 +20,25 @@
 
         <ul class="box-info">
             <li>
-                <i class="bx bxs-calendar-check"></i>
+                <i class="bx fa-solid fa-retweet"></i>
+                <i class></i>
                 <span class="text">
-                    <h3>50</h3>
-                    <p>Orders</p>
+                    <h3>80</h3>
+                    <p>Requests</p>
                 </span>
             </li>
             <li>
-                <i class="bx bxs-group"></i>
+                <i class="bx fa-solid fa-hand-holding-hand"></i>
                 <span class="text">
-                    <h3>34</h3>
-                    <p>Rent Items</p>
+                    <h3>30</h3>
+                    <p>Item Rented</p>
                 </span>
             </li>
             <li>
-                <i class="bx bxs-dollar-circle"></i>
+                <i class="bx fa-solid fa-wallet"></i>
                 <span class="text">
-                    <h3>2543</h3>
-                    <p>Cancel Order</p>
+                    <h3>580 $</h3>
+                    <p>Your Wallet</p>
                 </span>
             </li>
         </ul>
@@ -51,91 +53,39 @@
                 <table>
                     <thead>
                         <tr>
-                            <th>User</th>
-                            <th>Date Order</th>
-                            <th>Status</th>
-                            <th>Item Rented</th>
+                            <th>Request No.</th>
+                            <th>Item</th>
+                            <th>price</th>
+                            <th>Start Date</th>
+                            <th>End Date</th>
                             <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
+                        @for (item of requests; track $index) {
                         <tr>
+                            <td class="status">
+                                <span class="ref">#123</span></td>
                             <td>
-                                <img src="assets/cat.jpg" />
-                                <p>John Doe</p>
+                                <p class="table-paragrah">John Doe</p>
                             </td>
-                            <td>01-10-2021</td>
-                            <td><span
-                                    class="status completed">Completed</span></td>
-                        </tr>
-                        <tr>
+                            <td><p class="table-paragrah"> 18 $</p></td>
+                            <td><p class="table-paragrah"> 01-10-2021</p></td>
+                            <td><p class="table-paragrah"> 01-10-2021</p></td>
+                            <td class="status">
+                                <span class="ref">Requested</span></td>
                             <td>
-                                <img src="assets/cat.jpg" />
-                                <p>John Doe</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
+                                <hr
+                                    class="h-px my-8 bg-black-200 border-0 dark:bg-dark-700">
 
-                        <tr>
-                            <td>
-                                <img src="assets/cat.jpg" />
-                                <p>John Doe</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status process">Process</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="assets/cat.jpg" />
-                                <p>John Doe</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span class="status pending">Pending</span></td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <img src="assets/cat.jpg" />
-                                <p>John Doe</p>
-                            </td>
-                            <td>01-10-2021</td>
-                            <td><span
-                                    class="status completed">Completed</span></td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-            <!-- <div class="todo">
-              <div class="head">
-                <h3>Todos</h3>
-                <i class="bx bx-plus"></i>
-                <i class="bx bx-filter"></i>
-              </div>
-              <ul class="todo-list">
-                <li class="completed">
-                  <p>Todo List</p>
-                  <i class="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li class="completed">
-                  <p>Todo List</p>
-                  <i class="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li class="not-completed">
-                  <p>Todo List</p>
-                  <i class="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li class="completed">
-                  <p>Todo List</p>
-                  <i class="bx bx-dots-vertical-rounded"></i>
-                </li>
-                <li class="not-completed">
-                  <p>Todo List</p>
-                  <i class="bx bx-dots-vertical-rounded"></i>
-                </li>
-              </ul>
-            </div> -->
-        </div>
-    </main>
-    <!-- MAIN -->
-</section>
-<!-- CONTENT -->
+                                }
+
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </main>
+            <!-- MAIN -->
+        </section>
+        <!-- CONTENT -->

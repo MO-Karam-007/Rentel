@@ -1,8 +1,3 @@
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&family=Poppins:wght@400;500;600;700&display=swap");
-
-* {
-  
-}
 
 a {
   text-decoration: none;
@@ -59,7 +54,7 @@ li {
   color: #342e37;
 }
 #content main .head-title .left .breadcrumb li a {
-  color: #eeeaaa;
+  color: #342e37;
   pointer-events: none;
 }
 #content main .head-title .left .breadcrumb li a.active {
@@ -100,6 +95,8 @@ li {
   font-size: 36px;
   display: flex;
   justify-content: center;
+  align-items: center;
+  color: white;
 }
 #content main .box-info li:nth-child(1) .bx {
   background: #cfe8ff;
@@ -109,9 +106,12 @@ li {
   background :#cfe8ff;
 }
 #content main .box-info li:nth-child(3) .bx {
+  background: #cfe8ff;
+
     color: #342e37;
 }
 #content main .box-info li .text p {
+
     color: #342e37;
 }
 
@@ -156,12 +156,12 @@ li {
 }
 #content main .table-data .order table th {
   padding-bottom: 12px;
-  font-size: 13px;
+  font-size: 1rem;
   text-align: left;
   border-bottom: 1px solid #eee;
 }
 #content main .table-data .order table td {
-  padding: 16px 0;
+  padding: 3px 0;
 }
 #content main .table-data .order table tr td:first-child {
   display: flex;
@@ -179,12 +179,15 @@ li {
   background: #eee;
 }
 #content main .table-data .order table tr td .status {
-  font-size: 10px;
-  padding: 6px 16px;
+  font-size: 0.8rem;
+  padding: 0.2rem 0.5rem;
   color: #eee;
   border-radius: 20px;
   font-weight: 700;
+  margin: 0;
+  // padding-top: 0;
 }
+
 #content main .table-data .order table tr td .status.completed {
   background: #3c91e6;
 }
@@ -223,6 +226,23 @@ li {
 }
 #content main .table-data .todo .todo-list li:last-child {
   margin-bottom: 0;
+}
+
+.ref{
+  background-color: gray;
+  color: white;
+  width: fit-content;
+  border-radius: 20px;
+  padding: 0.2rem 0.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0.9rem;
+
+}
+
+.table-paragrah{
+  font-size: 0.9rem;
 }
 /* MAIN */
 // /* CONTENT */
@@ -268,9 +288,9 @@ li {
 //     display: none;
 //   }
 
-//   #content main .box-info {
-//     grid-template-columns: 1fr;
-//   }
+  // #content main .box-info {
+  //   grid-template-columns: 1fr;
+  // }
 
 //   #content main .table-data .head {
 //     min-width: 420px;

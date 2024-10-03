@@ -43,6 +43,6 @@ export const routes: Routes = [
 
     { path: "services", component: ServicesProviderComponent, title: "services" },
 
-    { path: "review", component: MessageMainComponent, title: "review" },
+    { path: "review", component: ReviewComponent, title: "review" },
 
 ];

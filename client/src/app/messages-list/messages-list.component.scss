@@ -1,52 +1,54 @@
 .messages-list {
-    width: 30%;
-    border-right: 1px solid #ddd;
-  }
-  
-  .search-bar {
-    padding: 10px;
-  }
-  
-  ul {
-    list-style-type: none;
-    padding: 0;
-  }
-  
-  li {
-    display: flex;
-    align-items: center;
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  li.active {
-    background-color: #f5f5f5;
-  }
-  
-  .profile-pic {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    margin-right: 10px;
-  }
-  
-  .message-info {
-    flex-grow: 1;
-  }
-  
-  .message-info h4 {
-    margin: 0;
-    font-size: 14px;
-  }
-  
-  .message-info p {
-    margin: 0;
-    font-size: 12px;
-    color: #999;
-  }
-  
-  .time {
-    font-size: 12px;
-    color: #999;
-  }
-  
+  width: 100%; /* Full width for the message list */
+  border-right: 1px solid #ddd;
+}
+
+.search-bar {
+  width: 100%; /* Make the search bar span the full width */
+  padding: 10px;
+}
+
+ul {
+  list-style-type: none;
+  padding: 0;
+  width: 100%; /* Ensure the ul takes full width */
+}
+
+li {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  cursor: pointer;
+  width: 100%; /* Make the list items full width */
+}
+
+li.active {
+  background-color: #f5f5f5;
+}
+
+.profile-pic {
+  width: 50px; /* Optionally increase profile picture size */
+  height: 50px;
+  border-radius: 50%;
+  margin-right: 15px; /* Adjust margin for better spacing */
+}
+
+.message-info {
+  flex-grow: 1;
+}
+
+.message-info h4 {
+  margin: 0;
+  font-size: 16px; /* Slightly larger font */
+}
+
+.message-info p {
+  margin: 0;
+  font-size: 14px; /* Slightly larger font */
+  color: #999;
+}
+
+.time {
+  font-size: 14px; /* Slightly larger font for time */
+  color: #999;
+}

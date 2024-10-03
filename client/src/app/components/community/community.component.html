@@ -4,6 +4,7 @@
         <div class="p-4">
             <!-- Left sidebar content here -->
             <h2 class="text-xl font-bold">Left Sidebar</h2>
+            
             <p>Fixed content on the left.</p>
         </div>
     </div>
@@ -17,7 +18,7 @@
 
             <div
                 class="w-full flex flex-col gap-1 p-2 border shadow-lg rounded-xl mx-2 bg-white dark:border-gray-400 dark:bg-gray-800">
-                <div class="flex items-center gap-2 pt-2">
+                <div class="flex items-center gap-y2 pt-2">
                     <img
                         src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw3fHxwZW9wbGV8ZW58MHwwfHx8MTcxMTExMTM4N3ww&ixlib=rb-4.0.3&q=80&w=1080"
                         alt="User profile"
@@ -120,223 +121,103 @@
     <div class="w-1/4 h-full sticky top-0">
         <div class="p-4">
             <section aria-labelledby="who-to-follow-heading">
-
-                <h2 id="who-to-follow-heading"
-                    class="text-base font-medium text-gray-900">Who to
-                    follow</h2>
+                <h2 id="who-to-follow-heading" class="text-base font-medium text-gray-900">Who to follow</h2>
                 <div class="mt-6 flow-root">
-                    <ul role="list"
-                        class="-my-4 divide-y divide-gray-200">
-
+                    <ul role="list" class="-my-4 divide-y divide-gray-200">
                         <li class="flex items-center space-x-3 py-4">
                             <div class="flex-shrink-0">
-                                <img class="h-8 w-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                    alt>
+                                <img class="h-8 w-8 rounded-full" src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80" alt>
                             </div>
                             <div class="min-w-0 flex-1">
-                                <p
-                                    class="text-sm font-medium text-gray-900">
-                                    <a href="#">Leonard Krasner</a>
-                                </p>
-                                <p class="text-sm text-gray-500">
-                                    <a href="#">eonardkrasner</a>
-                                </p>
+                                <p class="text-sm font-medium text-gray-900"><a href="#">Leonard Krasner</a></p>
+                                <p class="text-sm text-gray-500"><a href="#">eonardkrasner</a></p>
                             </div>
+                        
                             <div class="flex-shrink-0">
-                                <button type="button"
-                                    class="inline-flex items-center rounded-full bg-rose-50 px-3 py-0.5 text-sm font-medium text-rose-700 hover:bg-rose-100">
-                                    <svg
-                                        class="-ml-1 mr-0.5 h-5 w-5 text-rose-400"
-                                        x-description="Heroicon name: mini/plus"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                        aria-hidden="true">
-                                        <path
-                                            d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
+                                <button type="button" class="inline-flex items-center rounded-full bg-rose-50 px-3 py-0.5 text-sm font-medium text-rose-700 hover:bg-rose-100">
+                                    <svg class="-ml-1 mr-0.5 h-5 w-5 text-rose-400" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                                        <path d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
                                     </svg>
                                     <span>Follow</span>
                                 </button>
                             </div>
                         </li>
-
-                        <li class="flex items-center space-x-3 py-4">
-                            <div class="flex-shrink-0">
-                                <img class="h-8 w-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1463453091185-61582044d556?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                    alt>
-                            </div>
-                            <div class="min-w-0 flex-1">
-                                <p
-                                    class="text-sm font-medium text-gray-900">
-                                    <a href="#">Floyd Miles</a>
-                                </p>
-                                <p class="text-sm text-gray-500">
-                                    <a href="#">loydmiles</a>
-                                </p>
-                            </div>
-                            <div class="flex-shrink-0">
-                                <button type="button"
-                                    class="inline-flex items-center rounded-full bg-rose-50 px-3 py-0.5 text-sm font-medium text-rose-700 hover:bg-rose-100">
-                                    <svg
-                                        class="-ml-1 mr-0.5 h-5 w-5 text-rose-400"
-                                        x-description="Heroicon name: mini/plus"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                        aria-hidden="true">
-                                        <path
-                                            d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
-                                    </svg>
-                                    <span>Follow</span>
-                                </button>
-                            </div>
-                        </li>
-
-                        <li class="flex items-center space-x-3 py-4">
-                            <div class="flex-shrink-0">
-                                <img class="h-8 w-8 rounded-full"
-                                    src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                    alt>
-                            </div>
-                            <div class="min-w-0 flex-1">
-                                <p
-                                    class="text-sm font-medium text-gray-900">
-                                    <a href="#">Emily Selman</a>
-                                </p>
-                                <p class="text-sm text-gray-500">
-                                    <a href="#">emilyselman</a>
-                                </p>
-                            </div>
-                            <div class="flex-shrink-0">
-                                <button type="button"
-                                    class="inline-flex items-center rounded-full bg-rose-50 px-3 py-0.5 text-sm font-medium text-rose-700 hover:bg-rose-100">
-                                    <svg
-                                        class="-ml-1 mr-0.5 h-5 w-5 text-rose-400"
-                                        x-description="Heroicon name: mini/plus"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20"
-                                        fill="currentColor"
-                                        aria-hidden="true">
-                                        <path
-                                            d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
-                                    </svg>
-                                    <span>Follow</span>
-                                </button>
-                            </div>
-                        </li>
-
+    
+                        <!-- Similar List Items -->
+    
                     </ul>
                 </div>
-                <div class="mt-6">
-                    <a href="#"
-                        class="block w-full rounded-md border border-gray-300 bg-white px-4 py-2 text-center text-sm font-medium text-gray-700 shadow-sm hover:bg-gray-50">View
-                        all</a>
-                </div>
-
             </section>
-
         </div>
-        <div class="max-w-2xl mx-auto p-6">
+        <div class="max-w-6xl mx-auto p-6">
             <h1 class="text-2xl font-bold text-gray-900 mb-2">Trendy Items</h1>
-
-            <div class="grid w-full gap-2">
-                <!-- Nature Card -->
+    
+            <!-- Grid for Trendy Items -->
+            <div class="grid grid-cols-4 gap-4">
                 <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-ful h-30 object-cover rounded"
-                        src="https://loremflickr.com/300/300/nature"
-                        alt="Nature">
-                    <div class="mt-0 text-center">
+                    <img class="w-full h-32 object-cover rounded" src="https://loremflickr.com/300/300/nature" alt="Nature">
+                    <div class="mt-2 text-center">
                         <h3 class="font-bold text-gray-900">Nature</h3>
                     </div>
                 </div>
-
-                <!-- Travel Card -->
+    
                 <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-40 object-cover rounded"
-                        src="https://loremflickr.com/300/300/travel"
-                        alt="Travel">
-                    <div class="mt-4 text-center">
+                    <img class="w-full h-32 object-cover rounded" src="https://loremflickr.com/300/300/travel" alt="Travel">
+                    <div class="mt-2 text-center">
                         <h3 class="font-bold text-gray-900">Travel</h3>
                     </div>
                 </div>
-
-                <!-- Art Card -->
+    
                 <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-40 object-cover rounded"
-                        src="https://loremflickr.com/300/300/art" alt="Art">
-                    <div class="mt-4 text-center">
+                    <img class="w-full h-32 object-cover rounded" src="https://loremflickr.com/300/300/art" alt="Art">
+                    <div class="mt-2 text-center">
                         <h3 class="font-bold text-gray-900">Art</h3>
                     </div>
                 </div>
-
-                <!-- Music Card -->
+    
                 <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-40 object-cover rounded"
-                        src="https://loremflickr.com/300/300/music" alt="Music">
-                    <div class="mt-4 text-center">
+                    <img class="w-full h-32 object-cover rounded" src="https://loremflickr.com/300/300/music" alt="Music">
+                    <div class="mt-2 text-center">
                         <h3 class="font-bold text-gray-900">Music</h3>
                     </div>
                 </div>
-
-                <!-- Sports Card -->
+    
                 <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-40 object-cover rounded"
-                        src="https://loremflickr.com/300/300/sports"
-                        alt="Sports">
-                    <div class="mt-4 text-center">
+                    <img class="w-full h-32 object-cover rounded" src="https://loremflickr.com/300/300/sports" alt="Sports">
+                    <div class="mt-2 text-center">
                         <h3 class="font-bold text-gray-900">Sports</h3>
                     </div>
                 </div>
-
-                <!-- Animals Card -->
+    
                 <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-40 object-cover rounded"
-                        src="https://loremflickr.com/300/300/animals"
-                        alt="Animals">
-                    <div class="mt-4 text-center">
+                    <img class="w-full h-32 object-cover rounded" src="https://loremflickr.com/300/300/animals" alt="Animals">
+                    <div class="mt-2 text-center">
                         <h3 class="font-bold text-gray-900">Animals</h3>
                     </div>
                 </div>
-
-                <!-- Flowers Card -->
+    
                 <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-40 object-cover rounded"
-                        src="https://loremflickr.com/300/300/flower"
-                        alt="Flowers">
-                    <div class="mt-4 text-center">
+                    <img class="w-full h-32 object-cover rounded" src="https://loremflickr.com/300/300/flower" alt="Flowers">
+                    <div class="mt-2 text-center">
                         <h3 class="font-bold text-gray-900">Flowers</h3>
                     </div>
                 </div>
-
-                <!-- Food Card -->
+    
                 <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-40 object-cover rounded"
-                        src="https://loremflickr.com/300/300/food" alt="Food">
-                    <div class="mt-4 text-center">
+                    <img class="w-full h-32 object-cover rounded" src="https://loremflickr.com/300/300/food" alt="Food">
+                    <div class="mt-2 text-center">
                         <h3 class="font-bold text-gray-900">Food</h3>
                     </div>
                 </div>
-
-                <!-- Design Card -->
-                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-40 object-cover rounded"
-                        src="https://loremflickr.com/300/300/design"
-                        alt="Design">
-                    <div class="mt-4 text-center">
-                        <h3 class="font-bold text-gray-900">Design</h3>
-                    </div>
-                </div>
             </div>
-
+    
             <!-- Load More Button -->
             <div class="flex justify-center mt-8">
-                <button
-                    class="bg-blue-400 text-white font-bold py-2 px-6 rounded-full">Load
-                    More</button>
+                <button class="bg-blue-400 text-white font-bold py-2 px-6 rounded-full">Load More</button>
             </div>
         </div>
-
     </div>
+    
+    
+    
 </div>

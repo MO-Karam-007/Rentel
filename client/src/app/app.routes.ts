@@ -23,6 +23,7 @@ export const routes: Routes = [
             { path: "add-item", component: AddItemComponent, title: "Add New Item" },
             { path: "posts", component: CommunityComponent, title: "Discover others needs" },
             { path: "frame", component: Farme2Component, },
+            { path: "messenger", component: MessageMainComponent, title: "Messeges" },
             // { path: "dashboard", component: DashBoardComponent },
 
         ]
@@ -43,6 +44,5 @@ export const routes: Routes = [
 
     { path: "services", component: ServicesProviderComponent, title: "services" },
 
-    { path: "review", component: ReviewComponent, title: "review" },
 
 ];

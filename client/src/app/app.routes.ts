@@ -14,35 +14,47 @@ import { ReviewComponent } from './review/review.component';
 import { ReviewFormComponent } from './review-form/review-form.component';
 import { MessageMainComponent } from './message-main/message-main.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard.component';
+import { NotificationsComponent } from './notifications/notifications.component';
 
 export const routes: Routes = [
-    {
-        path: "", component: BlankComponent, children: [
-            { path: "", component: LandingComponent },
-            { path: "items", component: ItemsComponent, title: "Items" },
-            { path: "add-item", component: AddItemComponent, title: "Add New Item" },
-            { path: "posts", component: CommunityComponent, title: "Discover others needs" },
-            { path: "frame", component: Farme2Component, },
-            { path: "messenger", component: MessageMainComponent, title: "Messeges" },
-            // { path: "dashboard", component: DashBoardComponent },
+  {
+    path: '',
+    component: BlankComponent,
+    children: [
+      { path: '', component: LandingComponent },
+      { path: 'items', component: ItemsComponent, title: 'Items' },
+      { path: 'add-item', component: AddItemComponent, title: 'Add New Item' },
+      {
+        path: 'posts',
+        component: CommunityComponent,
+        title: 'Discover others needs',
+      },
+      { path: 'frame', component: Farme2Component },
+      { path: 'messenger', component: MessageMainComponent, title: 'Messeges' },
+      {
+        path: 'notifications',
+        component: NotificationsComponent,
+        title: 'notifications',
+      },
+      // { path: "dashboard", component: DashBoardComponent },
+    ],
+  },
+  {
+    path: '',
+    component: AuthComponent,
+    children: [
+      { path: 'signup', component: SignUpComponent, title: 'sign up' },
+      { path: 'login', component: LoginComponent, title: 'login' },
+    ],
+  },
 
-        ]
-    },
-    {
-        path: "", component: AuthComponent, children: [
-            { path: "signup", component: SignUpComponent, title: "sign up" },
-            { path: "login", component: LoginComponent, title: "login" }
-        ]
-    },
+  {
+    path: '',
+    component: DashboardLayoutComponent,
+    children: [
+      { path: 'dashboard', component: DashBoardComponent, title: 'Dashboard' },
+    ],
+  },
 
-    {
-        path: "", component: DashboardLayoutComponent, children: [
-            { path: "dashboard", component: DashBoardComponent, title: "Dashboard" }
-        ]
-    },
-
-
-    { path: "services", component: ServicesProviderComponent, title: "services" },
-
-
+  { path: 'services', component: ServicesProviderComponent, title: 'services' },
 ];

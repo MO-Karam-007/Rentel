@@ -1,5 +1,94 @@
-<div class="container">
+<!-- <div class="container">
     <app-messages-list (messageSelected)="onMessageSelected($event)"></app-messages-list>
     <app-message-details (messageSelected)="onMessageSelected($event)"></app-message-details>
   
+  </div> -->
+
+  <div class="flex h-screen">
+    <!-- Sidebar for Messages List -->
+    <div class="w-1/4 bg-gray-100 p-8 rounded-xl border-r-2 shadow-lg pb-12 border-gray-300 space-y-6 mb-8">
+      <h2 class="text-xl font-bold mb-4">Messages</h2>
+      <input
+        type="text"
+        placeholder="Search messages"
+        class="w-full p-2 mb-4 border border-gray-300 rounded-md"
+      />
+  
+      <!-- Messages List -->
+      <div class="space-y-4">
+        <div class="flex items-center p-2 bg-white rounded-lg shadow-sm">
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Profile"
+            class="w-10 h-10 rounded-full mr-4"
+          />
+          <div class="flex-1">
+            <p class="font-semibold">Jan Mayer</p>
+            <p class="text-gray-500 text-sm">12 mins ago</p>
+            <p class="text-gray-600 text-sm truncate">
+              We want to invite you...
+            </p>
+          </div>
+        </div>
+  
+        <div class="flex items-center p-2 bg-white rounded-lg shadow-sm">
+          <img
+            src="https://via.placeholder.com/40"
+            alt="Profile"
+            class="w-10 h-10 rounded-full mr-4"
+          />
+          <div class="flex-1">
+            <p class="font-semibold">Joe Bartmann</p>
+            <p class="text-gray-500 text-sm">3:40 PM</p>
+            <p class="text-gray-600 text-sm truncate">
+              Hey thanks for your interview...
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  
+    <!-- Message Thread Area -->
+    <div class="flex-1 p-6 bg-white">
+      <div class="flex items-center mb-6">
+        <img
+          src="https://via.placeholder.com/40"
+          alt="Profile"
+          class="w-10 h-10 rounded-full mr-4"
+        />
+        <div>
+          <h2 class="text-lg font-semibold">Jan Mayer</h2>
+          <p class="text-gray-500 text-sm">Recruiter at Nomad</p>
+        </div>
+      </div>
+  
+      <!-- Messages Thread -->
+      <div class="flex flex-col space-y-4">
+        <div class="bg-gray-100 p-4 rounded-md self-start max-w-md">
+          <p class="text-gray-700">We want to invite you to join our team.</p>
+          <span class="text-gray-500 text-xs">12 mins ago</span>
+        </div>
+  
+        <div class="bg-blue-100 p-4 rounded-md self-end max-w-md">
+          <p class="text-gray-700">Thanks! I'm interested.</p>
+          <span class="text-gray-500 text-xs">Just now</span>
+        </div>
+      </div>
+  
+      <!-- Reply Box -->
+      <div class="mt-6">
+        <div class="flex items-center border-t border-gray-300 pt-4">
+          <input
+            type="text"
+            placeholder="Reply message"
+            class="flex-1 p-2 border border-gray-300 rounded-md"
+          />
+          <button
+            class="ml-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+            Send
+          </button>
+        </div>
+      </div>
+    </div>
   </div>
+  

@@ -1,7 +1,21 @@
-section header {
-    background-image: url(../../../assets/cover2.png);
-    height: 500px;
-    background-position: center center;
-    background-repeat: no-repeat;
-    background-size: cover;
-}
+        section header {
+            background-image: url(../../../assets/cover2.png);
+            height: 500px;
+            background-position: center center;
+            background-repeat: no-repeat;
+            background-size: cover;
+              /* Darken the image */
+    background-color: rgba(0, 0, 0, 0.6); /* Add black overlay with 70% opacity */
+    background-blend-mode: darken;
+        }
+
+        i{
+            font-size: x-large;
+            width: fit-content;
+        }
+
+        img{
+border-radius: 10%;
+        }
+
+     

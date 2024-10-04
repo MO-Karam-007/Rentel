@@ -28,3 +28,37 @@ cursor: pointer;
 color: white;
 font-weight: 900;
 }
+
+
+html {
+    overflow: scroll;
+    overflow-x: hidden;
+    scrollbar-width: thin;
+    scrollbar-color: #000000 #696969;
+}
+.disable-scrolling {
+    -ms-overflow-style: none;  /* Internet Explorer 10+ */
+    scrollbar-width: none;  /* Firefox */
+}
+.disable-scrolling::-webkit-scrollbar { 
+    display: none;  /* Safari and Chrome */
+}
+
+/* ===== Scrollbar CSS ===== */
+/* Firefox */
+* {
+  }
+
+  /* Chrome, Edge, and Safari */
+::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: #696969;
+  }
+::-webkit-scrollbar-thumb {
+    background-color: #000000;
+    border-radius: 260px;
+    border: 150px dotted #333333;
+  }

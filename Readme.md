@@ -38,6 +38,7 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
 
 - Users `first_name` `last_name` `username` `email` `phone` `address` `profile_pic` `id_pic` `role[Enum('admin', 'user')]` `latitude` `longitude`
 - Items `name` `description` `item_image` `stutus[Enum("available", "rented", "under maintenance")]` `price` `duration` `lender_id` `latitude` `longitude`
+
 - Item_images `item_id` `image`
 - Item_specifications `item_id` `key` `value`
 - Rentals `borrower_id` `item_id` `start_date` `end_date` `status[Enum("requested", "approved", "active", "returned")]`

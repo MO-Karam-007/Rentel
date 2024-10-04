@@ -1,5 +1,5 @@
 <nav [ngClass]="{'bg-black': token, 'text-white' : token}"
-    class="flex p-4 items-center md:justify-evenly justify-between">
+    class="flex p-4 items-center  justify-between w-full ">
     <h2 class="text-2xl font-bold cursor-pointer"
         [routerLink]="['/']"
         routerLinkActive="router-link-active">Rental</h2>
@@ -34,6 +34,7 @@
         </span>
 
         <span
+            [routerLink]="['/notifications']"
             class="bg-black h-fit  me-2 px-2 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500 notifiable">
             <i class="fa-regular fa-bell text-white text-lg"></i>
             <div class="notification">1</div>

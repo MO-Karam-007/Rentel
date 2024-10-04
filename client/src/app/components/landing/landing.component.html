@@ -1,112 +1,96 @@
 <section class="overflow-auto mb">
     <header class="p-8">
-        <h1 class="capitalize  text-6xl text-white text-bg-black">unlock endless
-            needs <br />
-            with Rental </h1>
-        <p class="text-gray-300 my-4 ms-2">To contribute to positive change and
-            achieve our <br /> sustainability goals with many extraodinary</p>
+        <h1 class="capitalize  text-6xl text-white">
+            Rent, Borrow, and Trusted Transactions
+
+            <br />
+            All in one platform</h1>
+        <p class="text-gray-300 my-4 ms-2">With Rentel, you can find items
+            available for rent within a 6km radius.
+
+            <br /> Browse through a variety of items and book what you need
+            instantly. </p>
         <div class="mt-10">
             <button
-                class="bg-white text-black hover:bg-black hover:text-white border-transparent hover:border-white border py-3 mx-3 px-4 rounded-lg transition-all">Start
-                Rentaing</button>
+                [routerLink]="['/items']"
+                class="bg-white text-black hover:bg-black hover:text-white border-transparent hover:border-white border py-3 mx-3 px-4 rounded-lg transition-all">Nearby
+                Items</button>
         </div>
     </header>
     <div class="lg:relative">
-        <div
-            class="absolute left-[8.3333333333333%] w-5/6 gap-2 border p-6 bg-white rounded-lg  -translate-y-1/2 border-gray-600 grid grid-cols-4">
-            <div class="flex flex-col">
-                <label for="location" class="my-3">location</label>
-                <input type="text"
-                    class="border-gray-500 placeholder:text-gray-500"
-                    placeholder="Select location" id="location">
-            </div>
-            <div class="flex flex-col">
-                <label for="Pack-UP" class="my-3">Pack-UP</label>
-                <input type="text" placeholder="select location" id="Pack-UP">
-            </div>
-            <div class="flex flex-col">
-                <label for="date" class="my-3">date</label>
-                <div class="flex xl:flex-row flex-col gap-0">
-                    <input type="date" [min]="min" (input)="showelement()"
-                        class="border-r-black xl:border-r-transparent  xl:border-b-black border-b-transparent"
-                        id="date" #start>
-                    <input type="date" [min]="start.value"
-                        [disabled]="!start.value"
-                        class="disabled:cursor-not-allowed border-l-black xl:border-l-transparent xl:border-t-black border-t-transparent"
-                        id="date">
-                </div>
-            </div>
-            <button
-                class="mx-4 bg-black text-white hover:bg-white hover:text-black hover:border-black transition-all border-white border">search
-                now</button>
-        </div>
+
+        <app-search [showbtn]=true></app-search>
+
     </div>
+
     <div class="grid mt-28 grid-cols-1 lg:grid-cols-2">
-        <div class="mx-6 lg:ms-44 lg:mb-0 mb-6">
-            <h2 class="text-6xl capitalize">rent a book</h2>
+        <div class="mx-6 lg:ms-44 lg:mb-0 mb-6 ">
+            <h2 class="text-6xl capitalize">Rent Smarter, Borrow Easier</h2>
             <div class="mt-10 flex md:flex-row flex-col">
                 <p
                     class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">easy</p>
                 <p
                     class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">fast</p>
                 <p
-                    class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">comortable</p>
+                    class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">smart</p>
             </div>
-            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">Booking a
-                self-driving car with us is simple and easy.
-                You can browse our selection of vehicles online.
-                choose the car the best fit your needs, and book it for the
-                duration your choice.
-                Our user-friendly platfrom allows you to manage your booking and
-                view your history with ease
+            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">
+                Rentel simplifies the renting process by connecting you with
+                nearby users. Whether you need something for a short time or
+                want to make extra income by renting your items, Rentel makes it
+                easy, fast and smart with real-time notifications and
+                location-based
+                services.
+
             </p>
             <button
-                class="bg-black text-white hover:bg-white border hover:border-black hover:text-black border-white py-3 mx-3 px-4 rounded-lg transition-all">Rent
-                Book</button>
+                [routerLink]="['/add-item']"
+                class="bg-black text-white hover:bg-white border hover:border-black hover:text-black border-white py-3 mx-3 px-4 rounded-lg transition-all">
+                Rent Out
+            </button>
         </div>
-        <img src="./assets/book.jpg" class="w-full"
+        <img src="assets/landing2.webp"
+            class="w-full h-[90vh] object-contain rounded-lg"
             alt="image for a happy customer">
     </div>
     <div class="grid mt-28 grid-cols-1 lg:grid-cols-2">
-        <img src="./assets/tool.jpg" class="w-full"
+        <img src="./assets/tools.webp"
+            class="w-full w-full h-[90vh] object-contain rounded-lg"
             alt="image for a happy customer">
         <div class="mx-6 lg:ms-44 lg:mb-0 mb-6">
             <h2 class="text-6xl capitalize">rent tools</h2>
             <div class="mt-10 flex md:flex-row flex-col">
                 <p
-                    class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">luxury</p>
+                    class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">Connect</p>
                 <p
-                    class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">comfort</p>
+                    class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">Real-time</p>
                 <p
-                    class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">prestige</p>
+                    class="uppercase p-2 lg:mx-2 my-2 lg:my-0 bg-gray-200 rounded-lg cursor-default text-gray-600 hover:bg-gray-600 hover:text-gray-200 transition-colors">Security</p>
             </div>
-            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">Booking a
-                self-driving motorCylce with us is simple and easy.
-                You can browse our selection of vehicles online.
-                choose the motorCylce the best fit your needs, and book it for
-                the duration your choice.
-                Our user-friendly platfrom allows you to manage your booking and
-                view your history with ease
-            </p>
+            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">
+                Communicate with lenders or borrowers using Rentel’s built-in
+                chat and call features. Get notified about rental offers,
+                requests, and updates immediately, ensuring smooth and efficient
+                exchanges.</p>
             <button
-                class="bg-black text-white hover:bg-white border hover:border-black hover:text-black border-white py-3 mx-3 px-4 rounded-lg transition-all">Rent
-                tools</button>
+                [routerLink]="['/posts']"
+                class="bg-black text-white hover:bg-white border hover:border-black hover:text-black border-white py-3 mx-3 px-4 rounded-lg transition-all">
+                Our Community</button>
         </div>
 
     </div>
     <div class="grid mt-28 mb-36 grid-cols-1 lg:grid-cols-2 ">
         <div
             class="mx-6 lg:ms-44 lg:mb-0 mb-6 border p-6 border-gray-200 rounded-lg translate-x-36 translate-y-20 shadow-xl bg-white relative">
-            <h2 class="text-5xl capitalize">do you want to share your vehicle
-                ?</h2>
+            <h2 class="text-5xl capitalize">Personalized Searches and
+                Recommendations</h2>
 
-            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">Booking a
-                self-driving car with us is simple and easy.
-                You can browse our selection of vehicles online.
-                choose the car the best fit your needs, and book it for the
-                duration your choice.
-                Our user-friendly platfrom allows you to manage your booking and
-                view your history with ease
+            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">
+                Use our advanced search filters support to
+                find exactly what you need. Save your favorite items to your
+                wishlist and get personalized rental offers tailored just for
+                you.
+
             </p>
             <button
                 class="bg-black text-white hover:bg-white border hover:border-black hover:text-black border-white py-3 mx-3 px-4 rounded-lg transition-all">Learn
@@ -117,19 +101,26 @@
                 class="absolute w-7 h-7 rounded-full top-0 end-0 mt-6 me-6 bg-gray-400">
             </div>
         </div>
-        <img src="./assets/Man-receiving-rental-car-keys-from-woman.webp"
-            class="w-full h-[30rem]" alt="image for a happy customer">
+        <!-- <img src="assets/heavytools.webp"
+            class="w-full " alt="image for a happy customer"> -->
+        <img src="assets/heavytools.webp"
+            class="w-full h-[90vh] object-contain rounded-lg"
+            alt="image for a happy customer">
+
     </div>
     <div class="flex mt-28 mb-36 items-center ">
-        <div class="w-1/2 mx-6 lg:ms-44 lg:mb-0 mb-6  p-6 rounded-lg  bg-white">
+        <div
+            class="w-1/2 mx-6 lg:ms-44 lg:mb-0 mb-6  p-6 rounded-lg  bg-white">
             <h2 class="text-5xl capitalize">why choose us</h2>
 
-            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">Booking a
+            <p class="my-3 text-gray-500 text-xl leading-loose mt-5">Booking
+                a
                 self-driving car with us is simple and easy.
                 You can browse our selection of vehicles online.
                 choose the car the best fit your needs, and book it for the
                 duration your choice.
-                Our user-friendly platfrom allows you to manage your booking and
+                Our user-friendly platfrom allows you to manage your booking
+                and
                 view your history with ease
             </p>
 

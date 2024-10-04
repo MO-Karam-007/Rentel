@@ -22,8 +22,14 @@ li {
     overflow-x: hidden;
     transition: 0.3s ease;
 }
+tr{
+  // background-color: blue;
+  
+}
+tbody{
 
-
+  border-radius: 15px ;
+}
 /* MAIN */
 #content main {
   width: 100%;
@@ -74,6 +80,23 @@ li {
   font-weight: 500;
 }
 
+#content main .table-data {
+  display: flex;
+  flex-wrap: wrap;
+  font-size: 24px;
+  font-weight: 600;
+grid-gap: 24px;
+margin-top: 24px;
+color: #342e37
+}
+#content main .table-data > div {
+border-radius: 20px;
+background: #eee;
+padding: 24px;
+overflow-x: auto;
+width: 100%;
+}
+
 #content main .box-info {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
@@ -115,121 +138,20 @@ li {
     color: #342e37;
 }
 
-#content main .table-data {
-    display: flex;
-    flex-wrap: wrap;
-    font-size: 24px;
-    font-weight: 600;
-  grid-gap: 24px;
-  margin-top: 24px;
-  width: 100%;
-  color: #342e37
-}
-#content main .table-data > div {
-  border-radius: 20px;
-  background: #eee;
-  padding: 24px;
-  overflow-x: auto;
-}
-#content main .table-data .head {
-  display: flex;
-  align-items: center;
-  grid-gap: 16px;
-  margin-bottom: 24px;
-}
-#content main .table-data .head h3 {
-  margin-right: auto;
-  font-size: 24px;
-  font-weight: 600;
-}
-#content main .table-data .head .bx {
-  cursor: pointer;
-}
 
-#content main .table-data .order {
-  flex-grow: 1;
-  flex-basis: 500px;
-}
-#content main .table-data .order table {
-  width: 100%;
-  border-collapse: collapse;
-}
-#content main .table-data .order table th {
-  padding-bottom: 12px;
-  font-size: 1rem;
-  text-align: left;
-  border-bottom: 1px solid #eee;
-}
-#content main .table-data .order table td {
-  padding: 3px 0;
-}
-#content main .table-data .order table tr td:first-child {
-  display: flex;
-  align-items: center;
-  grid-gap: 12px;
-  padding-left: 6px;
-}
-#content main .table-data .order table td img {
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  object-fit: cover;
-}
-#content main .table-data .order table tbody tr:hover {
-  background: #eee;
-}
-#content main .table-data .order table tr td .status {
-  font-size: 0.8rem;
-  padding: 0.2rem 0.5rem;
-  color: #eee;
-  border-radius: 20px;
-  font-weight: 700;
-  margin: 0;
-  // padding-top: 0;
-}
 
-#content main .table-data .order table tr td .status.completed {
+
+.completed {
   background: #3c91e6;
 }
-#content main .table-data .order table tr td .status.process {
-  background:  #ffce26;
+.process {
+  background-color:  #ffce26;
 }
-#content main .table-data .order table tr td .status.pending {
+.pending {
   background: #fd7238;
 }
 
-#content main .table-data .todo {
-  flex-grow: 1;
-  flex-basis: 300px;
-}
-#content main .table-data .todo .todo-list {
-  width: 100%;
-}
-#content main .table-data .todo .todo-list li {
-  width: 100%;
-  margin-bottom: 16px;
-  background: #eee;
-  border-radius: 10px;
-  padding: 14px 20px;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-#content main .table-data .todo .todo-list li .bx {
-  cursor: pointer;
-}
-#content main .table-data .todo .todo-list li.completed {
-  border-left: 10px solid #3c91e6;
-}
-#content main .table-data .todo .todo-list li.not-completed {
-  border-left: 10px solid #fd7238;
-}
-#content main .table-data .todo .todo-list li:last-child {
-  margin-bottom: 0;
-}
-
 .ref{
-  background-color: gray;
   color: white;
   width: fit-content;
   border-radius: 20px;
@@ -238,12 +160,16 @@ li {
   justify-content: center;
   align-items: center;
   font-size: 0.9rem;
+}
+.ref-no{
+  background-color: gray;
 
 }
 
-.table-paragrah{
-  font-size: 0.9rem;
+.order{
+  background: #000;
 }
+
 /* MAIN */
 // /* CONTENT */
 
@@ -287,18 +213,3 @@ li {
 //   #content nav form.show ~ .profile {
 //     display: none;
 //   }
-
-  // #content main .box-info {
-  //   grid-template-columns: 1fr;
-  // }
-
-//   #content main .table-data .head {
-//     min-width: 420px;
-//   }
-//   #content main .table-data .order table {
-//     min-width: 420px;
-//   }
-//   #content main .table-data .todo .todo-list {
-//     min-width: 420px;
-//   }
-// }

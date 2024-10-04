@@ -15,6 +15,7 @@ import { ReviewFormComponent } from './review-form/review-form.component';
 import { MessageMainComponent } from './message-main/message-main.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard.component';
 import { NotificationsComponent } from './notifications/notifications.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 
 export const routes: Routes = [
   {
@@ -30,6 +31,7 @@ export const routes: Routes = [
         title: 'Discover others needs',
       },
       { path: 'frame', component: Farme2Component },
+      { path: 'profile', component: ProfileComponent },
       { path: 'messenger', component: MessageMainComponent, title: 'Messeges' },
       {
         path: 'notifications',

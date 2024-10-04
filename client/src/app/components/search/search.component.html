@@ -1,20 +1,29 @@
-<div class="flex justify-center relative ">
-    <div
-        class="w-5/6 flex justify-around py-8 rounded-lg  border-[#cbd5e1] border-2 absolute -top-12 bg-white">
-        <input
-            class="px-3 py-2.5 text-lg w-1/6 font-bold rounded-lg border focus:outline focus:outline-2 focus:outline-offset-2 bg-[#ffffff] text-[#444444] focus:outline-[#aaaaaa] border-[#cccccc]"
-            placeholder="Type your name..">
+<div
+    class="absolute left-[10vw] w-5/6 gap-2 border p-6 bg-white rounded-lg  -translate-y-1/2 border-gray-600  flex items-center ">
+    <i class="fa-solid fa-magnifying-glass  text-black"></i>
+    <input type="text"
+        placeholder="Discover Nearby Items"
+        class=" flex-grow py-2  px-6 mr-4 bg-transparent focus:rounded-lg focus:rounded-black placeholder-gray-400 ml-3 border-gray-400 rounded-lg">
 
-        <input
-            class="px-3 py-2.5 text-lg w-1/6 font-bold rounded-lg border focus:outline focus:outline-2 focus:outline-offset-2 bg-[#ffffff] text-[#444444] focus:outline-[#aaaaaa] border-[#cccccc]"
-            placeholder="Type your name..">
+    <!--  -->
 
-        <input
-            class="px-3 py-2.5 text-lg w-1/6 font-bold rounded-lg border focus:outline focus:outline-2 focus:outline-offset-2 bg-[#ffffff] text-[#444444] focus:outline-[#aaaaaa] border-[#cccccc]"
-            placeholder="Type your name..">
+    <div class="flex flex-col space-y-2">
+        <!-- Label with bound radius value -->
+        <label for="radius" class="text-gray-600">Set Search Radius
+            (km): {{ radius }} km</label>
 
-        <input
-            class="px-3 py-2.5 text-lg w-1/6 font-bold rounded-lg border focus:outline focus:outline-2 focus:outline-offset-2 bg-[#ffffff] text-[#444444] focus:outline-[#aaaaaa] border-[#cccccc]"
-            placeholder="Type your name..">
+        <!-- Slider Input -->
+        <input type="range" id="radius" min="2" max="22" step="1"
+            [(ngModel)]="radius"
+            class="custom-range w-full text-large h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer focus:outline-none  focus:ring-black ">
     </div>
+
+    @if( showbtn){
+    <button
+        [routerLink]="['/items']"
+        class="bg-black ml-6 text-white px-6 py-2 rounded-md hover:bg-zinc-900 mx-3">
+        Search
+    </button>
+    }
+
 </div>

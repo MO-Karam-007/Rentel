@@ -1,5 +1,3 @@
-
-
 <section id="content">
     <main>
         <div class="head-title">
@@ -10,7 +8,8 @@
                     <li>
                         <a href="#">Dashboard</a>
                     </li>
-                    <li><i class="fa-solid fa-chevron-right"></i></li>
+                    <li>
+                        <i class="fa-solid fa-chevron-right"></i></li>
                     <li>
                         <a class="active" href="#">Home</a>
                     </li>
@@ -43,49 +42,147 @@
             </li>
         </ul>
 
-        <div class="table-data">
+        <div class="table-data ">
             <div class="order">
                 <div class="head">
                     <h3>Recent Orders</h3>
-                    <i class="bx bx-search"></i>
-                    <i class="bx bx-filter"></i>
-                </div>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Request No.</th>
-                            <th>Item</th>
-                            <th>price</th>
-                            <th>Start Date</th>
-                            <th>End Date</th>
-                            <th>Status</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        @for (item of requests; track $index) {
-                        <tr>
-                            <td class="status">
-                                <span class="ref">#123</span></td>
-                            <td>
-                                <p class="table-paragrah">John Doe</p>
-                            </td>
-                            <td><p class="table-paragrah"> 18 $</p></td>
-                            <td><p class="table-paragrah"> 01-10-2021</p></td>
-                            <td><p class="table-paragrah"> 01-10-2021</p></td>
-                            <td class="status">
-                                <span class="ref">Requested</span></td>
-                            <td>
-                                <hr
-                                    class="h-px my-8 bg-black-200 border-0 dark:bg-dark-700">
 
+                    <!-- <div class="relative overflow-x-auto ">
+                        <table
+                            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-gray-900 uppercase dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Product name
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Color
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Category
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Price
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-red-300">
+                                <tr
+                                    class="bg-white dark:bg-gray-800 	bg-blue-300">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        Apple MacBook Pro 17"
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        Silver
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        Laptop
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        $2999
+                                    </td>
+                                </tr>
+                                <tr class="bg-white dark:bg-gray-800">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        Microsoft Surface Pro
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        White
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        Laptop PC
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        $1999
+                                    </td>
+                                </tr>
+                                <tr class="bg-white dark:bg-gray-800">
+                                    <th scope="row"
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        Magic Mouse 2
+                                    </th>
+                                    <td class="px-6 py-4">
+                                        Black
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        Accessories
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        $99
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div> -->
+
+                    <div class="relative overflow-x-auto">
+                        <table
+                            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+                            <thead
+                                class="text-xs text-gray-900 uppercase dark:text-gray-400">
+                                <tr>
+                                    <th scope="col" class="px-6 py-3">
+                                        Ref Number
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Item Name
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Price
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Start Date
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        End Date
+                                    </th>
+                                    <th scope="col" class="px-6 py-3">
+                                        Status
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody class="bg-white rounded-lg overflow-hidden">
+                                <!-- Row 1 -->
+                                @for (item of requests; track $index) {
+                                <tr
+                                    [routerLink]="['/frame']"
+                                    routerLinkActive="router-link-active"
+                                    class="bg-white dark:bg-gray-800 hover:bg-gray-100">
+                                    <td
+                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                        #001
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        Apple MacBook Pro 17"
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        $2999
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        01/01/2024
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        05/01/2024
+                                    </td>
+                                    <td class="px-6 py-4">
+                                        <span
+                                            class="bg-yellow-200 text-yellow-800 text-sm font-semibold px-3 py-1 rounded-full">Requested</span>
+                                    </td>
+                                </tr>
                                 }
-
                             </tbody>
                         </table>
                     </div>
 
                 </div>
-            </main>
-            <!-- MAIN -->
-        </section>
-        <!-- CONTENT -->
+
+            </div>
+
+        </div>
+    </main>
+    <!-- MAIN -->
+</section>
+<!-- CONTENT -->

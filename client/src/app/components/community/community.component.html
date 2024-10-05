@@ -2,7 +2,7 @@
     <!-- Left Sidebar (1/4 width, fixed) -->
     <div class=" w-1/4 right-sidebar p-2 space-y-4">
         <div class="bg-white p-4 shadow-md rounded-lg">
-            <h2 class="text-xl font-semibold mb-4">Popular Rentals</h2>
+            <h2 class="text-2xl font-semibold mb-4">Popular Rentals</h2>
             <ul>
 
                 @for (item of [1,2,3,4]; track $index) {
@@ -102,9 +102,9 @@
                                     alt>
                             </div>
                             <div class=" min-w-0 flex-1">
-                                <p class="text-sm font-medium text-gray-900"><a
+                                <p class="font-bold text-gray-900"><a
                                         href="#">Leonard Krasner</a></p>
-                                <p class="text-sm text-gray-500"><a
+                                <p class="text-gray-500"><a
                                         href="#">eonardkrasner</a></p>
                             </div>
                         </div>
@@ -160,7 +160,7 @@
         <div class="p-4">
             <section aria-labelledby="who-to-follow-heading">
                 <h2 id="who-to-follow-heading"
-                    class="text-base font-medium text-gray-900">Who to
+                    class="text-2xl font-bold text-gray-900">Who to
                     follow</h2>
                 @for (item of [1,2,3]; track $index) {
                 <div class="mt-6 flow-root">
@@ -172,9 +172,10 @@
                                     alt>
                             </div>
                             <div class="min-w-0 flex-1">
-                                <p class="text-sm font-medium text-gray-900"><a
+                                <p
+                                    class="font-bold  text-gray-900"><a
                                         href="#">Leonard Krasner</a></p>
-                                <p class="text-sm text-gray-500"><a
+                                <p class=" text-gray-500"><a
                                         href="#">eonardkrasner</a></p>
                             </div>
 

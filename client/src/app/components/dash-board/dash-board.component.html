@@ -1,6 +1,6 @@
 <section id="content">
-    <main>
-        <div class="head-title">
+    <main class="disable-scrolling">
+        <div class="head-title ">
             <div class="left">
                 <h1>Dashboard</h1>
 
@@ -47,78 +47,7 @@
                 <div class="head">
                     <h3>Recent Orders</h3>
 
-                    <!-- <div class="relative overflow-x-auto ">
-                        <table
-                            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <thead
-                                class="text-xs text-gray-900 uppercase dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">
-                                        Product name
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Color
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Category
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Price
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-red-300">
-                                <tr
-                                    class="bg-white dark:bg-gray-800 	bg-blue-300">
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Apple MacBook Pro 17"
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        Silver
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Laptop
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $2999
-                                    </td>
-                                </tr>
-                                <tr class="bg-white dark:bg-gray-800">
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Microsoft Surface Pro
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        White
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Laptop PC
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $1999
-                                    </td>
-                                </tr>
-                                <tr class="bg-white dark:bg-gray-800">
-                                    <th scope="row"
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        Magic Mouse 2
-                                    </th>
-                                    <td class="px-6 py-4">
-                                        Black
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        Accessories
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        $99
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div> -->
-
-                    <div class="relative overflow-x-auto">
+                    <div class="relative overflow-x-auto disable-scrolling">
                         <table
                             class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                             <thead
@@ -146,7 +75,7 @@
                             </thead>
                             <tbody class="bg-white rounded-lg overflow-hidden">
                                 <!-- Row 1 -->
-                                @for (item of requests; track $index) {
+                                @for (item of [2,5,7,8]; track $index) {
                                 <tr
                                     [routerLink]="['/frame']"
                                     routerLinkActive="router-link-active"
@@ -174,7 +103,16 @@
                                 </tr>
                                 }
                             </tbody>
+
                         </table>
+
+                        <div
+                            class="bg-white w-full px-4 py-2  mt-4 rounded-2xl flex justify-between">
+                            <i
+                                class="fa-solid fa-arrow-left cursor-pointer text-gray-400"></i>
+                            <i
+                                class="fa-solid fa-arrow-right  cursor-pointer"></i>
+                        </div>
                     </div>
 
                 </div>
@@ -182,6 +120,11 @@
             </div>
 
         </div>
+
+        <div id="map"
+            class="map rounded-lg mt-4 overflow-hidden"></div>
+        <!-- <div class="w-full h-[20vh] bg-blue-100"></div> -->
+
     </main>
     <!-- MAIN -->
 </section>

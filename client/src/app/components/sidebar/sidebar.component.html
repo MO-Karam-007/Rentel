@@ -1,26 +1,16 @@
 
 <aside
-    class="group/sidebar flex flex-col lg:w-[300px] w-[250px]  m-0 z-40 inset-y-0 left-0 bg-white sidenav fixed-start loopple-fixed-start"
+    class="group/sidebar bg-gray-100 flex rounded-xl flex-col lg:w-[300px] w-[250px]  m-0 z-40 inset-y-0 left-0 sidenav sticky  h-full loopple-fixed-start"
     id="sidenav-main">
 
     <div class="flex items-center justify-between px-8 py-5">
         <div class="flex items-center mr-5">
-            <div class="mr-5">
-                <div
-                    class="inline-block relative shrink-0 cursor-pointer rounded-[.95rem]">
-                    <img
-                        class="w-[40px] h-[40px] shrink-0 inline-block rounded-[.95rem]"
-                        src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar1.jpg"
-                        alt="avatar image">
-                </div>
-            </div>
-            <div class="mr-2 ">
-                <a href="javascript:void(0)"
-                    class="dark:hover:text-primary hover:text-primary transition-colors duration-200 ease-in-out text-[1.075rem] font-medium dark:text-neutral-400/90 text-secondary-inverse">Robert
-                    Jason</a>
-                <span
-                    class="text-secondary-dark dark:text-stone-500 font-medium block text-[0.85rem]">SEO
-                    Manager</span>
+            <div
+                class="flex items-center justify-center ">
+                <img
+                    class="w-1/2 h-1/2 rounded-lg"
+                    src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/riva-dashboard-tailwind/img/avatars/avatar1.jpg"
+                    alt="avatar image">
             </div>
         </div>
 
@@ -32,51 +22,63 @@
         <div class="flex flex-col w-full font-medium">
 
             <!-- menu item -->
-            <div>
+            <button class="hover:bg-white hover:rounded-l-xl"
+                [routerLink]="['/dashboard']">
                 <span
                     class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                    <a href="javascript:;"
-                        class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Sales</a>
+                    <i class="fa-solid fa-chart-line text-stone-500 mr-4"></i>
+                    <a
+                        class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Dashboard</a>
                 </span>
-            </div>
+            </button>
 
-            <!-- menu item -->
-            <div>
+            <button class="hover:bg-white hover:rounded-l-xl	"
+                [routerLink]="['/my-profile']">
                 <span
-                    class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                    <a href="javascript:;"
-                        class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Users</a>
+                    class="select-none flex items-center px-4 py-[.775rem] cursor-pointer  text-stone-500my mr-4-[.4rem] rounded-[.95rem]">
+                    <i class="fa-regular fa-user text-stone-500 mr-4"></i>
+                    <a
+                        class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">My
+                        Profile</a>
                 </span>
-            </div>
+            </button>
+            <button
+                class="hover:bg-white hover:rounded-l-xl"
+                [routerLink]="['/transactions']">
 
-            <!-- menu item -->
-            <div>
                 <span
-                    class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                    <a href="javascript:;"
-                        class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Orders</a>
+                    class="select-none flex items-center px-4 py-[.775rem] cursor-pointer  text-stone-500my mr-4-[.4rem] rounded-[.95rem]">
+                    <i
+                        class="fa-solid fa-clock-rotate-left text-stone-500 mr-4"></i>
+                    <a
+                        class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Transactions</a>
                 </span>
-            </div>
+            </button>
 
-            <!-- menu item -->
-            <div>
+            <button class="hover:bg-white hover:rounded-l-xl"
+                [routerLink]="['/my-wishlist']">
                 <span
-                    class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                    <a href="javascript:;"
-                        class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Track
-                        Order</a>
+                    class="select-none flex items-center px-4 py-[.775rem] cursor-pointer  text-stone-500my mr-4-[.4rem] rounded-[.95rem]">
+                    <i class="fa-regular fa-heart text-stone-500 mr-4"></i>
+
+                    <a
+                        class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Wishlist</a>
                 </span>
-            </div>
+            </button>
 
-            <!-- menu item -->
-            <div>
+            <button
+                class="hover:bg-white hover:rounded-l-xl ">
                 <span
-                    class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
-                    <a href="javascript:;"
-                        class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Log
+                    class="select-none flex items-center px-4 py-[.775rem] cursor-pointer  text-stone-500  mr-4-[.4rem] rounded-[.95rem] ">
+
+                    <a
+                        class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-rose-800 ">
+                        <i
+                            class="fa-solid fa-arrow-right-from-bracket mr-4"></i>
+                        <i class></i>Sign
                         Out</a>
                 </span>
-            </div>
+            </button>
 
         </div>
     </div>

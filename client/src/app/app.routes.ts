@@ -16,6 +16,8 @@ import { MessageMainComponent } from './message-main/message-main.component';
 import { DashboardLayoutComponent } from './layouts/dashboard-layout/dashboard.component';
 import { NotificationsComponent } from './notifications/notifications.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { TransactionsComponent } from './pages/transactions/transactions.component';
+import { FavoritesComponent } from './pages/favorites/favorites.component';
 
 export const routes: Routes = [
   {
@@ -23,7 +25,7 @@ export const routes: Routes = [
     component: BlankComponent,
     children: [
       { path: '', component: LandingComponent },
-    { path: 'items', component: ItemsComponent, title: 'Items' },
+      { path: 'items', component: ItemsComponent, title: 'Items' },
       { path: 'add-item', component: AddItemComponent, title: 'Add New Item' },
       {
         path: 'posts',
@@ -55,6 +57,9 @@ export const routes: Routes = [
     component: DashboardLayoutComponent,
     children: [
       { path: 'dashboard', component: DashBoardComponent, title: 'Dashboard' },
+      { path: 'my-profile', component: ProfileComponent, title: 'My Profile' },
+      { path: 'transactions', component: TransactionsComponent, title: 'Transactions' },
+      { path: 'my-wishlist', component: FavoritesComponent, title: 'My Wishlist' },
     ],
   },
 

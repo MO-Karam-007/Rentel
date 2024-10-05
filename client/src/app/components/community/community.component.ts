@@ -8,5 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './community.component.scss'
 })
 export class CommunityComponent {
+  posts: number[] = Array.from(Array(100).keys())
+
 
 }

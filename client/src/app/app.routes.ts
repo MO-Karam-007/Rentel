@@ -23,7 +23,7 @@ export const routes: Routes = [
     component: BlankComponent,
     children: [
       { path: '', component: LandingComponent },
-      { path: 'items', component: ItemsComponent, title: 'Items' },
+    { path: 'items', component: ItemsComponent, title: 'Items' },
       { path: 'add-item', component: AddItemComponent, title: 'Add New Item' },
       {
         path: 'posts',

@@ -11,8 +11,8 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
 - **Front-End** : Angular
 - **Back-End** : PHP
 - **Database**
-  - PostgreSQL 
-  - PostgreGIS 
+  - PostgreSQL
+  - PostgreGIS
 - **Version control** : Github
 - **Websocket** : Socket.io || Pusher
 - **webserver** : Apache Server
@@ -38,14 +38,17 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
 
 - Users `first_name` `last_name` `username` `email` `phone` `address` `profile_pic` `id_pic` `role[Enum('admin', 'user')]` `latitude` `longitude`
 - Items `name` `description` `item_image` `stutus[Enum("available", "rented", "under maintenance")]` `price` `duration` `lender_id` `latitude` `longitude`
-
 - Item_images `item_id` `image`
 - Item_specifications `item_id` `key` `value`
 - Rentals `borrower_id` `item_id` `start_date` `end_date` `status[Enum("requested", "approved", "active", "returned")]`
 - reviews `reviewer_id` `reviewed_id` `rating` `comment`
 - Messages `sender_id` `reciver_id` `content` `time`
-- social_accounts `user_id` `provider` `provider_id`
-  <!--  Updated -->
+  <!-- - social_accounts `user_id` `provider` `provider_id` -->
+    <!--  Updates -->
+- Categories `id` `category`
+- Tags `id` `tag`
+- Favorites `id`
+- Followers `id`
 
 ## Relations
 

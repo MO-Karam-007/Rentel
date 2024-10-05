@@ -107,13 +107,23 @@
         <!-- Status and Tags -->
         <div class="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Status -->
-            <div class="flex items-center bg-[#f6f6f6] rounded-md">
+            <!-- <div class="flex items-center bg-[#f6f6f6] rounded-md">
                 <select id="status" name="status"
-                    class="block w-full h-12 rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50"
+                    class="block w-full px-2 h-12 rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50"
                     style="background-color: #f6f6f6; padding: 0;">
-                    <option value>Select Status</option>
                     <option value="active">Active</option>
                     <option value="inactive">Inactive</option>
+                </select>
+            </div> -->
+
+            <div class>
+                <select id="category"
+                    name="category"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 h-12"
+                    style="background-color: #f6f6f6;">
+                    <option>Avalible</option>
+                    <option>Not Avalible</option>
+
                 </select>
             </div>
 
@@ -130,7 +140,7 @@
         <div class="col-span-full mt-6 p-2">
             <button type="submit"
                 class="block w-full bg-black hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-full">
-                Register for Event
+                Create The Item
             </button>
         </div>
     </form>

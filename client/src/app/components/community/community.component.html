@@ -4,31 +4,14 @@
         <div class="bg-white p-4 shadow-md rounded-lg">
             <h2 class="text-xl font-semibold mb-4">Popular Rentals</h2>
             <ul>
+
+                @for (item of [1,2,3,4]; track $index) {
                 <li class="mb-3">
                     <a href="#" class="text-blue-600 hover:underline">Luxurious
                         Beachfront Villa</a>
                     <p class="text-gray-600">3 beds | 2 baths | $250/night</p>
                 </li>
-                <li class="mb-3">
-                    <a href="#" class="text-blue-600 hover:underline">Cozy
-                        Mountain Cabin</a>
-                    <p class="text-gray-600">2 beds | 1 bath | $150/night</p>
-                </li>
-                <li class="mb-3">
-                    <a href="#" class="text-blue-600 hover:underline">Modern
-                        Apartment Downtown</a>
-                    <p class="text-gray-600">1 bed | 1 bath | $120/night</p>
-                </li>
-                <li class="mb-3">
-                    <a href="#" class="text-blue-600 hover:underline">Charming
-                        Cottage in the Countryside</a>
-                    <p class="text-gray-600">2 beds | 1 bath | $180/night</p>
-                </li>
-                <li class="mb-3">
-                    <a href="#" class="text-blue-600 hover:underline">Spacious
-                        Family Home</a>
-                    <p class="text-gray-600">4 beds | 3 baths | $300/night</p>
-                </li>
+                }
             </ul>
         </div>
 
@@ -49,37 +32,27 @@
             </div>
         </section>
 
-        <div
-            class="newsletter-subscribe p-4 bg-white shadow-md rounded-md mt-6">
-            <h4 class="text-lg font-semibold mb-4">Subscribe to Newsletter</h4>
-            <form>
-                <input type="email" placeholder="Enter your email"
-                    class="w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500">
-                <button type="submit"
-                    class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Subscribe</button>
-            </form>
-        </div>
     </div>
 
     <!-- Main Content (1/2 width, scrollable) -->
-
     <div class="w-1/2 h-full  pb-8">
         <div class="p-4">
 
             <!-- Icons Library -->
 
             <div
-                class="w-full flex flex-col gap-1 p-2 border shadow-lg rounded-xl mx-2 bg-white dark:border-gray-400 dark:bg-gray-800">
-                <div class="flex items-center gap-y2 pt-2">
+                class="w-full flex flex-col gap-5 p-2 border shadow-lg rounded-xl mx-2 bg-white dark:border-gray-400 dark:bg-gray-800">
+                <div
+                    class="flex items-center justify-center gap-2">
                     <img
                         src="https://images.unsplash.com/photo-1501196354995-cbb51c65aaea?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w0NzEyNjZ8MHwxfHNlYXJjaHw3fHxwZW9wbGV8ZW58MHwwfHx8MTcxMTExMTM4N3ww&ixlib=rb-4.0.3&q=80&w=1080"
                         alt="User profile"
-                        class="w-[3.5rem] h-[3.5rem] rounded-full" />
+                        class="w-[3.5rem] h-[3.5rem] rounded-xl" />
                     <textarea rows="1"
-                        class="w-full resize-none truncate border border-gray-400 rounded-full p-[12px] text-left xs:text-sm sm:text-lg  dark:bg-gray-700 dark:text-white dark:border-gray-500"
+                        class="w-full resize-none truncate border border-gray-400 rounded-xl p-[12px] text-left xs:text-sm sm:text-lg  dark:bg-gray-700 dark:text-white dark:border-gray-500"
                         placeholder="Start a post, try writing with AI"></textarea>
                 </div>
-
+                <!-- 
                 <div class="flex sm:px-4 mt-2 justify-between">
                     <div
                         class="flex items-center gap-2 p-2 rounded-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
@@ -105,7 +78,9 @@
                             class="text-sm sm:font-semibold xs:truncate text-gray-600 dark:text-gray-300">Write
                             article</h3>
                     </div>
-                </div>
+                </div> -->
+                <button
+                    class="float-right ml-auto border-2 px-5 md:px-10 md:mx-10 py-1 md:py-2 rounded-[10px] hover:bg-gray-100 hover:bg-gray-100 text-gray-900 font-semibold shadow ">Post</button>
             </div>
 
             <!-- Main content area -->
@@ -115,54 +90,65 @@
             <div
                 class="disable-scrolling space-y-5 max-h-[500px] overflow-y-auto ext-4xl font-bold mb-4  rounded p-5 ">
                 <!-- Example Post Card -->
+                @for (item of posts; track $index) {
                 <div
-                    class="p-4 border border-gray-200 rounded-lg shadow">
-                    <h2 class="text-xl font-semibold">Post Title 1</h2>
-                    <p class="text-gray-600 mt-2">
-                        Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Quisque commodo massa sed ipsum
-                        porttitor facilisis...
-                    </p>
-                </div>
+                    class="flex flex-col gap-3 p-4 border border-gray-200 rounded-lg shadow mb-10 ">
+                    <div test-id="card-header"
+                        class="flex justify-between items-center">
+                        <div class="flex jsutify-center items-center gap-3">
+                            <div class="flex-shrink-0">
+                                <img class="w-[3.5rem] h-[3.5rem] rounded-xl"
+                                    src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                                    alt>
+                            </div>
+                            <div class=" min-w-0 flex-1">
+                                <p class="text-sm font-medium text-gray-900"><a
+                                        href="#">Leonard Krasner</a></p>
+                                <p class="text-sm text-gray-500"><a
+                                        href="#">eonardkrasner</a></p>
+                            </div>
+                        </div>
 
-                <div
-                    class="p-4  border border-gray-200 rounded-lg shadow">
-                    <h2 class="text-xl font-semibold">Post Title 2</h2>
-                    <p class="text-gray-600 mt-2">
-                        Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Phasellus vitae est eget dolor
-                        gravida placerat...
-                    </p>
-                </div>
+                        <div class="flex-shrink-0">
+                            <button type="button"
+                                class="inline-flex items-center rounded-xl bg-gray-600 px-2 py-1.5 text-sm font-sm text-white hover:bg-gray-400">
+                                <i class="fa-solid fa-plus mr-2"></i>
+                                <span>Follow</span>
+                            </button>
+                        </div>
+                    </div>
+                    <div test-id="card-body">
+                        <h2 class="text-xl font-semibold">Post Title 5</h2>
+                        <p class="text-gray-600 mt-2">
+                            Lorem ipsum dolor sit <span
+                                class="text-blue-500 cursor-pointer">#dumbells</span>,
+                            consectetur
+                            adipiscing elit. Nullam euismod neque a
+                            convallis lobortis...
+                        </p>
+                    </div>
+                    <hr class="h-1">
 
-                <!-- More Posts -->
-                <div
-                    class="p-4 border border-gray-200 rounded-lg shadow">
-                    <h2 class="text-xl font-semibold">Post Title 3</h2>
-                    <p class="text-gray-600 mt-2">
-                        Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Nullam euismod neque a
-                        convallis lobortis...
-                    </p>
-                </div>
-                <div
-                    class="p-4 border border-gray-200 rounded-lg shadow">
-                    <h2 class="text-xl font-semibold">Post Title 4</h2>
-                    <p class="text-gray-600 mt-2">
-                        Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Nullam euismod neque a
-                        convallis lobortis...
-                    </p>
-                </div> <div
-                    class="p-4 border border-gray-200 rounded-lg shadow mb-10  ">
-                    <h2 class="text-xl font-semibold">Post Title 5</h2>
-                    <p class="text-gray-600 mt-2">
-                        Lorem ipsum dolor sit amet, consectetur
-                        adipiscing elit. Nullam euismod neque a
-                        convallis lobortis...
-                    </p>
-                </div>
+                    <div class="flex justify-between  text-sm gap-5"
+                        test-id="card-actions">
+                        <div class>
+                            @for (item of [1,2,3]; track $index) {
+                            <p
+                                class="inline-flex items-center rounded-xl bg-red-600 px-1.5 py-1 text-[0.6rem] font-sm text-white ml-2">
+                                <span>Sports</span>
+                            </p>
+                            }
+                        </div>
 
+                        <div class>
+                            <button
+                                class="border-2 px-3 py-1 mr-2 rounded-[10px] hover:bg-gray-400 hover:bg-gray-100 text-gray-900 font-semibold shadow ">Offer</button>
+                            <button
+                                class="border-2 px-3 py-1 rounded-[10px] hover:bg-gray-100 hover:bg-gray-100 text-gray-900 font-semibold shadow ">Message</button>
+                        </div>
+                    </div>
+                </div>
+                }
                 <!-- You can add more post cards like this -->
             </div>
 
@@ -170,12 +156,13 @@
     </div>
 
     <!-- Right Sidebar (1/4 width, fixed) -->
-    <div class="w-1/4 h-full sticky top-0">
+    <div class="w-1/4 h-full ">
         <div class="p-4">
             <section aria-labelledby="who-to-follow-heading">
                 <h2 id="who-to-follow-heading"
                     class="text-base font-medium text-gray-900">Who to
                     follow</h2>
+                @for (item of [1,2,3]; track $index) {
                 <div class="mt-6 flow-root">
                     <ul role="list" class="-my-4 divide-y divide-gray-200">
                         <li class="flex items-center space-x-3 py-4">
@@ -193,15 +180,8 @@
 
                             <div class="flex-shrink-0">
                                 <button type="button"
-                                    class="inline-flex items-center rounded-full bg-rose-50 px-3 py-0.5 text-sm font-medium text-rose-700 hover:bg-rose-100">
-                                    <svg
-                                        class="-ml-1 mr-0.5 h-5 w-5 text-rose-400"
-                                        xmlns="http://www.w3.org/2000/svg"
-                                        viewBox="0 0 20 20" fill="currentColor"
-                                        aria-hidden="true">
-                                        <path
-                                            d="M10.75 4.75a.75.75 0 00-1.5 0v4.5h-4.5a.75.75 0 000 1.5h4.5v4.5a.75.75 0 001.5 0v-4.5h4.5a.75.75 0 000-1.5h-4.5v-4.5z"></path>
-                                    </svg>
+                                    class="inline-flex items-center rounded-xl bg-gray-600 px-2 py-1.5 text-sm font-sm text-white hover:bg-gray-400">
+                                    <i class="fa-solid fa-plus mr-2"></i>
                                     <span>Follow</span>
                                 </button>
                             </div>
@@ -211,89 +191,33 @@
 
                     </ul>
                 </div>
+                }
             </section>
         </div>
-        <div class="max-w-6xl mx-auto p-6">
+        <div class="max-w-6xl mx-auto p-6 my-5">
             <h1 class="text-2xl font-bold text-gray-900 mb-2">Trendy Items</h1>
 
             <!-- Grid for Trendy Items -->
-            <div class="grid grid-cols-4 gap-4">
-                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-32 object-cover rounded"
-                        src="https://loremflickr.com/300/300/nature"
-                        alt="Nature">
-                    <div class="mt-2 text-center">
-                        <h3 class="font-bold text-gray-900">Nature</h3>
-                    </div>
-                </div>
+            <div class="flex flex-row flex-wrap justify-between ">
+                @for (item of [1,2,3,5,7,8]; track $index) {
+                <h3
+                    class="text-center p-4 font-bold text-gray-900 rounded-lg shadow-lg  w-fit">Nature</h3>
+                }
+            </div>
 
-                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-32 object-cover rounded"
-                        src="https://loremflickr.com/300/300/travel"
-                        alt="Travel">
-                    <div class="mt-2 text-center">
-                        <h3 class="font-bold text-gray-900">Travel</h3>
-                    </div>
-                </div>
-
-                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-32 object-cover rounded"
-                        src="https://loremflickr.com/300/300/art" alt="Art">
-                    <div class="mt-2 text-center">
-                        <h3 class="font-bold text-gray-900">Art</h3>
-                    </div>
-                </div>
-
-                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-32 object-cover rounded"
-                        src="https://loremflickr.com/300/300/music" alt="Music">
-                    <div class="mt-2 text-center">
-                        <h3 class="font-bold text-gray-900">Music</h3>
-                    </div>
-                </div>
-
-                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-32 object-cover rounded"
-                        src="https://loremflickr.com/300/300/sports"
-                        alt="Sports">
-                    <div class="mt-2 text-center">
-                        <h3 class="font-bold text-gray-900">Sports</h3>
-                    </div>
-                </div>
-
-                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-32 object-cover rounded"
-                        src="https://loremflickr.com/300/300/animals"
-                        alt="Animals">
-                    <div class="mt-2 text-center">
-                        <h3 class="font-bold text-gray-900">Animals</h3>
-                    </div>
-                </div>
-
-                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-32 object-cover rounded"
-                        src="https://loremflickr.com/300/300/flower"
-                        alt="Flowers">
-                    <div class="mt-2 text-center">
-                        <h3 class="font-bold text-gray-900">Flowers</h3>
-                    </div>
-                </div>
-
-                <div class="p-4 border border-gray-200 rounded-lg shadow-lg">
-                    <img class="w-full h-32 object-cover rounded"
-                        src="https://loremflickr.com/300/300/food" alt="Food">
-                    <div class="mt-2 text-center">
-                        <h3 class="font-bold text-gray-900">Food</h3>
-                    </div>
-                </div>
+            <div
+                class="newsletter-subscribe p-4 bg-white shadow-md rounded-md mt-6">
+                <h4 class="text-lg font-semibold mb-4">Subscribe to
+                    Newsletter</h4>
+                <form>
+                    <input type="email" placeholder="Enter your email"
+                        class="w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black">
+                    <button type="submit"
+                        class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Subscribe</button>
+                </form>
             </div>
 
             <!-- Load More Button -->
-            <div class="flex justify-center mt-8">
-                <button
-                    class="bg-blue-400 text-white font-bold py-2 px-6 rounded-full">Load
-                    More</button>
-            </div>
         </div>
     </div>
 

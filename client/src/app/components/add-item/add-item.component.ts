@@ -13,6 +13,7 @@ export class AddItemComponent {
   myDate = new Date();
   min!: string;
 
+  itemsArray: number[] = [1, 2, 3]
   ngOnInit(): void {
 
 

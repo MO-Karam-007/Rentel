@@ -6,9 +6,10 @@
     <ul class="hidden bg-inherit md:flex">
 
         <a class="mr-4" [routerLink]="['/items']">Nearby Rentals</a>
+        @if (!token) {
 
         <a class="mr-4" [routerLink]="['/add-item']">Add Rentally</a>
-
+        }
         <a [routerLink]="['/posts']">Ask Others</a>
 
     </ul>

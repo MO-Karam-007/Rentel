@@ -4,91 +4,144 @@
   
   </div> -->
 
-  <div class="flex h-screen">
-    <!-- Sidebar for Messages List -->
-    <div class="w-1/4 bg-gray-100 p-8 rounded-xl border-r-2 shadow-lg pb-12 border-gray-300 space-y-6 mb-8">
-      <h2 class="text-xl font-bold mb-4">Messages</h2>
+<div class="flex h-[85vh] border-t ">
+  <!-- Sidebar for Messages List -->
+  <div
+    class="h-full w-1/4 bg-gray-100 p-8  mb-8 px-4 ">
+    <h2 class="text-2xl font-bold mb-2">Chats</h2>
+    <div
+      class="flex bg-white items-center justify-around m-auto rounded-lg mb-3 ">
+      <i class="fa-solid fa-magnifying-glass text-gray-300 "></i>
       <input
         type="text"
         placeholder="Search messages"
-        class="w-full p-2 mb-4 border border-gray-300 rounded-md"
-      />
-  
-      <!-- Messages List -->
-      <div class="space-y-4">
-        <div class="flex items-center p-2 bg-white rounded-lg shadow-sm">
-          <img
-            src="https://via.placeholder.com/40"
-            alt="Profile"
-            class="w-10 h-10 rounded-full mr-4"
-          />
-          <div class="flex-1">
+        class="w-3/4 py-2  border-none focus:border-1" />
+    </div>
+
+    <!-- Messages List -->
+
+    <div class="space-y-2 h-4/5 overflow-y-scroll disable-scrolling">
+
+      @for (item of [1,3,4,5,67,8,1,3,4,5,67,8,1,3,4,5,67,8]; track $index) {
+      <div class="flex items-center p-2 bg-white rounded-lg shadow-sm">
+        <img
+          src="assets/cat.jpg"
+          alt="Profile"
+          class="w-10 h-10 rounded-full mr-4" />
+        <div class="flex-1 ">
+          <div class="flex justify-between">
             <p class="font-semibold">Jan Mayer</p>
-            <p class="text-gray-500 text-sm">12 mins ago</p>
-            <p class="text-gray-600 text-sm truncate">
-              We want to invite you...
-            </p>
+            <p class="text-gray-500 text-sm">1:12 AM</p>
           </div>
-        </div>
-  
-        <div class="flex items-center p-2 bg-white rounded-lg shadow-sm">
-          <img
-            src="https://via.placeholder.com/40"
-            alt="Profile"
-            class="w-10 h-10 rounded-full mr-4"
-          />
-          <div class="flex-1">
-            <p class="font-semibold">Joe Bartmann</p>
-            <p class="text-gray-500 text-sm">3:40 PM</p>
-            <p class="text-gray-600 text-sm truncate">
-              Hey thanks for your interview...
-            </p>
-          </div>
+          <p class="text-gray-600 text-sm truncate">
+            We want to invite you...
+          </p>
         </div>
       </div>
+      }
+
     </div>
-  
-    <!-- Message Thread Area -->
-    <div class="flex-1 p-6 bg-white">
-      <div class="flex items-center mb-6">
+  </div>
+
+  <!-- Message Thread Area -->
+  <div class="flex flex-col w-full bg-white h-full justify-between">
+    <div class>
+      <div class="flex items-center bg-gray-200 p-4">
         <img
-          src="https://via.placeholder.com/40"
+          src="assets/cat.jpg"
           alt="Profile"
-          class="w-10 h-10 rounded-full mr-4"
-        />
+          class="w-10 h-10 rounded-full mr-4" />
         <div>
           <h2 class="text-lg font-semibold">Jan Mayer</h2>
           <p class="text-gray-500 text-sm">Recruiter at Nomad</p>
         </div>
       </div>
-  
-      <!-- Messages Thread -->
-      <div class="flex flex-col space-y-4">
-        <div class="bg-gray-100 p-4 rounded-md self-start max-w-md">
-          <p class="text-gray-700">We want to invite you to join our team.</p>
-          <span class="text-gray-500 text-xs">12 mins ago</span>
+    </div>
+
+    <!-- Messages Thread -->
+    <div class>
+
+      <div class="flex flex-col justify-between  px-4 py-4">
+
+        <div class="flex items-start gap-2.5">
+          <img class="w-8 h-8 rounded-full"
+            src="assets/cat.jpg" alt="Jese image">
+          <div class="flex flex-col gap-1 w-full max-w-[320px]">
+            <div class="flex items-center space-x-2 rtl:space-x-reverse">
+              <span
+                class="text-sm font-semibold text-gray-900 dark:text-white">Bonnie
+                Green</span>
+              <span
+                class="text-sm font-normal text-gray-500 dark:text-gray-400">11:46</span>
+            </div>
+            <div
+              class="flex flex-col leading-1.5 p-4 border-gray-200 bg-gray-100 rounded-e-xl rounded-es-xl dark:bg-gray-700">
+              <p class="text-sm font-normal text-gray-900 dark:text-white">
+                That's awesome. I think our users will really appreciate the
+                improvements.</p>
+            </div>
+            <span
+              class="text-sm font-normal text-gray-500 dark:text-gray-400">Delivered</span>
+          </div>
+          <button id="dropdownMenuIconButton"
+            data-dropdown-toggle="dropdownDots"
+            data-dropdown-placement="bottom-start"
+            class="inline-flex self-center items-center p-2 text-sm font-medium text-center text-gray-900 bg-white rounded-lg hover:bg-gray-100 focus:ring-4 focus:outline-none dark:text-white focus:ring-gray-50 dark:bg-gray-900 dark:hover:bg-gray-800 dark:focus:ring-gray-600"
+            type="button">
+            <svg class="w-4 h-4 text-gray-500 dark:text-gray-400"
+              aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
+              fill="currentColor" viewBox="0 0 4 15">
+              <path
+                d="M3.5 1.5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 6.041a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Zm0 5.959a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0Z" />
+            </svg>
+          </button>
+          <div id="dropdownDots"
+            class="z-10 hidden bg-white divide-y divide-gray-100 rounded-lg shadow w-40 dark:bg-gray-700 dark:divide-gray-600">
+            <ul class="py-2 text-sm text-gray-700 dark:text-gray-200"
+              aria-labelledby="dropdownMenuIconButton">
+              <li>
+                <a href="#"
+                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Reply</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Forward</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Copy</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Report</a>
+              </li>
+              <li>
+                <a href="#"
+                  class="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white">Delete</a>
+              </li>
+            </ul>
+          </div>
         </div>
-  
+
         <div class="bg-blue-100 p-4 rounded-md self-end max-w-md">
           <p class="text-gray-700">Thanks! I'm interested.</p>
           <span class="text-gray-500 text-xs">Just now</span>
         </div>
       </div>
-  
+
       <!-- Reply Box -->
-      <div class="mt-6">
-        <div class="flex items-center border-t border-gray-300 pt-4">
-          <input
-            type="text"
-            placeholder="Reply message"
-            class="flex-1 p-2 border border-gray-300 rounded-md"
-          />
-          <button
-            class="ml-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
-            Send
-          </button>
-        </div>
+      <div class="flex items-center border-t border-gray-300 p-4">
+        <input
+          type="text"
+          placeholder="Reply message"
+          class="flex-1 p-2 border border-gray-300 rounded-md" />
+        <button
+          class="ml-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition">
+          Send
+        </button>
+        <i class="fa-regular fa-paper-plane"></i>
       </div>
     </div>
+
   </div>
-  
+</div>

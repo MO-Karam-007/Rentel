@@ -42,9 +42,23 @@ class ItemController extends BaseController implements HasMiddleware
         $user = Auth::user();
         $validated['lender_id']  = $user->id;
 
-        if ($request->hasFile('item_image')) {
-            $imagePath = $request->file('item_image')->store('images', 'public');
-            $validated['item_image'] = $imagePath;
+        if($request->hasFile('item_images')) {
+            foreach ($request->file('item_images') as $image) {
+                $path = $image->store('item_images', 'public');  
+                ItemImage::create([
+                    'item_id' => $item->id,
+                    'image_path' => $path,
+                ]);
+            }
+        }
+        if ($request->has('specifications')) {
+            foreach ($request->input('specifications') as $specification) {
+                ItemSpecification::create([
+                    'item_id' => $item->id,
+                    'spec_name' => $specification['spec_name'],
+                    'spec_value' => $specification['spec_value'],
+                ]);
+            }
         }
 
         $item = Item::create($validated);
@@ -97,4 +111,3 @@ class ItemController extends BaseController implements HasMiddleware
         return $this->sendResponse(['message' => 'Item deleted successfully'], 200);
     }
 }
-x   

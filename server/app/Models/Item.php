@@ -23,4 +23,13 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'lender_id');
     }
+    public function images()
+    {
+        return $this->hasMany(ItemImage::class);
+    }
+    public function specifications()
+{
+    return $this->hasMany(ItemSpecification::class);
+}
+
 }

@@ -2,48 +2,47 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Item_specification;
+use App\Models\Item;
+use App\Models\ItemSpecification;
 use Illuminate\Http\Request;
 
-class ItemSpecificationsController extends Controller
+class ItemSpecificationController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function store(Request $request, Item $item)
     {
-        //
+        $validated = $request->validate([
+            'specifications' => 'required|array',
+            'specifications.*.spec_name' => 'required|string',
+            'specifications.*.spec_value' => 'required|string',
+        ]);
+
+        foreach ($validated['specifications'] as $specification) {
+            ItemSpecification::create([
+                'item_id' => $item->id,
+                'spec_name' => $specification['spec_name'],
+                'spec_value' => $specification['spec_value'],
+            ]);
+        }
+
+        return response()->json(['message' => 'Specifications added successfully'], 201);
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
+    public function update(Request $request, ItemSpecification $specification)
     {
-        //
+        $validated = $request->validate([
+            'spec_name' => 'required|string',
+            'spec_value' => 'required|string',
+        ]);
+
+        $specification->update($validated);
+
+        return response()->json(['message' => 'Specification updated successfully'], 200);
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(Item_specification $item_specification)
+    public function destroy(ItemSpecification $specification)
     {
-        //
-    }
+        $specification->delete();
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, Item_specification $item_specification)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Item_specification $item_specification)
-    {
-        //
+        return response()->json(['message' => 'Specification deleted successfully'], 200);
     }
 }

@@ -24,10 +24,12 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->integer('duration');
             $table->foreignId('lender_id')->constrained('users');
+            $table->unsignedBigInteger('category_id'); // Foreign key
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }
-    
+
     /**
      * Reverse the migrations.
      */

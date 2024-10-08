@@ -18,6 +18,7 @@ import { NotificationsComponent } from './notifications/notifications.component'
 import { ProfileComponent } from './pages/profile/profile.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
+import { CompleteProfileComponent } from './pages/complete-profile/complete-profile.component';
 
 export const routes: Routes = [
   {
@@ -49,6 +50,7 @@ export const routes: Routes = [
     children: [
       { path: 'signup', component: SignUpComponent, title: 'sign up' },
       { path: 'login', component: LoginComponent, title: 'login' },
+      { path: 'complete-data', component: CompleteProfileComponent, title: 'login' },
     ],
   },
 

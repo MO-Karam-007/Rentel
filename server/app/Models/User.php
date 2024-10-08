@@ -31,7 +31,10 @@ class User extends Authenticatable
         'password',
         'twitter_id',
         'facebook_id',
-        'google_id'
+        'google_id',
+        'latitude',
+        'longitude',
+        'profile_incomplete'
     ];
 
     /**

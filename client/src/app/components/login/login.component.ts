@@ -1,13 +1,47 @@
 import { Component } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
+// import { AuthService } from '../../services/auth.service';
+import { FormsModule } from '@angular/forms';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [RouterLink],
+  imports: [RouterLink, FormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss'
 })
 export class LoginComponent {
+
+  credentials: any = {
+    email: '',
+    password: ''
+  };
+  // private authService: AuthService
+  constructor(private router: Router, private authService: AuthService) {
+
+  }
+
+
+  login(form: any) {
+
+
+    this.credentials.email = form.value.email
+    this.credentials.password = form.value.password
+    this.authService.login(this.credentials).subscribe(
+      (res: any) => {
+        // console.log(res.data.profileCompletion);
+
+        localStorage.setItem('token', res.data.token);
+
+        // Redirection
+        if (res.data.profileCompletion) {
+          this.router.navigate(['/complete-data']);
+        } else {
+          this.router.navigate(['/']);
+        }
+      });
+
+  }
 
 }

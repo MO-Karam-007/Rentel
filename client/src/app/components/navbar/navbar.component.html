@@ -14,16 +14,16 @@
 
     </ul>
 
-    @if (token) {
+    @if (!token) {
     <div class>
-        <button type="button"
+        <a type="button"
             [routerLink]="['/login']"
             class="text-white bg-black border border-white focus:outline-none hover:bg-gray-900 focus:ring-4 focus:ring-gray-100 font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">sign
-            in</button>
-        <button type="button"
+            in</a>
+        <a type="button"
             [routerLink]="['/signup']"
             class="text-black bg-white border border-white focus:outline-none hover:bg-gray-100 focus:ring-4 focus:ring-gray-100 font-bold rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:text-white dark:border-gray-600 dark:hover:bg-gray-700 dark:hover:border-gray-600 dark:focus:ring-gray-700">sign
-            up</button>
+            up</a>
     </div>
     }@else {
     <div class="flex flex-2 items-center ">

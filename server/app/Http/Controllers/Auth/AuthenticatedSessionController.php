@@ -11,7 +11,7 @@ use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
-class AuthenticatedSessionController extends Controller
+class AuthenticatedSessionController extends BaseController
 {
     /**
      * Handle an incoming authentication request.
@@ -29,15 +29,13 @@ class AuthenticatedSessionController extends Controller
 
         $user->tokens()->delete();
 
-        // $request->authenticate();
-        // $request->dd();
 
         $token = $user->createToken('api-token')->plainTextToken;
 
         // $request->session()->regenerate();
         // dd("4");
 
-        return response()->json(['token' => $token]);
+        return $this->sendResponse(['token' => $token, 'profileCompletion' => $user->profile_incomplete], 201);
         // return $this->sendResponse(['token' => $token], 'User logged in successfully');
     }
 
@@ -46,6 +44,7 @@ class AuthenticatedSessionController extends Controller
      */
     public function destroy(Request $request)
     {
-        return $request->user()->currentAccessToken()->delete();
+        $request->user()->currentAccessToken()->delete();
+        return $this->sendResponse(['message' => 'User logged out successfully'], 200);
     }
 }

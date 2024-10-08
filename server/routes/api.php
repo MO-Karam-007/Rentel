@@ -24,14 +24,14 @@ use Illuminate\Support\Facades\Route;
 Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
-Route::middleware('web')->group(function () {
-    Route::controller(RegisterController::class)->group(function () {
-        Route::get('/oauth/x/redirect', [RegisterController::class, 'xRedirect']);
-        Route::get('/oauth/x/callback', [RegisterController::class, 'xCallback']);
-        Route::get('/oauth/google/redirect', [RegisterController::class, 'googleRedirect']);
-        Route::get('/oauth/google/callback', [RegisterController::class, 'googleCallback']);
-    });
-});
+// Route::middleware('web')->group(function () {
+//     Route::controller(RegisterController::class)->group(function () {
+//         Route::get('/oauth/x/redirect', [RegisterController::class, 'xRedirect']);
+//         Route::get('/oauth/x/callback', [RegisterController::class, 'xCallback']);
+//         Route::get('/oauth/google/redirect', [RegisterController::class, 'googleRedirect']);
+//         Route::get('/oauth/google/callback', [RegisterController::class, 'googleCallback']);
+//     });
+// });
 
 
 // Middleware inside Controller
@@ -41,6 +41,7 @@ Route::apiResource('review', ReviewController::class);
 
 
 Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/complete-data', [RegisteredUserController::class, 'completeProfile']);
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });
 
@@ -69,4 +70,3 @@ Route::apiResource('followers', FollowerController::class);
 
 // Route::apiResource('items', ItemController::class);
 // Route::apiResource('rental', RentalController::class);
-

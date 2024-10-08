@@ -22,51 +22,61 @@
 
     <hr class="w-1/2 mt-6" />
 
-    <form class="w-1/2">
+    <form class="w-1/2" #signupForm="ngForm"
+        (ngSubmit)="signup(signupForm)">
         <div class="my-4">
-            <label for="name" class="capitalize block mb-1">name*</label>
-            <input type="text" name="name" id="name"
+            <label for="username"
+                class="capitalize block mb-1">Username*</label>
+            <input type="text" name="username" id="username"
+                ngModel
                 class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
-                placeholder="Enter Your Name">
+                placeholder="Enter Your username">
         </div>
         <div class="my-4">
             <label for="email" class="capitalize block mb-1">email*</label>
             <input type="email" name="email" id="email"
+                ngModel
                 class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
                 placeholder="Enter Your Name">
         </div>
         <div class="my-4">
-            <label for="pw" class="capitalize block mb-1">password*</label>
-            <input type="password" name="pw" id="pw"
+            <label for="password"
+                class="capitalize block mb-1">password*</label>
+            <input type="password" name="password" id="password"
+                ngModel
                 class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
-                placeholder="Enter Your Name">
+                placeholder="Enter Your password">
         </div>
         <div class="my-4">
-            <label for="pw" class="capitalize block mb-1">confirm
+            <label for="password_confirmation"
+                class="capitalize block mb-1">confirm
                 password*</label>
-            <input type="password" name="pw" id="pw"
+            <input type="password" name="password_confirmation"
+                id="password_confirmation"
+                ngModel
                 class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
                 placeholder="Enter Your Name">
         </div>
 
-    </form>
-
-    <div class="flex items-start mb-5">
-        <div class="flex items-center h-5">
-            <input id="terms" type="checkbox" value
-                class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
-                required />
+        <div class="flex items-start mb-5">
+            <div class="flex items-center h-5">
+                <input id="terms" type="checkbox" value
+                    ngModel
+                    class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300 dark:bg-gray-700 dark:border-gray-600 dark:focus:ring-blue-600 dark:ring-offset-gray-800 dark:focus:ring-offset-gray-800"
+                    required />
+            </div>
+            <label for="terms"
+                class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I
+                agree with the <a href="#"
+                    class="text-blue-600 hover:underline dark:text-blue-500">terms
+                    and conditions</a></label>
         </div>
-        <label for="terms"
-            class="ms-2 text-sm font-medium text-gray-900 dark:text-gray-300">I
-            agree with the <a href="#"
-                class="text-blue-600 hover:underline dark:text-blue-500">terms
-                and conditions</a></label>
-    </div>
 
-    <button
-        class="bg-black text-center text-white capitalize text-xl p-3 w-1/2 rounded-lg">sign
-        up</button>
+        <button
+            type="submit"
+            class="bg-black text-center text-white capitalize text-xl p-3 w-1/2 rounded-lg">sign
+            up</button>
+    </form>
 
     <p class="ms-8 mt-4">already have an account?
         <a [routerLink]="['/login']"

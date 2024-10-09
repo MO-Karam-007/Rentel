@@ -11,11 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('item_images', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('item_id')->constrained('items')->onDelete('cascade');  // Foreign key to items table
-            $table->string('image_path');  
-            $table->timestamps();
+        Schema::table('items', function (Blueprint $table) {
+            $table->foreignId('category_id')->constrained('categories')->after('lender_id')->onDelete('cascade');
+
         });
     }
 
@@ -24,6 +22,9 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('item_images');
+        Schema::table('items', function (Blueprint $table) {
+            $table->dropForeign(['category_id']);
+            $table->dropColumn('category_id');
+        });
     }
 };

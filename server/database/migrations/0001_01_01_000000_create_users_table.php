@@ -3,7 +3,8 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-// users
+
+
 return new class extends Migration
 {
     /**
@@ -28,7 +29,7 @@ return new class extends Migration
             $table->string('google_id')->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
-            $table->boolean("profile_incomplete")->nullable();  
+            $table->boolean("profile_incomplete")->nullable();
             $table->timestamp("email_verified_at")->nullable();
 
             $table->timestamps();

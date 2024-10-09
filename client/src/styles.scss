@@ -8,6 +8,8 @@
 @import "primeng/resources/primeng.css";
 
 
+
+
 .notifiable{
     position: relative;
 cursor: pointer;
@@ -40,7 +42,7 @@ html {
     -ms-overflow-style: none;  /* Internet Explorer 10+ */
     scrollbar-width: none;  /* Firefox */
 }
-.disable-scrolling::-webkit-scrollbar { 
+.disable-scrolling::-webkit-scrollbar {
     display: none;  /* Safari and Chrome */
 }
 

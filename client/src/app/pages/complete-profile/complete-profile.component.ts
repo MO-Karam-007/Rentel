@@ -1,95 +1,114 @@
 import { Component, OnInit } from '@angular/core';
-import { FormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { HttpClient } from '@angular/common/http';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-complete-profile',
   standalone: true,
-  imports: [RouterLink, FormsModule],
+  imports: [RouterLink, ReactiveFormsModule, CommonModule],
   templateUrl: './complete-profile.component.html',
   styleUrl: './complete-profile.component.scss'
 })
 export class CompleteProfileComponent implements OnInit {
-  profileData: any = {
-    first_name: '',
-    last_name: '',
-    phone: '',
-    address: '',
-    profile_picture: null,
-    identification_scan: null,
-    latitude: '',
-    longitude: ''
-  };
-  constructor(private authService: AuthService, private router: Router) { }
+
+  form!: FormGroup;
+  selectedFile: File | null = null;
+  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {
+
+  }
 
   ngOnInit(): void {
-    // this.getLocation();
-
-  }
-
-  handleFileInput(event: any, fieldName: string) {
-    const file = event.target.files[0];
-    if (file) {
-      this.profileData[fieldName] = file;  // Assign file object to profileData
-    }
-  }
-
-  getLocation() {
-    console.log(navigator.geolocation);
-
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition((position: any) => {
-        if (position) {
-          console.log("Latitude: " + position.coords.latitude +
-            "Longitude: " + position.coords.longitude);
-          this.profileData.latitude = position.coords.latitude;
-          this.profileData.longitude = position.coords.longitude;
-          console.log(this.profileData.latitude);
-          console.log(this.profileData.longitude);
-        }
-      },
-        (error: any) => console.log(error));
-    } else {
-      alert("Geolocation is not supported by this browser.");
-    }
-  }
-
-
-  completeProfile(form: any) {
-    if (form.invalid) return;
-
-    this.profileData.first_name = form.value.first_name;
-    this.profileData.last_name = form.value.last_name;
-    this.profileData.phone = form.value.phone;
-    this.profileData.address = form.value.address;
-    // this.profileData.profile_picture = form.value.profile_picture || '/home/karam/Downloads/image1.jpeg';
-    // this.profileData.identification_scan = form.value.identification_scan || '/home/karam/Downloads/image2.jpeg';
-
-
-
     this.getLocation();
-    console.log(this.profileData);
+    this.form = this.fb.group({
+      first_name: ['', Validators.required],
+      last_name: ['', Validators.required],
+      phone: ['', Validators.required],
+      address: [''],
+      profile_picture: [null, Validators.required],
+      identification_scan: [null, Validators.required],
+      latitude: [null, Validators.required],
+      longitude: [null, Validators.required]
+    });
+  }
 
-    console.log("111");
+
+
+
+  handleFileInput(event: Event, controlName: string): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.form.patchValue({
+        [controlName]: file
+      });
+      this.form.get(controlName)?.updateValueAndValidity();
+    }
+  }
+  getLocation() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position: any) => {
+          if (position) {
+            this.form.patchValue({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            });
+          }
+        },
+        (error: any) => console.log(error)
+      );
+    } else {
+      alert('Geolocation is not supported by this browser.');
+    }
+  }
+
+  onSubmit() {
+    console.log("Hello WORLD111");
+
+    if (this.form.invalid) {
+      console.log(this.form);
+      console.log("Hello WORLD RTTOT");
+      return;
+    }
+
+
+
+    const formData = new FormData();
+    formData.append('first_name', this.form.value.first_name);
+    formData.append('last_name', this.form.value.last_name);
+    formData.append('phone', this.form.value.phone);
+    formData.append('address', this.form.value.address);
+    formData.append('latitude', this.form.value.latitude);
+    formData.append('longitude', this.form.value.longitude);
+
+    // formData.append('profile_picture', this.form.get('profile_picture')?.value); // Add the file
+    // formData.append('identification_scan', this.form.get('identification_scan')?.value); // Add the file
+    // Append the files to FormData if they exist
+    if (this.form.value.profile_picture) {
+      formData.append('profile_picture', this.form.value.profile_picture);
+    }
+    if (this.form.value.identification_scan) {
+      formData.append('identification_scan', this.form.value.identification_scan);
+    }
+    console.log("Hello WORLD");
+    // Send the form data to the server
     const token = localStorage.getItem('token') || '';
-    console.log("111");
 
-    this.authService.completeProfile(this.profileData, token).subscribe(
+
+    this.authService.completeProfile(formData, token).subscribe(
       (res: any) => {
         console.log('Profile completed successfully:', res);
-        console.log("111");
-
         this.router.navigate(['/']);
       },
       (error) => {
         console.error('Profile completion failed:', error);
-        console.log("111");
-
       }
     );
   }
-
 
 
 

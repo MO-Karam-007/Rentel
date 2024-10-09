@@ -17,7 +17,6 @@ export class LandingComponent implements OnInit {
   min!: string;
   radius: number = 7;  // Default radius value
 
-
   ngOnInit(): void {
 
 

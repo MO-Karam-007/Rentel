@@ -11,8 +11,7 @@
 
     <hr class="w-3/4 mt-6" />
 
-    <form class="w-3/4" #completeProfileForm="ngForm"
-        (ngSubmit)="completeProfile(completeProfileForm)">
+    <form class="w-3/4" [formGroup]="form" (ngSubmit)="onSubmit()">
         <div class="flex items-center justify-between gap-3">
             <div class="my-4 w-1/2">
                 <label for="first_name" class=" capitalize block mb-1">First
@@ -20,7 +19,19 @@
                 <input id="first_name" type="text" name="first_name"
                     class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
                     placeholder="Enter Your First Name"
-                    ngModel required>
+                    formControlName="first_name" required>
+
+                <div
+                    *ngIf="form.get('first_name')?.touched && form.get('first_name')?.invalid"
+                    class="text-red-500">
+                    <small
+                        *ngIf="form.get('first_name')?.errors?.['required']">First
+                        Name is required.</small>
+                    <small
+                        *ngIf="form.get('first_name')?.errors?.['minlength']">
+                        First Name must be at least 3 characters long.
+                    </small>
+                </div>
             </div>
 
             <div class="my-4 w-1/2">
@@ -29,7 +40,14 @@
                 <input id="last_name" type="text" name="last_name"
                     class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
                     placeholder="Enter Your Last Name"
-                    ngModel required>
+                    formControlName="last_name" required>
+                <div
+                    *ngIf="form.get('last_name')?.touched && form.get('last_name')?.invalid"
+                    class="text-red-500">
+                    <small
+                        *ngIf="form.get('last_name')?.errors?.['required']">Last
+                        Name is required.</small>
+                </div>
             </div>
         </div>
 
@@ -38,7 +56,15 @@
             <input id="phone" type="text" name="phone"
                 class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
                 placeholder="Enter Your Phone Number"
-                ngModel required>
+                formControlName="phone" required>
+            <div
+                *ngIf="form.get('phone')?.touched && form.get('phone')?.invalid"
+                class="text-red-500">
+                <small *ngIf="form.get('phone')?.errors?.['required']">Phone is
+                    required.</small>
+                <small *ngIf="form.get('phone')?.errors?.['pattern']">Phone
+                    number is invalid.</small>
+            </div>
         </div>
 
         <div class="my-4">
@@ -46,28 +72,28 @@
             <input id="address" type="text" name="address"
                 class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
                 placeholder="Enter Your Address"
-                ngModel required>
+                formControlName="address" required>
         </div>
 
         <div class="my-4">
             <label for="profile_picture" class="capitalize block mb-1">Profile
                 Picture</label>
-            <input id="profile_picture" type="file" name="profile_picture"
-                class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
-                ngModel
+            <input
+                id="profile_picture"
+                type="file"
                 (change)="handleFileInput($event, 'profile_picture')"
-                required>
+                class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow">
+
         </div>
 
         <div class="my-4">
             <label for="identification_scan"
                 class="capitalize block mb-1">Identification Scan</label>
-            <input id="identification_scan" type="file"
-                name="identification_scan"
-                class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
-                ngModel
+            <input
+                id="identification_scan"
+                type="file"
                 (change)="handleFileInput($event, 'identification_scan')"
-                required>
+                class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow">
         </div>
 
         <div class="my-4 w-full flex justify-center">
@@ -85,5 +111,3 @@
     </p>
 
 </div>
-
-<!--  -->

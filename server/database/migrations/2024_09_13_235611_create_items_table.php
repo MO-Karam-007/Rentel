@@ -24,9 +24,11 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->integer('duration');
             $table->foreignId('lender_id')->constrained('users');
-            $table->string('tag')->unique();
-            $table->unsignedBigInteger('category_id'); // Foreign key
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->string('tag');
+            // $table->foreignId('category_id')->constrained('categories')->after('lender_id')->onDelete('cascade');
+            // $table->unsignedBigInteger('category_id'); // Foreign key
+            // $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->foreignId('category_id')->constrained('categories');
             $table->timestamps();
         });
     }

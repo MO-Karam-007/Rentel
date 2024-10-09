@@ -7,7 +7,6 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CategoryController;
 
 
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FollowerController;
@@ -20,6 +19,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Http\Controllers\PusherController;
 use Illuminate\Support\Facades\Route;
 
 Route::post('/register', [RegisteredUserController::class, 'store']);
@@ -40,6 +40,7 @@ Route::apiResource('items', ItemController::class);
 Route::apiResource('rentals', RentalController::class);
 Route::apiResource('review', ReviewController::class);
 Route::apiResource('category', CategoryController::class);
+Route::post('/messages', [PusherController::class, 'store']);
 
 
 

@@ -1,14 +1,15 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Models\Item;
+use App\Models\Item_image;
+use App\Models\Item_specification;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
-
+use Illuminate\Support\Str;
 class ItemController extends BaseController implements HasMiddleware
 {
 
@@ -21,50 +22,52 @@ class ItemController extends BaseController implements HasMiddleware
 
     public function index()
     {
-        $items = Item::all();
-        // return response()->json("ok", 200);
+        $items = Item::with(['category', 'images', 'specifications'])->get();
+
         return $this->sendResponse($items, 'Data retrived successfully');
     }
 
     public function store(Request $request)
-    {
+{
+    $validated = $request->validate([
+        'name' => 'required|string|max:255',
+        'description' => 'required',
+        'price' => 'required|numeric',
+        'duration' => 'required|integer',
+        'status' => 'required|boolean',
+        'available' => 'required|in:available,rented,unavailable',
+        'category_id' => 'required|exists:categories,id',
+    ]);
 
-        $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required',
-            'item_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'price' => 'required|numeric',
-            'duration' => 'required|integer',
-            'status' => 'required|boolean',
-            'available' => 'required|in:available,rented,unavailable'
-        ]);
+    $user = Auth::user();
+    $validated['lender_id']  = $user->id;
+    $validated['tag'] = Str::slug($validated['name'], '-') . '-' . Str::random(2);
 
-        $user = Auth::user();
-        $validated['lender_id']  = $user->id;
+    $item = Item::create($validated);
 
-        if($request->hasFile('item_images')) {
-            foreach ($request->file('item_images') as $image) {
-                $path = $image->store('item_images', 'public');  
-                ItemImage::create([
-                    'item_id' => $item->id,
-                    'image_path' => $path,
-                ]);
-            }
+    if($request->hasFile('item_images')) {
+        foreach ($request->file('item_images') as $image) {
+            $path = $image->store('item_images', 'public');  
+            Item_image::create([
+                'item_id' => $item->id,
+                'image_path' => $path,
+            ]);
         }
-        if ($request->has('specifications')) {
-            foreach ($request->input('specifications') as $specification) {
-                ItemSpecification::create([
-                    'item_id' => $item->id,
-                    'spec_name' => $specification['spec_name'],
-                    'spec_value' => $specification['spec_value'],
-                ]);
-            }
-        }
-
-        $item = Item::create($validated);
-
-        return response()->json(['message' => 'Item created successfully', 'item' => $item], 201);
     }
+
+    if ($request->has('specifications')) {
+        foreach ($request->input('specifications') as $specification) {
+            Item_specification::create([
+                'item_id' => $item->id,
+                'spec_name' => $specification['spec_name'],
+                'spec_value' => $specification['spec_value'],
+            ]);
+        }
+    }
+
+    return response()->json(['message' => 'Item created successfully', 'item' => $item], 201);
+}
+
 
 
     public function show($id)
@@ -85,7 +88,6 @@ class ItemController extends BaseController implements HasMiddleware
         $validated = $request->validate([
             'name' => 'string|max:255',
             'description' => 'string',
-            'item_image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'price' => 'numeric',
             'duration' => 'integer',
             'status' => 'boolean',

@@ -17,6 +17,8 @@ class Item extends Model
         'price',
         'duration',
         'lender_id',
+        'category_id',
+        'tag'
     ];
 
     public function user()
@@ -25,11 +27,15 @@ class Item extends Model
     }
     public function images()
     {
-        return $this->hasMany(ItemImage::class);
+        return $this->hasMany(Item_image::class);
     }
     public function specifications()
 {
-    return $this->hasMany(ItemSpecification::class);
+    return $this->hasMany(Item_specification::class);
+}
+public function category()
+{
+    return $this->belongsTo(Category::class);
 }
 
 }

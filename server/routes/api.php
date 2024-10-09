@@ -4,6 +4,7 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\CategoryController;
 
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -32,6 +33,8 @@ Route::middleware('web')->group(function () {
 Route::apiResource('items', ItemController::class);
 Route::apiResource('rentals', RentalController::class);
 Route::apiResource('review', ReviewController::class);
+Route::apiResource('category', CategoryController::class);
+
 
 
 Route::middleware('auth:sanctum')->group(function () {

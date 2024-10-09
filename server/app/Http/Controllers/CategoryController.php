@@ -41,7 +41,7 @@ class CategoryController extends BaseController implements HasMiddleware
         if (!$category) {
             return $this->sendError('Category not found', 404);
         }
-        
+
         return $this->sendResponse($category, 200);
     }
 

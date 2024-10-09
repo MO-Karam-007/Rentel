@@ -1,6 +1,6 @@
 import { Component, Inject, PLATFORM_ID } from '@angular/core';
 import { RouterLink } from '@angular/router';
-import { environment } from '.././../../environments/environment'
+// import { environment } from '.././../../environments/environment'
 import Map from 'ol/Map';
 import View from 'ol/View';
 import { OSM } from 'ol/source';

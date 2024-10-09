@@ -46,9 +46,9 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
   <!-- - social_accounts `user_id` `provider` `provider_id` -->
     <!--  Updates -->
 - Categories `id` `category`
-- Tags `id` `tag`
-- Favorites `id`
-- Followers `id`
+- Tags `id` `tag_name`
+- Favorites  `user_id` `item_id`
+- Followers `id` ``
 
 ## Relations
 
@@ -58,7 +58,9 @@ or offer items they own for rent. Notifications within a 6km radius ensure conve
   - Users → Reviews: `One User can write or receive many Reviews.`
   - Users → Messages: `One User can send or receive many Messages.`
   - Items → Rentals: `One item can rented more than one time`
-
+  - Category → Items: `One item has one category, and Category belongs to many items`
+  <!-- Many TO Many -->
+  - User → Items : `One user has many items`  
 -Polymorphic
 
 - _Users ↔ Reviews_ (One-to-Many Polymorphic)

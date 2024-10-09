@@ -7,6 +7,12 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CategoryController;
 
 
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TagController;
+use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\FollowerController;
+
+
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\NewPasswordController;
@@ -41,6 +47,20 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/complete-data', [RegisteredUserController::class, 'completeProfile']);
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });
+
+
+
+// catted api routes
+Route::apiResource('categories', CategoryController::class);
+Route::apiResource('tags', TagController::class);
+
+// Favorites and Followers
+Route::post('favorites', [FavoriteController::class, 'store']);
+Route::delete('favorites/{user_id}/{item_id}', [FavoriteController::class, 'destroy']);
+Route::apiResource('followers', FollowerController::class);
+
+
+
 
 
 // Route::middleware('api')->group(function () {

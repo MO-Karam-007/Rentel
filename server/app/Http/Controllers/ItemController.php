@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+
 use App\Models\Item;
 use App\Models\Item_image;
 use App\Models\Item_specification;
@@ -8,8 +9,10 @@ use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Str;
+
 class ItemController extends BaseController implements HasMiddleware
 {
 
@@ -20,53 +23,93 @@ class ItemController extends BaseController implements HasMiddleware
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $items = Item::with(['category', 'images', 'specifications'])->get();
+
+        $latitude = $request->input('latitude');
+        $longitude = $request->input('longitude');
+        $minDistance = 0; // Minimum distance in meters (7 km)
+        $maxDistance = $request->input('max'); // Maximum distance in meters (22 km)
+
+        if ($maxDistance > 22000) {
+            return response()->json(['message' => 'Out of our range'], 401);
+        }
+
+        if ($latitude && $longitude) {
+            // Use PostGIS function to calculate distances
+            $items = Item::selectRaw('*, ST_Distance(location, ST_MakePoint(?, ?)::geography) as distance', [$longitude, $latitude])
+                ->whereRaw('ST_DWithin(location::geography, ST_MakePoint(?, ?)::geography, ?)', [$longitude, $latitude, $maxDistance])
+                ->get();
+        } else {
+            // If no location is provided, retrieve all items
+            $items = Item::with(['category', 'images', 'specifications'])->get();
+        }
+        // $items = Item::with(['category', 'images', 'specifications'])->get();
 
         return $this->sendResponse($items, 'Data retrived successfully');
     }
 
     public function store(Request $request)
-{
-    $validated = $request->validate([
-        'name' => 'required|string|max:255',
-        'description' => 'required',
-        'price' => 'required|numeric',
-        'duration' => 'required|integer',
-        'status' => 'required|boolean',
-        'available' => 'required|in:available,rented,unavailable',
-        'category_id' => 'required|exists:categories,id',
-    ]);
+    {
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'description' => 'required',
+            'price' => 'required|numeric',
+            'duration' => 'required|integer',
+            'status' => 'boolean',
+            'current_state' => 'required|in:available,rented,unavailable',
+            'category_id' => 'required|exists:categories,id',
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+            'item_images.*' => 'image|mimes:jpg,jpeg,png|max:2048', // Validation for multiple images
 
-    $user = Auth::user();
-    $validated['lender_id']  = $user->id;
-    $validated['tag'] = Str::slug($validated['name'], '-') . '-' . Str::random(2);
+        ]);
 
-    $item = Item::create($validated);
+        $user = Auth::user();
+        $validated['lender_id']  = $user->id;
+        $validated['tag'] = Str::slug($validated['name'], '-') . '-' . Str::random(2);
+        $validated['location'] = DB::raw("ST_SetSRID(ST_MakePoint({$validated['longitude']}, {$validated['latitude']}), 4326)");
 
-    if($request->hasFile('item_images')) {
-        foreach ($request->file('item_images') as $image) {
-            $path = $image->store('item_images', 'public');  
-            Item_image::create([
-                'item_id' => $item->id,
-                'image_path' => $path,
-            ]);
+
+
+        $item = Item::create($validated);
+
+        if ($request->hasFile('item_images')) {
+            foreach ($request->file('item_images') as $image) {
+                $path = $image->store('item_images', 'public');
+
+                Item_image::create([
+                    'item_id' => $item->id,
+                    'image_path' => $path,
+                ]);
+            }
         }
-    }
 
-    if ($request->has('specifications')) {
-        foreach ($request->input('specifications') as $specification) {
-            Item_specification::create([
-                'item_id' => $item->id,
-                'spec_name' => $specification['spec_name'],
-                'spec_value' => $specification['spec_value'],
-            ]);
+
+        // if ($request->hasFile('item_images')) {
+        //     foreach ($request->file('item_images') as $image) {
+        //         $path = $image->store('item_images', 'public');
+        //         Item_image::create([
+        //             'item_id' => $item->id,
+        //             'image_path' => $path,
+        //         ]);
+        //     }
+        // }
+
+        if ($request->has('specifications')) {
+            foreach ($request->input('specifications') as $specification) {
+                Item_specification::create([
+                    'item_id' => $item->id,
+                    'spec_name' => $specification['spec_name'],
+                    'spec_value' => $specification['spec_value'],
+                ]);
+            }
         }
-    }
 
-    return response()->json(['message' => 'Item created successfully', 'item' => $item], 201);
-}
+
+
+        return response()->json(['message' => 'Item created successfully', 'item' => $item->load(['images', 'specifications'])], 201);
+    }
 
 
 

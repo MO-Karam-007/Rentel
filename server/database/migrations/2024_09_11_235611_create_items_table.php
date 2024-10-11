@@ -19,14 +19,17 @@ return new class extends Migration
             $table->string('item_image')->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
-            $table->boolean('status')->default(false);  // The admin change the status to make item visible
-            $table->enum('available', ['available', 'rented', 'unavailable']);
+            $table->boolean('status')->default(false);
+            $table->enum('current_state', ['available', 'rented', 'unavailable'])->default('available');;
             $table->decimal('price', 10, 2);
             $table->integer('duration');
             $table->foreignId('lender_id')->constrained('users');
-            $table->string('tag')->unique();
-            $table->unsignedBigInteger('category_id'); // Foreign key
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->string('tag');
+            
+            // $table->unsignedBigInteger('category_id'); // Foreign key
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
+            $table->magellanPoint('location', 4326); // Point type for PostGIS
+
             $table->timestamps();
         });
     }

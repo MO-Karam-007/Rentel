@@ -22,6 +22,7 @@ export class SignUpComponent {
 
 
   signup(form: any) {
+
     this.credentials.username = form.value.username
     this.credentials.email = form.value.email
     this.credentials.password = form.value.password
@@ -30,10 +31,18 @@ export class SignUpComponent {
     console.log(this.credentials);
     this.authService.register(this.credentials).subscribe(
       (res: any) => {
+        console.log("User registration");
+
         localStorage.setItem('token', res.data.token);
 
         this.router.navigate(['/complete-data']);
       });
+  }
+
+  signInWithGoogle() {
+    window.location.href = 'localhost:8000/oauth/google/redirect';
+
+
   }
 
 }

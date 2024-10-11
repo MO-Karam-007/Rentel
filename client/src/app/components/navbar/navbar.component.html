@@ -1,4 +1,4 @@
-<nav [ngClass]="{'bg-black': token, 'text-white' : token}"
+<nav
     class="sticky top-0 z-50 flex p-4 items-center bg-white  justify-between w-full ">
     <h2 class="text-2xl font-bold cursor-pointer"
         [routerLink]="['/']"
@@ -6,7 +6,7 @@
     <ul class="hidden bg-inherit md:flex">
 
         <a class="mr-4" [routerLink]="['/items']">Nearby Rentals</a>
-        @if (!token) {
+        @if (token) {
 
         <a class="mr-4" [routerLink]="['/add-item']">Add Rentally</a>
         }
@@ -14,7 +14,7 @@
 
     </ul>
 
-    @if (token) {
+    @if (!token) {
     <div class>
         <a type="button"
             [routerLink]="['/login']"
@@ -45,7 +45,8 @@
         <div class="size-12 ml-4 overflow-hidden rounded-full"
             [routerLink]="['/dashboard']">
             <img
-                src="assets/cat.jpg" class="w-full"
+                [src]="'http://localhost:8000/storage/'+userImage"
+                class="w-full"
                 alt="profile pecture">
 
         </div>

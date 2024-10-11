@@ -17,7 +17,7 @@
     <div
         class="bg-gray-100 w-1/2 flex cursor-pointer justify-evenly items-center  my-2 p-3 rounded-3xl">
         <i class="logo"></i>
-        <span class="text-lg font-medium">continue with google</span>
+        <span class="text-lg font-medium" (click)="signInWithGoogle()">continue with google</span>
     </div>
 
     <hr class="w-1/2 mt-6" />
@@ -27,14 +27,18 @@
         <div class="my-4">
             <label for="username"
                 class="capitalize block mb-1">Username*</label>
-            <input type="text" name="username" id="username"
+            <input type="text"
+                name="username"
+                id="username"
                 ngModel
                 class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
                 placeholder="Enter Your username">
         </div>
         <div class="my-4">
             <label for="email" class="capitalize block mb-1">email*</label>
-            <input type="email" name="email" id="email"
+            <input type="email"
+                name="email"
+                id="email"
                 ngModel
                 class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
                 placeholder="Enter Your Name">
@@ -42,7 +46,9 @@
         <div class="my-4">
             <label for="password"
                 class="capitalize block mb-1">password*</label>
-            <input type="password" name="password" id="password"
+            <input type="password"
+                name="password"
+                id="password"
                 ngModel
                 class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
                 placeholder="Enter Your password">
@@ -51,7 +57,8 @@
             <label for="password_confirmation"
                 class="capitalize block mb-1">confirm
                 password*</label>
-            <input type="password" name="password_confirmation"
+            <input type="password"
+                name="password_confirmation"
                 id="password_confirmation"
                 ngModel
                 class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"

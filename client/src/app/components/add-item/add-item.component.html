@@ -25,6 +25,13 @@
             </select>
         </div>
 
+        <!-- Description -->
+        <div class="p-2">
+            <textarea formControlName="description" placeholder="Description"
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
+                style="background-color: #f6f6f6;"></textarea>
+        </div>
+
         <!-- Description and Image Upload -->
         <div class="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
             <!-- Description -->
@@ -81,7 +88,6 @@
                 </span>
                 <input type="datetime-local"
                     [min]="min" #start id="start-date" name="start-date"
-                    (input)="showelement()"
                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
                     style="background-color: #f6f6f6;">
             </div>

@@ -65,7 +65,7 @@ class RegisteredUserController extends BaseController
 
         if ($request->hasFile('profile_picture')) {
             $imagePath = $request->file('profile_picture')->store('images', 'public');
-            $validated['item_image'] = $imagePath;
+            $validated['profile_picture'] = $imagePath;
         }
 
         if ($request->hasFile('identification_scan')) {
@@ -78,7 +78,12 @@ class RegisteredUserController extends BaseController
 
         // $token = $user->createToken('api-token')->plainTextToken;
 
-        //  GIS 
         return $this->sendResponse(['message' => 'User created successfully'], 201);
+    }
+
+    public function currentUser(Request $request)
+    {
+        $user = Auth::user();
+        return $this->sendResponse(['message' => $user], 201);
     }
 }

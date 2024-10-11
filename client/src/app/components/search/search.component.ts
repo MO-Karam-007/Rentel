@@ -13,4 +13,7 @@ export class SearchComponent {
   radius: number = 7;
 
   @Input() showbtn: boolean = false;
+
+
+  
 }

@@ -4,7 +4,6 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\CategoryController;
 
 
 use App\Http\Controllers\CategoryController;
@@ -20,20 +19,53 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\SocialiteController;
 use App\Http\Controllers\Auth\VerifyEmailController;
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Laravel\Socialite\Facades\Socialite;
 
 Route::post('/register', [RegisteredUserController::class, 'store']);
 Route::post('/login', [AuthenticatedSessionController::class, 'store']);
 
 // Route::middleware('web')->group(function () {
 //     Route::controller(RegisterController::class)->group(function () {
-//         Route::get('/oauth/x/redirect', [RegisterController::class, 'xRedirect']);
+//         Route::get('/oauth/{driver}/redirect', [RegisterController::class, 'redirect']);
 //         Route::get('/oauth/x/callback', [RegisterController::class, 'xCallback']);
 //         Route::get('/oauth/google/redirect', [RegisterController::class, 'googleRedirect']);
 //         Route::get('/oauth/google/callback', [RegisterController::class, 'googleCallback']);
 //     });
 // });
 
+Route::middleware('web')->group(function () {
+    Route::get('/oauth/google/redirect', function () {
+        return Socialite::driver('google')->redirect();
+    })->name('google.redirect');
+
+    Route::get('/oauth/google/callback', function () {
+        $googleUser = Socialite::driver('google')->user();
+
+        // Find or create the user in your database
+        $user = User::firstOrCreate(
+            ['email' => $googleUser->getEmail()],
+            ['username' => $googleUser->getName(), 'google_id' => $googleUser->getId()]
+        );
+
+        // Log in the user
+        Auth::login($user);
+
+        // Generate the Sanctum token
+        $token = $user->createToken('token')->plainTextToken;
+
+        // Redirect to your Angular app with the token in the URL
+        return redirect('localhost:4200?token=' . $token);
+    })->name('google.callback');
+
+
+    Route::middleware('auth:sanctum')->get('/protected', function (Request $request) {
+        return response()->json(['message' => 'You are authenticated']);
+    });
+});
 
 // Middleware inside Controller
 Route::apiResource('items', ItemController::class);
@@ -45,6 +77,8 @@ Route::apiResource('category', CategoryController::class);
 
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/complete-data', [RegisteredUserController::class, 'completeProfile']);
+    Route::get('/current-user', [RegisteredUserController::class, 'currentUser']);
+
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });
 

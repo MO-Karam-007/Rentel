@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavbarComponent } from "../../components/navbar/navbar.component";
 import { SearchComponent } from '../search/search.component';
 import { RouterLink } from '@angular/router';
+import { ItemService } from '../../services/item.service';
 
 @Component({
   selector: 'app-items',
@@ -11,5 +12,17 @@ import { RouterLink } from '@angular/router';
   styleUrl: './items.component.scss'
 })
 export class ItemsComponent {
-  cars: number[] = [1, 2, 4, 5, 6, 7, 8, 8, 10]
+  cars: number[] = []
+
+  constructor(private itemService: ItemService) {
+
+  }
+
+  ngOnInit(): void {
+    // this.itemService.getItems().subscribe((response) => {
+    //   console.log(response)
+    //   this.cars = response.data; // Adjust as needed based on your API response
+    // });
+  }
 }
+

@@ -16,6 +16,8 @@ class AuthenticatedSessionController extends BaseController
     /**
      * Handle an incoming authentication request.
      */
+
+        
     public function store(LoginRequest $request)
     {
         // Token-based authentication

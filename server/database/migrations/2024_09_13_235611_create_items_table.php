@@ -39,5 +39,22 @@ return new class extends Migration
     public function down(): void
     {
         Schema::dropIfExists('items');
+        Schema::table('item_images', function (Blueprint $table) {
+            $table->dropForeign(['item_id']);
+        });
+    
+        Schema::table('item_specifications', function (Blueprint $table) {
+            $table->dropForeign(['item_id']);
+        });
+    
+        Schema::table('rentals', function (Blueprint $table) {
+            $table->dropForeign(['item_id']);
+        });
+    
+        Schema::table('user_items', function (Blueprint $table) {
+            $table->dropForeign(['item_id']);
+        });
+    
+        Schema::dropIfExists('items');
     }
 };

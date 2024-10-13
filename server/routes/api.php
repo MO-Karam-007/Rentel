@@ -5,6 +5,8 @@ use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
+
 
 
 use App\Http\Controllers\TagController;
@@ -59,6 +61,11 @@ Route::apiResource('tags', TagController::class);
 Route::post('favorites', [FavoriteController::class, 'store']);
 Route::delete('favorites/{user_id}/{item_id}', [FavoriteController::class, 'destroy']);
 Route::apiResource('followers', FollowerController::class);
+//Route::middleware('auth:sanctum')->group(function () {
+   // Route::apiResource('posts', PostController::class);
+//});
+Route::apiResource('posts', PostController::class);
+
 
 
 

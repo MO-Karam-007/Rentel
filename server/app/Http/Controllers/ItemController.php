@@ -52,62 +52,45 @@ class ItemController extends BaseController implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
-            'description' => 'required',
-            'price' => 'required|numeric',
-            'duration' => 'required|integer',
-            'status' => '',
+            'title' => 'required|string|max:255',
+            'description' => 'required|string',
             'current_state' => 'required|in:available,rented,unavailable',
+            'city' => 'required|in:cairo,alex,giza',
+            'price' => 'required|numeric',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after_or_equal:start_date',
             'category_id' => 'required|exists:categories,id',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-            'item_images.*' => 'image|mimes:jpg,jpeg,png|max:2048', // Validation for multiple images
-            tag
-
         ]);
 
         $user = Auth::user();
-        $validated['lender_id']  = $user->id;
-        $validated['tag'] = Str::slug($validated['name'], '-') . '-' . Str::random(2);
-        $validated['location'] = DB::raw("ST_SetSRID(ST_MakePoint({$validated['longitude']}, {$validated['latitude']}), 4326)");
+        $validated['item_owner_id']  = $user->id;
+        // $validated['tag'] = Str::slug($validated['name'], '-') . '-' . Str::random(2);
+        // $validated['location'] = DB::raw("ST_SetSRID(ST_MakePoint({$validated['longitude']}, {$validated['latitude']}), 4326)");
 
 
-
-
-        // if ($request->hasFile('item_images')) {
-        //     foreach ($request->file('item_images') as $image) {
-        //         $path = $image->store('item_images', 'public');
-
-        //         Item_image::create([
-        //             'item_id' => $item->id,
-        //             'image_path' => $path,
-        //         ]);
-        //     }
-        // }
-
-
-        // if ($request->hasFile('item_images')) {
-        //     foreach ($request->file('item_images') as $image) {
-        //         $path = $image->store('item_images', 'public');
-        //         Item_image::create([
-        //             'item_id' => $item->id,
-        //             'image_path' => $path,
-        //         ]);
-        //     }
-        // }
-
-        // if ($request->has('specifications')) {
-        //     foreach ($request->input('specifications') as $specification) {
-        //         Item_specification::create([
-        //             'item_id' => $item->id,
-        //             'spec_name' => $specification['spec_name'],
-        //             'spec_value' => $specification['spec_value'],
-        //         ]);
-        //     }
-        // }
 
         $item = Item::create($validated);
 
+      
+        if ($request->hasFile('item_images')) {
+            foreach ($request->file('item_images') as $image) {
+                $path = $image->store('item_images', 'public');
+                Item_image::create([
+                    'item_id' => $item->id,
+                    'image_path' => $path,
+                ]);
+            }
+        }
+
+        if ($request->has('specifications')) {
+            foreach ($request->input('specifications') as $specification) {
+                Item_specification::create([
+                    'item_id' => $item->id,
+                    'spec_name' => $specification['spec_name'],
+                    'spec_value' => $specification['spec_value'],
+                ]);
+            }
+        }
 
 
         return response()->json(['message' => 'Item created successfully', 'item' => $item->load(['images', 'specifications'])], 201);

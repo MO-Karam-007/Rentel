@@ -14,19 +14,15 @@ return new class extends Migration
 
         Schema::create('items', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('title');
             $table->text('description');
-            $table->string('item_image')->nullable();
-            $table->decimal('latitude', 10, 7)->nullable();
-            $table->decimal('longitude', 10, 7)->nullable();
-            $table->boolean('status')->default(false);
-            $table->enum('current_state', ['available', 'rented', 'unavailable'])->default('available');;
+            $table->enum('current_state', ['available', 'rented', 'unavailable'])->default('available');
+            $table->enum('city', ['cairo', 'alex', 'giza'])->default('available');
             $table->decimal('price', 10, 2);
-            $table->integer('duration');
-            $table->foreignId('lender_id')->constrained('users');
-            $table->string('tag')->unique();
-            $table->unsignedBigInteger('category_id'); // Foreign key
-            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
+            $table->date('start_date'); 
+            $table->date('end_date'); 
+            $table->foreignId('item_owner_id')->constrained('users');
+            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade'); 
             $table->timestamps();
         });
     }

@@ -56,12 +56,13 @@ class ItemController extends BaseController implements HasMiddleware
             'description' => 'required',
             'price' => 'required|numeric',
             'duration' => 'required|integer',
-            'status' => 'boolean',
+            'status' => '',
             'current_state' => 'required|in:available,rented,unavailable',
             'category_id' => 'required|exists:categories,id',
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
             'item_images.*' => 'image|mimes:jpg,jpeg,png|max:2048', // Validation for multiple images
+            tag
 
         ]);
 
@@ -72,18 +73,17 @@ class ItemController extends BaseController implements HasMiddleware
 
 
 
-        $item = Item::create($validated);
 
-        if ($request->hasFile('item_images')) {
-            foreach ($request->file('item_images') as $image) {
-                $path = $image->store('item_images', 'public');
+        // if ($request->hasFile('item_images')) {
+        //     foreach ($request->file('item_images') as $image) {
+        //         $path = $image->store('item_images', 'public');
 
-                Item_image::create([
-                    'item_id' => $item->id,
-                    'image_path' => $path,
-                ]);
-            }
-        }
+        //         Item_image::create([
+        //             'item_id' => $item->id,
+        //             'image_path' => $path,
+        //         ]);
+        //     }
+        // }
 
 
         // if ($request->hasFile('item_images')) {
@@ -96,15 +96,17 @@ class ItemController extends BaseController implements HasMiddleware
         //     }
         // }
 
-        if ($request->has('specifications')) {
-            foreach ($request->input('specifications') as $specification) {
-                Item_specification::create([
-                    'item_id' => $item->id,
-                    'spec_name' => $specification['spec_name'],
-                    'spec_value' => $specification['spec_value'],
-                ]);
-            }
-        }
+        // if ($request->has('specifications')) {
+        //     foreach ($request->input('specifications') as $specification) {
+        //         Item_specification::create([
+        //             'item_id' => $item->id,
+        //             'spec_name' => $specification['spec_name'],
+        //             'spec_value' => $specification['spec_value'],
+        //         ]);
+        //     }
+        // }
+
+        $item = Item::create($validated);
 
 
 

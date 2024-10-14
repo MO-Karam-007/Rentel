@@ -1,5 +1,5 @@
 import { Component, inject, PLATFORM_ID } from '@angular/core';
-import { RouterLink } from '@angular/router';
+import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
 import { isPlatformBrowser } from '@angular/common';
 
@@ -15,7 +15,7 @@ export class SidebarComponent {
   token!: string;
   private readonly _PLATFORM_ID = inject(PLATFORM_ID)
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private router: Router) {
 
     if (this.token) {
       console.log(this.token);
@@ -53,5 +53,12 @@ export class SidebarComponent {
     );
   }
 
+  signout() {
+    localStorage.removeItem('token');
+
+    this.router.navigate(['/']);
+
+    window.location.reload();
+  }
 
 }

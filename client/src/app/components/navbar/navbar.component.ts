@@ -14,7 +14,7 @@ import { AuthService } from '../../services/auth.service';
   styleUrl: './navbar.component.scss'
 })
 export class NavbarComponent {
-  userImage: string = ''
+  userImage: string ;
   // @Input() bg: string = 'bg-black';
   token!: string;
   private readonly _PLATFORM_ID = inject(PLATFORM_ID)
@@ -24,6 +24,8 @@ export class NavbarComponent {
     if (this.token) {
       console.log(this.token);
       this.getUser();  // Fetch user data if token exists
+
+  
     }
 
   }

@@ -80,7 +80,7 @@
                     </div>
                 </div> -->
                 <button
-                    class="float-right ml-auto border-2 px-5 md:px-10 md:mx-10 py-1 md:py-2 rounded-[10px] hover:bg-gray-100 hover:bg-gray-100 text-gray-900 font-semibold shadow ">Post</button>
+                    class="float-right ml-auto border-2 px-5 md:px-10 md:mx-10 py-1 md:py-2 rounded-[10px] hover:bg-gray-100 hover:bg-gray-100 text-gray-900 font-semibold shadow " (click)="openPostDialog()">Post</button>
             </div>
 
             <!-- Main content area -->
@@ -90,71 +90,56 @@
             <div
                 class="disable-scrolling space-y-5 max-h-[500px] overflow-y-auto ext-4xl font-bold mb-4  rounded p-5 ">
                 <!-- Example Post Card -->
-                @for (item of posts; track $index) {
-                <div
-                    class="flex flex-col gap-3 p-4 border border-gray-200 rounded-lg shadow mb-10 ">
-                    <div test-id="card-header"
-                        class="flex justify-between items-center">
-                        <div class="flex jsutify-center items-center gap-3">
-                            <div class="flex-shrink-0">
-                                <img class="w-[3.5rem] h-[3.5rem] rounded-xl"
-                                    src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-                                    alt>
-                            </div>
-                            <div class=" min-w-0 flex-1">
-                                <p class="font-bold text-gray-900"><a
-                                        href="#">Leonard Krasner</a></p>
-                                <p class="text-gray-500"><a
-                                        href="#">eonardkrasner</a></p>
-                            </div>
-                        </div>
-
-                        <div class="flex-shrink-0">
-                            <button type="button"
-                                class="inline-flex items-center rounded-xl bg-gray-600 px-2 py-1.5 text-sm font-sm text-white hover:bg-gray-400">
-                                <i class="fa-solid fa-plus mr-2"></i>
-                                <span>Follow</span>
-                            </button>
-                        </div>
-                    </div>
-                    <div test-id="card-body">
-                        <h2 class="text-xl font-semibold">Post Title 5</h2>
-                        <p class="text-gray-600 mt-2">
-                            Lorem ipsum dolor sit <span
-                                class="text-blue-500 cursor-pointer">#dumbells</span>,
-                            consectetur
-                            adipiscing elit. Nullam euismod neque a
-                            convallis lobortis...
-                        </p>
-                    </div>
-                    <hr class="h-1">
-
-                    <div class="flex justify-between  text-sm gap-5"
-                        test-id="card-actions">
-                        <div class>
-                            @for (item of [1,2,3]; track $index) {
-                            <p
-                                class="inline-flex items-center rounded-xl bg-red-600 px-1.5 py-1 text-[0.6rem] font-sm text-white ml-2">
-                                <span>Sports</span>
-                            </p>
-                            }
-                        </div>
-
-                        <div class>
-                            <button
-                                class="border-2 px-3 py-1 mr-2 rounded-[10px] hover:bg-gray-400 hover:bg-gray-100 text-gray-900 font-semibold shadow ">Offer</button>
-                            <button
-                                class="border-2 px-3 py-1 rounded-[10px] hover:bg-gray-100 hover:bg-gray-100 text-gray-900 font-semibold shadow ">Message</button>
-                        </div>
-                    </div>
-                </div>
-                }
-                <!-- You can add more post cards like this -->
-            </div>
-
+           <!-- Example Post Cards -->
+<div *ngFor="let post of posts" class="flex flex-col gap-3 p-4 border border-gray-200 rounded-lg shadow mb-10">
+    <div test-id="card-header" class="flex justify-between items-center">
+      <div class="flex justify-center items-center gap-3">
+        <div class="flex-shrink-0">
+          <img class="w-[3.5rem] h-[3.5rem] rounded-xl"
+               src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+               alt="User profile">
         </div>
+        <div class="min-w-0 flex-1">
+          <p class="font-bold text-gray-900">
+            <a href="#">{{ post.creator?.username }}</a> <!-- Adjust if creator has name -->
+          </p>
+          <p class="text-gray-500">
+            <a href="#">&#64;{{ post.creator?.name?.toLowerCase().replace(' ', '') }}</a>
+          </p>
+        </div>
+      </div>
+  
+      <div class="flex-shrink-0">
+        <button type="button"
+                class="inline-flex items-center rounded-xl bg-gray-600 px-2 py-1.5 text-sm font-sm text-white hover:bg-gray-400">
+          <i class="fa-solid fa-plus mr-2"></i>
+          <span>Follow</span>
+        </button>
+      </div>
     </div>
-
+  
+    <div test-id="card-body">
+      <h2 class="text-xl font-semibold">{{ post.title }}</h2> <!-- Accessing post title -->
+      <p class="text-gray-600 mt-2">
+        {{ post.description }} <!-- Displaying the description -->
+      </p>
+    </div>
+    
+    <hr class="h-1">
+  
+    <div class="flex justify-between text-sm gap-5" test-id="card-actions">
+      <div>
+        <p class="inline-flex items-center rounded-xl bg-red-600 px-1.5 py-1 text-[0.6rem] font-sm text-white ml-2">
+          <span>Category</span> <!-- Add your category here -->
+        </p>
+      </div>
+      <div>
+        <button class="border-2 px-3 py-1 mr-2 rounded-[10px] hover:bg-gray-400 hover:bg-gray-100 text-gray-900 font-semibold shadow">Offer</button>
+        <button class="border-2 px-3 py-1 rounded-[10px] hover:bg-gray-100 text-gray-900 font-semibold shadow">Message</button>
+      </div>
+    </div>
+  </div>
+  
     <!-- Right Sidebar (1/4 width, fixed) -->
     <div class="w-1/4 h-full ">
         <div class="p-4">

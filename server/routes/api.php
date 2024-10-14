@@ -4,9 +4,11 @@ use App\Http\Controllers\ItemController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\RentalController;
 use App\Http\Controllers\ReviewController;
-
-
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\PostController;
+
+
+
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FollowerController;
@@ -22,6 +24,7 @@ use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Controllers\PusherController;
 use Illuminate\Support\Facades\Route;
 use Laravel\Socialite\Facades\Socialite;
 
@@ -67,11 +70,15 @@ Route::middleware('web')->group(function () {
     });
 });
 
+
+
+
 // Middleware inside Controller
 Route::apiResource('items', ItemController::class);
 Route::apiResource('rentals', RentalController::class);
 Route::apiResource('review', ReviewController::class);
 Route::apiResource('category', CategoryController::class);
+Route::post('/messages', [PusherController::class, 'store']);
 
 
 
@@ -92,6 +99,11 @@ Route::apiResource('tags', TagController::class);
 Route::post('favorites', [FavoriteController::class, 'store']);
 Route::delete('favorites/{user_id}/{item_id}', [FavoriteController::class, 'destroy']);
 Route::apiResource('followers', FollowerController::class);
+//Route::middleware('auth:sanctum')->group(function () {
+   // Route::apiResource('posts', PostController::class);
+//});
+Route::apiResource('posts', PostController::class);
+
 
 
 

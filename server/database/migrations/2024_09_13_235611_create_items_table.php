@@ -24,12 +24,9 @@ return new class extends Migration
             $table->decimal('price', 10, 2);
             $table->integer('duration');
             $table->foreignId('lender_id')->constrained('users');
-            $table->string('tag');
-            
-            // $table->unsignedBigInteger('category_id'); // Foreign key
-            $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
-            $table->magellanPoint('location', 4326); // Point type for PostGIS
-
+            $table->string('tag')->unique();
+            $table->unsignedBigInteger('category_id'); // Foreign key
+            $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });
     }

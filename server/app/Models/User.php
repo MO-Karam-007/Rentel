@@ -75,4 +75,9 @@ class User extends Authenticatable
     {
         return $this->hasMany(Rental::class, 'item_id');
     }
+
+    public function linkedSocialAccounts()
+    {
+        return $this->hasOne(LinkedSocialAccount::class);
+    }
 }

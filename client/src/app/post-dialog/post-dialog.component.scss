@@ -1,0 +1,75 @@
+.dialog-container {
+    width: 100%; /* Full width on smaller screens */
+    max-width: 700px; /* Limits to 700px on larger screens */
+    padding: 40px;
+    border-radius: 20px;
+    background-color: #f9f9f9;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+    margin: auto; /* Center the form horizontally */
+  }
+  
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  mat-form-field input,
+  mat-form-field textarea {
+    font-size: 1.2rem;
+  }
+  
+  mat-form-field textarea {
+    resize: vertical; /* Allows vertical resizing of the textarea */
+    min-height: 120px; /* Default height */
+  }
+  
+  .actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+  }
+  
+  button {
+    font-size: 1.1rem;
+    padding: 10px 20px;
+    border-radius: 8px;
+    transition: background-color 0.3s ease; /* Smooth transition for hover */
+  }
+  
+  button:hover {
+    background-color: #0056b3; /* Change the background color on hover */
+  }
+  
+  button:active {
+    background-color: #003f7f; /* Darker shade on click */
+  }
+  
+  h2 {
+    text-align: center;
+    font-size: 1.8em;
+    font-weight: 600;
+    margin-bottom: 30px;
+    color: #333;
+  }
+  
+  @media (max-width: 600px) {
+    .dialog-container {
+      padding: 20px; /* Reduce padding on small screens */
+    }
+  }
+  mat-form-field textarea {
+    border: none;
+    outline: none;
+    box-shadow: none;
+    resize: vertical; /* Keeps the vertical resizing functionality */
+  }
+  
+  /* Ensure the form field is displayed correctly */
+  mat-form-field {
+    width: 100%;
+    margin-bottom: 30px;
+  }
+  
+  .mat-form-field-appearance-outline .mat-form-field-outline {
+    border-width: 0px; /* Remove the outer lines around the input fields */
+  }

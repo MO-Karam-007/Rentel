@@ -12,14 +12,18 @@
     <hr class="w-3/4 mt-6" />
 
     <form class="w-3/4" [formGroup]="form" (ngSubmit)="onSubmit()">
+
         <div class="flex items-center justify-between gap-3">
             <div class="my-4 w-1/2">
                 <label for="first_name" class=" capitalize block mb-1">First
                     Name</label>
-                <input id="first_name" type="text" name="first_name"
+                <input id="first_name"
+                    type="text"
+                    name="first_name"
                     class="w-full p-2 border-gray-400 border rounded-md outline-gray-400 shadow"
                     placeholder="Enter Your First Name"
-                    formControlName="first_name" required>
+                    formControlName="first_name"
+                    required>
 
                 <div
                     *ngIf="form.get('first_name')?.touched && form.get('first_name')?.invalid"

@@ -31,10 +31,10 @@ class Item extends Model
         'lender_id',
         'category_id',
         'tag',
-        'latitude',
         "specifications",
         'item_images',
-        'longitude'
+        'longitude',
+        'latitude',
     ];
     // protected $casts = [
     // 'location' => 'magellanPoint', // Cast the location to point type if necessary

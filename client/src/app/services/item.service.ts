@@ -25,5 +25,14 @@ export class ItemService {
     return this.http.get(`${this.baseUrl}/items`, { headers })
   }
 
+  createItem(data: any, token: string) {
+    console.log('Service Creating Item: ');
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+
+    return this.http.post(`${this.baseUrl}/items`, data, { headers })
+
+
+  }
 
 }

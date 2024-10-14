@@ -49,6 +49,8 @@ class ItemController extends BaseController implements HasMiddleware
         return $this->sendResponse($items, 'Data retrived successfully');
     }
 
+    
+
     public function store(Request $request)
     {
         $validated = $request->validate([

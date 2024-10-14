@@ -4,33 +4,47 @@
     <!-- Page Title -->
     <h1 class="text-3xl font-bold text-[black] mb-6">Create Item</h1>
 
-    <form class="grid grid-cols-1 gap-6" [formGroup]="createItemForm"
+    <form class="grid grid-cols-1 gap-6" [formGroup]="form"
         (ngSubmit)="onSubmit()">
-
         <div formGroupName="userInfo">
             <h3>Item Informations</h3>
             <div class="p-2">
                 <input type="text"
                     id="title"
-                    name="title"
-                    placeholder="ITEM TITLE"
+                    name="name"
+                    formControlName="name"
+                    placeholder="Item Title"
                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
-                    formControlName="title"
                     style="background-color: #f6f6f6;">
             </div>
 
             <!-- Category -->
-            <div class="p-2">
-                <select id="category" name="category"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
-                    style="background-color: #f6f6f6;"
-                    formControlName="category">
-                    <option value>Select a category</option>
-                    @for (item of categories; track $index) {
-                    <option>{{item}}</option>
 
-                    }
-                </select>
+            <div class="flex w-full">
+                <div class="p-2 w-1/5">
+                    <select id="category" name="category"
+                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
+                        style="background-color: #f6f6f6;"
+                        formControlName="category">
+                        <option value>Select a category</option>
+                        @for (item of categories; track $index) {
+                        <option>{{item.category}}</option>
+
+                        }
+                    </select>
+
+                </div>
+
+                <div class="w-1/5">
+                    <div class="p-2 m-1">
+                        <div class=" relative">
+                            <input type="text" id="price"
+                                class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="15$" required />
+                            <p class="absolute top-2 right-4">/ 1 day</p>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             <!-- Description -->
@@ -136,7 +150,7 @@
                 <h3>specifications</h3>
                 <div *ngFor="let skill of skills.controls; let i=index"
                     [formGroupName]="i" class="mb-1">
-                    <input formControlName="name"
+                    <input formControlName
                         class="w-25"
                         placeholder="Specification Name">
                     <input formControlName="level"
@@ -146,7 +160,8 @@
                         class="w-25 bg-red-800 hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md">
                         <i class="fa-solid fa-minus"></i></button>
                 </div>
-                <button type="button"
+                <button
+                    type="button"
                     class="bg-black hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md"
                     (click)="addSkill()">Add
                     Specification</button>
@@ -174,7 +189,8 @@
 
         <!-- Registration Button -->
         <div class="col-span-full mt-6 p-2">
-            <button type="submit"
+            <button
+                type="submit"
                 class="block w-full bg-black hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md">
                 Create The Item
             </button>

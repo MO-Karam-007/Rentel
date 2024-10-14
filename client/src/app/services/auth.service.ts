@@ -35,7 +35,7 @@ export class AuthService {
   }
 
   loginWithGoogle() {
-    window.location.href = 'localhost:8000/oauth/google/redirect';
+      window.location.href = 'localhost:8000/oauth/google/redirect';
   }
 
   completeProfile(data: any, token: string): Observable<any> {

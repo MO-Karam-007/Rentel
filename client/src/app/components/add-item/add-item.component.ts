@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component, ElementRef, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ItemService } from '../../services/item.service';
+import { CategoriesService } from '../../services/categories.service';
 
 @Component({
   selector: 'app-add-item',
@@ -10,26 +11,41 @@ import { ItemService } from '../../services/item.service';
   templateUrl: './add-item.component.html',
   styleUrl: './add-item.component.scss'
 })
-export class AddItemComponent {
-  createItemForm: FormGroup;
+
+export class AddItemComponent implements OnInit {
+  form!: FormGroup;
   minDateTime: string;
-  previewUrls: string[] = [];  // Store image preview URLs
-  categories: string[] = ['sports', 'Books', 'Tech', 'Tools']
+
+
   @ViewChild('start') startEl!: ElementRef<any>;
   myDate = new Date();
   min!: string;
- 
-  constructor(private fb: FormBuilder) {
+  token: string;
+  previewUrls: string[] = [];  // Store image preview URLs
+  categories: any[] = []
 
 
-    this.createItemForm = this.fb.group({
+  // getControlNames(): string[] {
+  //   return Object.keys(this.form.get('userInfo')?.controls || {});
+  // }
+
+  constructor(private fb: FormBuilder, private itemService: ItemService, private categoriesService: CategoriesService) {
+    this.token = localStorage.getItem('token');
+    this.getLocation();
+
+    // console.log(getLocation());
+
+
+    this.form = this.fb.group({
       userInfo: this.fb.group({
-        title: ['', Validators.required],
+        name: ['', Validators.required],
         category: ['', Validators.required],
         description: [''],
+        price: ['', Validators.required],
+        duration: ['', Validators.required],
+        latitude: [null, Validators.required],
+        longitude: [null, Validators.required],
         item_image: [null, Validators.required],
-        startDate: ['', Validators.required],
-        endDate: ['', Validators.required],
         status: ['Available', Validators.required],
         tags: ['']
       }),
@@ -44,28 +60,57 @@ export class AddItemComponent {
 
 
 
+  getLocation(): void {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position: GeolocationPosition) => {
+          this.form.get('userInfo.latitude')?.patchValue(position.coords.latitude);
+          this.form.get('userInfo.longitude')?.patchValue(position.coords.longitude);
+        },
+        (error: GeolocationPositionError) => console.log(error)
+      );
+    } else {
+      alert('Geolocation is not supported by this browser.');
+    }
+  }
+
   itemsArray: number[];
   ngOnInit(): void {
-    if (`${this.myDate.getMonth() + 1}`.length < 2) {
-      this.min = `${this.myDate.getFullYear()}-0${this.myDate.getMonth() + 1}-${this.myDate.getDate()}`;
-    } else if (`${this.myDate.getDate()}`.length < 2) {
-      this.min = `${this.myDate.getFullYear()}-${this.myDate.getMonth() + 1}-0${this.myDate.getDate()}`;
-    } else if (`${this.myDate.getMonth() + 1}`.length < 2 && `${this.myDate.getDate()}`.length < 2) {
-      this.min = `${this.myDate.getFullYear()}-0${this.myDate.getMonth() + 1}-0${this.myDate.getDate()}`;
+
+    this.getCategories();
+    this.getLocation();
+
+    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
+    //Add 'implements OnInit' to the class.
+
+    if (`${this.myDate.getMonth() + 1
+      }`.length < 2) {
+      this.min = `${this.myDate.getFullYear()} -0${this.myDate.getMonth() + 1} -${this.myDate.getDate()} `;
+    } else if (`${this.myDate.getDate()} `.length < 2) {
+      this.min = `${this.myDate.getFullYear()} -${this.myDate.getMonth() + 1} -0${this.myDate.getDate()} `;
+    } else if (`${this.myDate.getMonth() + 1} `.length < 2 && `${this.myDate.getDate()} `.length < 2) {
+      this.min = `${this.myDate.getFullYear()} -0${this.myDate.getMonth() + 1} -0${this.myDate.getDate()} `;
     } else {
-      this.min = `${this.myDate.getFullYear()}-${this.myDate.getMonth() + 1}-${this.myDate.getDate()}`;
+      this.min = `${this.myDate.getFullYear()} -${this.myDate.getMonth() + 1} -${this.myDate.getDate()} `;
 
 
     }
   }
 
 
+  getCategories() {
+    console.log("Inside");
+    this.categoriesService.categories().subscribe((data: any) => {
+      this.categories = data.data;
+    });
+  }
+
   get skills(): FormArray {
-    return this.createItemForm.get('skills') as FormArray;
+    return this.form.get('skills') as FormArray;
   }
 
   get images(): FormArray {
-    return this.createItemForm.get('images') as FormArray;
+    return this.form.get('images') as FormArray;
   }
 
 
@@ -103,10 +148,10 @@ export class AddItemComponent {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       const file = input.files[0];
-      this.createItemForm.patchValue({
+      this.form.patchValue({
         [controlName]: file
       });
-      this.createItemForm.get(controlName)?.updateValueAndValidity();
+      this.form.get(controlName)?.updateValueAndValidity();
     }
   }
 
@@ -127,19 +172,32 @@ export class AddItemComponent {
 
 
 
-
   onSubmit() {
+    if (this.form) {
+      console.error(this.form);
+      // Check if the form is invalid
+
+      return;
+    }
     const formData = new FormData();
 
     // Append user info to formData
-    const userInfo = this.createItemForm.get('userInfo')?.value;
-    formData.append('title', userInfo.firstName);
-    formData.append('category', userInfo.lastName);
-    formData.append('description', userInfo.lastName);
-    formData.append('startDate', userInfo.lastName);
-    formData.append('endDate', userInfo.lastName);
-    formData.append('status', userInfo.lastName);
-    formData.append('tags', userInfo.lastName);
+    const userInfo = this.form.get('userInfo')?.value;
+    formData.append('name', userInfo.title);
+    formData.append('category_id', userInfo.category_id);  // Assuming category is an ID
+    formData.append('description', userInfo.description);
+    formData.append('price', userInfo.price);
+    formData.append('duration', userInfo.duration);
+    formData.append('latitude', this.form.value.latitude);
+    formData.append('longitude', this.form.value.longitude);
+    formData.append('status', userInfo.status);
+    formData.append('tag', userInfo.tags);
+
+    // Append image
+    const image = this.form.get('userInfo.item_image')?.value;
+    if (image) {
+      formData.append('item_image', image);
+    }
 
     // Append skills to formData
     this.skills.controls.forEach((skill, index) => {
@@ -155,9 +213,48 @@ export class AddItemComponent {
       }
     });
 
-    console.log(this.createItemForm.value);  // You can see the form structure here
-    // Now you can send formData to your server via an HTTP request
+    // Submit the form data via HTTP POST request
+    this.itemService.createItem(formData, this.token).subscribe(
+      response => {
+        console.log('Item added successfully:', response);
+      },
+      error => {
+        console.error('Error adding item:', error);
+      }
+    );
   }
+
+
+  // onSubmit() {
+  //   const formData = new FormData();
+
+  //   // Append user info to formData
+  //   const userInfo = this.form.get('userInfo')?.value;
+  //   formData.append('title', userInfo.firstName);
+  //   formData.append('category', userInfo.lastName);
+  //   formData.append('description', userInfo.lastName);
+  //   formData.append('startDate', userInfo.lastName);
+  //   formData.append('endDate', userInfo.lastName);
+  //   formData.append('status', userInfo.lastName);
+  //   formData.append('tags', userInfo.lastName);
+
+  //   // Append skills to formData
+  //   this.skills.controls.forEach((skill, index) => {
+  //     formData.append(`skills[${ index }][name]`, skill.get('name')?.value);
+  //     formData.append(`skills[${ index }][level]`, skill.get('level')?.value);
+  //   });
+
+  //   // Append images to formData
+  //   this.images.controls.forEach((imageCtrl, index) => {
+  //     const image = imageCtrl.value;
+  //     if (image) {
+  //       formData.append(`images[${ index }]`, image);
+  //     }
+  //   });
+
+  //   console.log(this.form.value);  // You can see the form structure here
+  //   // Now you can send formData to your server via an HTTP request
+  // }
   // Handle image upload
   onImageSelected(event: Event, index: number): void {
     const input = event.target as HTMLInputElement;
@@ -165,13 +262,7 @@ export class AddItemComponent {
       const file = input.files[0];
       this.images.at(index).setValue(file); // Set the image file in the form array
     }
+
   }
-
-
- 
-
-
-
-
 
 }

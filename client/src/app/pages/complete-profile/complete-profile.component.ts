@@ -82,7 +82,7 @@ export class CompleteProfileComponent implements OnInit {
     formData.append('last_name', this.form.value.last_name);
     formData.append('phone', this.form.value.phone);
     formData.append('address', this.form.value.address);
-    formData.append('latitude', this.form.value.latitude);
+    formData.append('latitude',  this.form.value.latitude);
     formData.append('longitude', this.form.value.longitude);
 
     // formData.append('profile_picture', this.form.get('profile_picture')?.value); // Add the file

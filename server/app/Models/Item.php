@@ -31,10 +31,9 @@ class Item extends Model
         'lender_id',
         'category_id',
         'tag',
-        'location',
         'latitude',
         "specifications",
-
+        'item_images',
         'longitude'
     ];
     // protected $casts = [

@@ -26,9 +26,8 @@ class CategoryController extends BaseController implements HasMiddleware
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string|max:255',
+            'category' => 'required|string|max:255'
         ]);
-
         $category = Category::create($validated);
 
         return response()->json(['message' => 'Category created successfully', 'category' => $category], 201);

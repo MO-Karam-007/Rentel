@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, ElementRef, ViewChild } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { ItemService } from '../../services/item.service';
 
 @Component({
   selector: 'app-add-item',
@@ -17,9 +18,9 @@ export class AddItemComponent {
   @ViewChild('start') startEl!: ElementRef<any>;
   myDate = new Date();
   min!: string;
-
-
+ 
   constructor(private fb: FormBuilder) {
+
 
     this.createItemForm = this.fb.group({
       userInfo: this.fb.group({
@@ -38,6 +39,7 @@ export class AddItemComponent {
 
     const now = new Date();
     this.minDateTime = now.toISOString().slice(0, 16); // Format as 'YYYY-MM-DDTHH:mm'
+
   }
 
 
@@ -165,6 +167,8 @@ export class AddItemComponent {
     }
   }
 
+
+ 
 
 
 

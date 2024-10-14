@@ -23,10 +23,13 @@
 
         <div class="card bg-gray-100 shadow-md rounded-md ">
             <div class="relative">
+                <!-- -->
+                <!--  -->
                 <img
                     class="w-full h-48 object-cover rounded-t-md cursor-pointer "
                     [routerLink]="['/frame']"
-                    src="assets/cat.jpg" alt="Item Image">
+                    [src]="'http://localhost:8000/storage/' + item.item_image"
+                    alt="Item Image">
                 <div class="absolute bottom-0 right-0 p-2">
                     <button
                         class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md hover:bg-gray-300">
@@ -46,6 +49,8 @@
                             '@karam95' }}</span>
                     </div>
                 </div>
+                <span
+                    class="text-lg font-bold cursor-pointer">{{item.name}}</span>
                 <p class="text-gray-700 mt-2 line-clamp-3">Item Lorem ipsum
                     dolor
                     sit amet

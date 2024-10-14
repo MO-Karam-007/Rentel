@@ -12,10 +12,15 @@ import { ItemService } from '../../services/item.service';
   styleUrl: './items.component.scss'
 })
 export class ItemsComponent {
-  cars: number[] = []
+  cars: any[] = []
+  token: string;
+  items: any[];
+
 
   constructor(private itemService: ItemService) {
+    this.token = localStorage.getItem('token');
 
+    this.getitems()
   }
 
   ngOnInit(): void {
@@ -24,5 +29,20 @@ export class ItemsComponent {
     //   this.cars = response.data; // Adjust as needed based on your API response
     // });
   }
+
+  getitems() {
+    this.itemService.items(this.token).subscribe(
+      (data) => {
+        // console.log(data.data);
+        this.cars = data.data
+        // this.userImage = `localhost:8000/storage/` + profile.profile_picture; // Adjust based on your API response
+      },
+      (error) => {
+        console.error('Error fetching user data', error);
+      }
+    );
+
+  }
+
 }
 

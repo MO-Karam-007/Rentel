@@ -14,11 +14,16 @@ export class ItemService {
     const params = new HttpParams()
       .set('latitude', latitude.toString())
       .set('longitude', longitude.toString())
-      .set('max', max.toString());
+    // .set('max', max.toString());
 
     return this.http.get<any>(`${this.baseUrl}`, { params });
   }
 
+  items(token: string): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    return this.http.get(`${this.baseUrl}/items`, { headers })
+  }
 
 
 }

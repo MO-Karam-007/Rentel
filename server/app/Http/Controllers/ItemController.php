@@ -59,51 +59,47 @@ class ItemController extends BaseController implements HasMiddleware
             'status' => '',
             'current_state' => 'required|in:available,rented,unavailable',
             'category_id' => 'required|exists:categories,id',
-            'latitude' => 'required|numeric',
-            'longitude' => 'required|numeric',
-            'item_images.*' => 'image|mimes:jpg,jpeg,png|max:2048', // Validation for multiple images
-            tag
+            'latitude' => 'required',
+            'longitude' => 'required',
+            'item_image' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'item_images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
 
         ]);
 
         $user = Auth::user();
+
         $validated['lender_id']  = $user->id;
         $validated['tag'] = Str::slug($validated['name'], '-') . '-' . Str::random(2);
-        $validated['location'] = DB::raw("ST_SetSRID(ST_MakePoint({$validated['longitude']}, {$validated['latitude']}), 4326)");
+        // $validated['location'] = DB::raw("ST_SetSRID(ST_MakePoint({$validated['longitude']}, {$validated['latitude']}), 4326)");
+
+        if ($request->hasFile('item_image')) {
+            $imagePath = $request->file('item_image')->store('images', 'public');
+            $validated['item_image'] = $imagePath;
+        }
+
+
+        if ($request->hasFile('item_images')) {
+            foreach ($request->file('item_images') as $image) {
+                $path = $image->store('item_images', 'public');
+
+                Item_image::create([
+                    'item_id' => $item->id,
+                    'image_path' => $path,
+                ]);
+            }
+        }
 
 
 
-
-        // if ($request->hasFile('item_images')) {
-        //     foreach ($request->file('item_images') as $image) {
-        //         $path = $image->store('item_images', 'public');
-
-        //         Item_image::create([
-        //             'item_id' => $item->id,
-        //             'image_path' => $path,
-        //         ]);
-        //     }
-        // }
-
-
-        // if ($request->hasFile('item_images')) {
-        //     foreach ($request->file('item_images') as $image) {
-        //         $path = $image->store('item_images', 'public');
-        //         Item_image::create([
-        //             'item_id' => $item->id,
-        //             'image_path' => $path,
-        //         ]);
-        //     }
-        // }
-
-        // if ($request->has('specifications')) {
-        //     foreach ($request->input('specifications') as $specification) {
-        //         Item_specification::create([
-        //             'item_id' => $item->id,
-        //             'spec_name' => $specification['spec_name'],
-        //             'spec_value' => $specification['spec_value'],
-        //         ]);
-        //     }
+        if ($request->has('specifications')) {
+            foreach ($request->input('specifications') as $specification) {
+                Item_specification::create([
+                    'item_id' => $item->id,
+                    'spec_name' => $specification['spec_name'],
+                    'spec_value' => $specification['spec_value'],
+                ]);
+            }
+        }
         // }
 
         $item = Item::create($validated);

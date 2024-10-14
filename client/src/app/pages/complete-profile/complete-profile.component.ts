@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-import { HttpClient } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 
@@ -17,7 +16,10 @@ export class CompleteProfileComponent implements OnInit {
 
   form!: FormGroup;
   selectedFile: File | null = null;
-  constructor(private authService: AuthService, private fb: FormBuilder, private router: Router) {
+  constructor(
+    private authService: AuthService,
+    private fb: FormBuilder,
+    private router: Router) {
 
   }
 
@@ -82,7 +84,7 @@ export class CompleteProfileComponent implements OnInit {
     formData.append('last_name', this.form.value.last_name);
     formData.append('phone', this.form.value.phone);
     formData.append('address', this.form.value.address);
-    formData.append('latitude',  this.form.value.latitude);
+    formData.append('latitude', this.form.value.latitude);
     formData.append('longitude', this.form.value.longitude);
 
     // formData.append('profile_picture', this.form.get('profile_picture')?.value); // Add the file

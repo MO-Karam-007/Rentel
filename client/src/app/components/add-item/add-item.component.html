@@ -20,33 +20,25 @@
 
             <!-- Category -->
 
-            <div class="flex w-full">
-                <div class="p-2 w-1/5">
-                    <select id="category" name="category"
-                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
-                        style="background-color: #f6f6f6;"
-                        formControlName="category">
-                        <option value>Select a category</option>
-                        @for (item of categories; track $index) {
-                        <option>{{item.category}}</option>
+            <div class="m-2">
 
-                        }
-                    </select>
+                <select id="category"
+                    name="category_id"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
+                    style="background-color: #f6f6f6;"
+                    formControlName="category_id">
+                    <option value>Select a category</option>
+                    @for (item of categories; track $index) {
+                    <option [value]='item.id'>{{item.category}}</option>
 
-                </div>
+                    }
+                </select>
 
-                <div class="w-1/5">
-                    <div class="p-2 m-1">
-                        <div class=" relative">
-                            <input type="text" id="price"
-                                class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                placeholder="15$" required />
-                            <p class="absolute top-2 right-4">/ 1 day</p>
-                        </div>
-                    </div>
-                </div>
             </div>
-
+            <input type="text" formControlName="latitude"
+                hidden>
+            <input type="text" formControlName="longitude"
+                hidden>
             <!-- Description -->
             <div class="p-2">
                 <textarea
@@ -63,8 +55,7 @@
                     <div class="mb-2">
                         <input
                             id="item_image"
-                            formControlName="item_image"
-                            type="file" FileIn
+                            type="file"
                             (change)="handleFileInput($event, 'item_image')"
                             class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
                     </div>
@@ -81,7 +72,9 @@
                         <span class="ml-2">Start Date</span>
                     </span>
                     <input type="datetime-local"
-                        [min]="min" #start id="start-date" name="start-date"
+                        [min]="min" #start id="start-date"
+                        name="start-date"
+                        formControlName="startDate"
                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
                         style="background-color: #f6f6f6;">
                 </div>
@@ -96,8 +89,10 @@
                     <input type="datetime-local"
                         id="end-date"
                         name="end-date"
+                        formControlName="endDate"
                         [min]="start.value"
                         [disabled]="!start.value"
+                        formControlName="endDate"
                         class="disabled:cursor-not-allowed block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
                         style="background-color: #f6f6f6;">
 
@@ -117,25 +112,34 @@
             </div> -->
 
                 <div class>
-                    <select id="category"
-                        name="category"
-                        formControlName="category"
+                    <select id="status"
+                        name="status"
+                        formControlName="status"
                         class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 h-12"
                         style="background-color: #f6f6f6;">
-                        <option>Avalible</option>
-                        <option>Not Avalible</option>
+                        <option value="ture">Avalible</option>
+                        <option value="false">Not Avalible</option>
 
                     </select>
                 </div>
 
                 <!-- Tags -->
                 <div>
-                    <input type="text" id="tags"
-                        name="tags"
-                        placeholder="Tags (comma-separated)"
-                        formControlName="tag"
-                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 h-12"
-                        style="background-color: #f6f6f6;">
+
+                    <div class="h-full ">
+                        <div class>
+                            <div class=" relative">
+                                <input type="text"
+                                    id="price"
+                                    class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    placeholder="15$"
+                                    formControlName="price"
+                                    required />
+
+                                <p class="absolute top-2 right-4">/ 1 day</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
 
@@ -171,7 +175,8 @@
                 <h3>Images</h3>
                 <div class="mb-1"
                     *ngFor="let imageCtrl of images.controls; let i=index">
-                    <input type="file" (change)="onFileChange($event, i)">
+                    <input type="file"
+                        (change)="onFileChange($event, i)">
                     <img *ngIf="previewUrls[i]" [src]="previewUrls[i]"
                         alt="Image Preview" width="100">
                     <button type="button"
@@ -196,4 +201,5 @@
             </button>
         </div>
     </form>
+
 </div>

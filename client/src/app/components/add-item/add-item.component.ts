@@ -16,6 +16,7 @@ import { Router } from '@angular/router';
 export class AddItemComponent implements OnInit {
   form!: FormGroup;
   minDateTime: string;
+  // specificationsForm!: FormArray;
 
 
   @ViewChild('start') startEl!: ElementRef<any>;
@@ -39,22 +40,7 @@ export class AddItemComponent implements OnInit {
     // console.log(getLocation());
 
 
-    this.form = this.fb.group({
-      userInfo: this.fb.group({
-        name: ['', Validators.required],
-        category_id: ['', Validators.required],
-        description: [''],
-        price: ['', Validators.required],
-        latitude: ['', Validators.nullValidator],
-        longitude: ['', Validators.nullValidator],
-        item_image: [null, Validators.nullValidator],
-        status: ['true', Validators.required],
-        startDate: ['', Validators.required],
-        endDate: ['', Validators.required],
-      }),
-      skills: this.fb.array([]),  // Array of skills
-      images: this.fb.array([])   // Array of images
-    });
+
 
     // const now = new Date();
     // this.minDateTime = now.toISOString().slice(0, 16); // Format as 'YYYY-MM-DDTHH:mm'
@@ -69,6 +55,20 @@ export class AddItemComponent implements OnInit {
 
     this.getCategories();
 
+    this.form = this.fb.group({
+      name: ['', Validators.required],
+      category_id: ['', Validators.required],
+      description: [''],
+      price: ['', Validators.required],
+      latitude: [null, Validators.required],
+      longitude: [null, Validators.required],
+      item_image: [null, Validators.nullValidator],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      current_state: ['available', Validators.nullValidator]
+      // skills: this.fb.array([]),  // Array of skills
+      // images: this.fb.array([])   // Array of images
+    });
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
 
@@ -93,25 +93,23 @@ export class AddItemComponent implements OnInit {
 
 
     // }
+
+
   }
 
 
   getLocation(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
-
-        (position: GeolocationPosition) => {
-          this.form.get('userInfo').patchValue({
-            latitude: position.coords.latitude,
-            longitude: position.coords.longitude
-          });
-
-          // console.log(this.form.value.userInfo.latitude);
-          // this.form.get('userInfo.latitude')?.markAsDirty();
-
-          // this.form.get('userInfo.longitude')?.markAsDirty();
+        (position: any) => {
+          if (position) {
+            this.form.patchValue({
+              latitude: position.coords.latitude,
+              longitude: position.coords.longitude
+            });
+          }
         },
-        (error: GeolocationPositionError) => console.log(error)
+        (error: any) => console.log(error)
       );
     } else {
       alert('Geolocation is not supported by this browser.');
@@ -171,7 +169,7 @@ export class AddItemComponent implements OnInit {
       const file = input.files[0];
 
       // Corrected form control access
-      const userInfoForm = this.form.get('userInfo');
+      const userInfoForm = this.form;
 
       if (userInfoForm) {
         // Update the specific control in the userInfo nested form
@@ -204,65 +202,60 @@ export class AddItemComponent implements OnInit {
 
   onSubmit() {
 
-
-
-    const formData = new FormData();
+    console.log("Hello WORLD111");
 
     if (this.form.invalid) {
-      console.error('Form is invalid!', this.form);
+      console.log(this.form);
+      console.log("Hello WORLD RTTOT");
       return;
     }
+    const formData = new FormData();
 
 
-    // Continue to process form values if valid
-    const latitude = this.form.get('userInfo.latitude')?.value;
-    const longitude = this.form.get('userInfo.longitude')?.value;
+    formData.append('name', this.form.value.name);
+    formData.append('category_id', this.form.value.category_id);
+    formData.append('description', this.form.value.description);
+    formData.append('price', this.form.value.price);
+    formData.append('latitude', this.form.value.latitude);
+    formData.append('longitude', this.form.value.longitude);
+    // formData.append('status', this.form.value.status);
+    formData.append('startDate', this.form.value.startDate);
+    formData.append('endDate', this.form.value.endDate);
+    formData.append('current_state', this.form.value.current_state);
 
-    if (!latitude || !longitude) {
-      console.error('Latitude or Longitude missing!');
-      return; // Return only if values are missing
+
+
+    if (this.form.value.item_image) {
+      formData.append('item_image', this.form.value.item_image);
     }
 
+    const token = localStorage.getItem('token') || '';
 
-    // if (this.form.value.item_image) {
-    //   formData.append('item_image', this.form.get('userInfo').value.item_image);
-    // }
-
-    // Calculate the duration in days before sending
-    // this.duration = this.calculateDuration(startDate, endDate);
-
-    // Append user info to formData
-    const userInfo = this.form.get('userInfo')?.value;
-    formData.append('name', userInfo.title);
-    formData.append('category_id', userInfo.category_id);  // Assuming category is an ID
-    formData.append('description', userInfo.description);
-    formData.append('price', userInfo.price);
-    formData.append('latitude', this.form.value.userInfo.latitude);
-    formData.append('longitude', this.form.value.userInfo.longitude);
-    formData.append('status', userInfo.status);
-
-    console.log(this.form);
-
-    this.token = localStorage.getItem('token');
+    console.log("Inside 11111111111111111");
+    console.log(formData);
+    console.log("Inside 11111111111111111");
 
 
-    // Append skills to formData
-    this.skills.controls.forEach((skill, index) => {
-      formData.append(`skills[${index}][name]`, skill.get('name')?.value);
-      formData.append(`skills[${index}][level]`, skill.get('level')?.value);
-    });
+    // // Append skills to formData
+    // this.skills.controls.forEach((skill, index) => {
+    //   formData.append(`skills[${index}][name]`, skill.get('name')?.value);
+    //   formData.append(`skills[${index}][level]`, skill.get('level')?.value);
+    // });
 
-    // Append images to formData
-    this.images.controls.forEach((imageCtrl, index) => {
-      const image = imageCtrl.value;
-      if (image) {
-        formData.append(`images[${index}]`, image);
-      }
-    });
+    // // Append images to formData
+    // this.images.controls.forEach((imageCtrl, index) => {
+    //   const image = imageCtrl.value;
+    //   if (image) {
+    //     formData.append(`images[${index}]`, image);
+    //   }
+    // });
 
     // Submit the form data via HTTP POST request
-    this.itemService.createItem(formData, this.token).subscribe(
+    this.itemService.createItem(formData, token).subscribe(
       response => {
+
+        console.log("Inside the method");
+        console.log(response);
         console.log('Item added successfully:', response);
       },
       error => {

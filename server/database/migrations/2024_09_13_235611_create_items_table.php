@@ -19,15 +19,17 @@ return new class extends Migration
             $table->string('item_image')->nullable();
             $table->decimal('latitude', 10, 7)->nullable();
             $table->decimal('longitude', 10, 7)->nullable();
-            $table->boolean('status')->default(false);
+            $table->boolean('status')->nullable();
             $table->enum('current_state', ['available', 'rented', 'unavailable'])->default('available');;
             $table->decimal('price', 10, 2);
-            $table->integer('duration');
+            // $table->integer('duration');
+            $table->boolean('archive')->default(true);
+            $table->boolean('visible')->default(false);
             $table->foreignId('lender_id')->constrained('users');
             $table->string('tag')->unique();
             $table->unsignedBigInteger('category_id'); // Foreign key
-            $table->dateTime('start_date');
-            $table->dateTime('end_date');
+            $table->dateTime('startDate');
+            $table->dateTime('endDate');
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('cascade');
             $table->timestamps();
         });

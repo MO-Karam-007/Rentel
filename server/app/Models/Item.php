@@ -35,6 +35,8 @@ class Item extends Model
         'item_images',
         'longitude',
         'latitude',
+        'startDate',
+        'endDate'
     ];
     // protected $casts = [
     // 'location' => 'magellanPoint', // Cast the location to point type if necessary

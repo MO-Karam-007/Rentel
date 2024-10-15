@@ -29,8 +29,8 @@ export class ItemService {
     console.log('Service Creating Item: ');
     const headers = { 'Authorization': `Bearer ${token}` };
 
-
     return this.http.post(`${this.baseUrl}/items`, data, { headers })
+
 
 
   }

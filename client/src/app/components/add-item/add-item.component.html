@@ -6,7 +6,7 @@
 
     <form class="grid grid-cols-1 gap-6" [formGroup]="form"
         (ngSubmit)="onSubmit()">
-        <div formGroupName="userInfo">
+        <div>
             <h3>Item Informations</h3>
             <div class="p-2">
                 <input type="text"
@@ -150,27 +150,7 @@
 
             <!-- Group of images   -->
 
-            <div formArrayName="skills">
-                <h3>specifications</h3>
-                <div *ngFor="let skill of skills.controls; let i=index"
-                    [formGroupName]="i" class="mb-1">
-                    <input formControlName
-                        class="w-25"
-                        placeholder="Specification Name">
-                    <input formControlName="level"
-                        class="w-25"
-                        placeholder="Specification value">
-                    <button type="button" (click)="removeSkill(i)"
-                        class="w-25 bg-red-800 hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md">
-                        <i class="fa-solid fa-minus"></i></button>
-                </div>
-                <button
-                    type="button"
-                    class="bg-black hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md"
-                    (click)="addSkill()">Add
-                    Specification</button>
-            </div>
-
+            <!--
             <div formArrayName="images">
                 <h3>Images</h3>
                 <div class="mb-1"
@@ -187,7 +167,7 @@
                 <button type="button"
                     class="bg-black hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md"
                     (click)="addImage()">Add Image</button>
-            </div>
+            </div> -->
 
             <!--  -->
         </div>
@@ -201,5 +181,28 @@
             </button>
         </div>
     </form>
+
+    <!-- <form [formGroup]="specificationsForm" (ngSubmit)="onSubmit()">
+        <div formArrayName="specifications">
+            <h3>specifications</h3>
+            <div *ngFor="let skill of skills.controls; let i=index"
+                [formGroupName]="i" class="mb-1">
+                <input formControlName
+                    class="w-25"
+                    placeholder="Specification Name">
+                <input formControlName="level"
+                    class="w-25"
+                    placeholder="Specification value">
+                <button type="button" (click)="removeSkill(i)"
+                    class="w-25 bg-red-800 hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md">
+                    <i class="fa-solid fa-minus"></i></button>
+            </div>
+            <button
+                type="button"
+                class="bg-black hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md"
+                (click)="addSkill()">Add
+                Specification</button>
+        </div>
+    </form> -->
 
 </div>

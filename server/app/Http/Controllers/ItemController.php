@@ -49,7 +49,7 @@ class ItemController extends BaseController implements HasMiddleware
         return $this->sendResponse($items, 'Data retrived successfully');
     }
 
-    
+
 
     public function store(Request $request)
     {
@@ -57,13 +57,15 @@ class ItemController extends BaseController implements HasMiddleware
             'name' => 'required|string|max:255',
             'description' => 'required',
             'price' => 'required|numeric',
-            'duration' => 'required|integer',
-            'status' => '',
+            // 'duration' => 'required|integer',
+            'startDate' => 'required|date',
+            'endDate' => 'required|date|after:startDate',
+            'status' => 'boolean',
             'current_state' => 'required|in:available,rented,unavailable',
             'category_id' => 'required|exists:categories,id',
             'latitude' => 'required',
             'longitude' => 'required',
-            'item_image' => ['image', 'mimes:jpeg,png,jpg,gif,svg', 'max:2048'],
+            'item_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'item_images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
 
         ]);

@@ -50,6 +50,7 @@ export class CompleteProfileComponent implements OnInit {
       this.form.get(controlName)?.updateValueAndValidity();
     }
   }
+
   getLocation() {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
@@ -79,6 +80,7 @@ export class CompleteProfileComponent implements OnInit {
 
 
 
+
     const formData = new FormData();
     formData.append('first_name', this.form.value.first_name);
     formData.append('last_name', this.form.value.last_name);
@@ -96,6 +98,7 @@ export class CompleteProfileComponent implements OnInit {
     if (this.form.value.identification_scan) {
       formData.append('identification_scan', this.form.value.identification_scan);
     }
+
     console.log("Hello WORLD");
     // Send the form data to the server
     const token = localStorage.getItem('token') || '';

@@ -155,4 +155,17 @@ class ItemController extends BaseController implements HasMiddleware
 
         return $this->sendResponse(['message' => 'Item deleted successfully'], 200);
     }
+
+    public function getUserItems($userId)
+    {
+        // Retrieve items where lender_id matches the provided user ID
+        $items = Item::where('lender_id', $userId)->get();
+
+        // Check if there are any items
+        if ($items->isEmpty()) {
+            return response()->json(['message' => 'No items found for this user'], 404);
+        }
+
+        return response()->json(['items' => $items], 200);
+    }
 }

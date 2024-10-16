@@ -60,6 +60,8 @@ export class CommunityComponent {
 
   }
   submitPost(postData: { title: string; description: string }) {
+    const token = localStorage.getItem('token');
+
     console.log('Post Data:', postData);
     this.postService.createPost(postData).subscribe(
       response => {
@@ -67,7 +69,8 @@ export class CommunityComponent {
         this.loadPosts(); // Reload posts only after a successful creation
       },
       error => {
-        console.error('Error creating post', error);
+
+        console.error('Error creating post', error ,token);
       }
     );
   }

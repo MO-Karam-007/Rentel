@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 @Injectable({
@@ -13,7 +13,15 @@ export class PostService {
   getPosts(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }
-  createPost(postData: any): Observable<any> {
-    return this.http.post<any>(this.apiUrl, postData);
+  createPost(postData: { title: string; description: string }): Observable<any> {
+    const token = localStorage.getItem('token');
+
+    const headers = new HttpHeaders({
+        'Authorization': `Bearer ${token}`,  // Include the token here
+        'Content-Type': 'application/json'
+    });
+
+
+    return this.http.post<any>(this.apiUrl, postData, { headers });
   }
 }

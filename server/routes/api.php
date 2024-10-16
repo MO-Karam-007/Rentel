@@ -99,12 +99,9 @@ Route::apiResource('tags', TagController::class);
 Route::post('favorites', [FavoriteController::class, 'store']);
 Route::delete('favorites/{user_id}/{item_id}', [FavoriteController::class, 'destroy']);
 Route::apiResource('followers', FollowerController::class);
-//Route::middleware('auth:sanctum')->group(function () {
-   // Route::apiResource('posts', PostController::class);
-//});
 Route::apiResource('posts', PostController::class);
 
-
+Route::get('/users/{id}/items', [ItemController::class, 'getUserItems']);
 
 
 

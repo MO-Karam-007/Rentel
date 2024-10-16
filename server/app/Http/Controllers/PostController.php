@@ -5,15 +5,20 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Routing\Controllers\HasMiddleware;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Gate;
 
-class PostController extends BaseController
+class PostController extends BaseController implements HasMiddleware
 {
-    // public static function middleware()
-    // {
-    //     return [
-    //         new Middleware('auth:sanctum', except: ['index', 'show'])
-    //     ];
-    // }
+    public static function middleware()
+    {
+        return [
+            new Middleware('auth:sanctum', except: ['index', 'show'])
+        ];
+    }
+
     public function index()
     {
         $posts = Post::with('creator')->get();
@@ -27,13 +32,14 @@ class PostController extends BaseController
             'description' => 'required|string',
         ]);
 
-        $post = Post::create([
-         //   'creator_id' => Auth::id(),
-            'creator_id' => 1,
+        $user = Auth::user(); // Authenticated user
+        if (!$user) {
+            return $this->sendError('User not authenticated', [], 401);
+        }
 
-            'title' => $validated['title'],
-            'description' => $validated['description'],
-        ]);
+        $validated['creator_id'] = $user->id;
+
+        $post = Post::create($validated);
 
         return $this->sendResponse($post, 'Post created successfully', 201);
     }

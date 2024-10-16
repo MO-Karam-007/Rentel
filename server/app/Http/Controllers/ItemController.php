@@ -93,6 +93,7 @@ class ItemController extends BaseController implements HasMiddleware
             'longitude' => 'required',
             'item_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'item_images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+
         ]);
 
 
@@ -184,17 +185,30 @@ class ItemController extends BaseController implements HasMiddleware
         return $this->sendResponse(['message' => 'Item deleted successfully'], 200);
     }
 
+    public function getUserItems($userId)
+    {
+        // Retrieve items where lender_id matches the provided user ID
+        $items = Item::where('lender_id', $userId)->get();
+
+        // Check if there are any items
+        if ($items->isEmpty()) {
+            return response()->json(['message' => 'No items found for this user'], 404);
+        }
+
+        return response()->json(['items' => $items], 200);
+    }
+
 
 
     function getNearbyUsers($latitude, $longitude, $radius = 22)
     {
         $nearbyUsers = DB::table('users')
             ->select('users.*', DB::raw("
-            ( 6371 * acos( cos( radians($latitude) ) 
-            * cos( radians(latitude) ) 
-            * cos( radians(longitude) - radians($longitude) ) 
-            + sin( radians($latitude) ) 
-            * sin(   
+            ( 6371 * acos( cos( radians($latitude) )
+            * cos( radians(latitude) )
+            * cos( radians(longitude) - radians($longitude) )
+            + sin( radians($latitude) )
+            * sin(  
  radians(latitude) ) ) ) AS distance
         "))
             ->having('distance', '<=', $radius)

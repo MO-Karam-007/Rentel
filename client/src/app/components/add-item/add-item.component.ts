@@ -15,6 +15,7 @@ import { Router } from '@angular/router';
 
 export class AddItemComponent implements OnInit {
   form!: FormGroup;
+  // specificationsForm!: FormArray
   minDateTime: string;
   // specificationsForm!: FormArray;
 

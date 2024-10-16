@@ -9,6 +9,7 @@ use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
@@ -62,6 +63,7 @@ class RegisteredUserController extends BaseController
         ]);
 
         $validated['profile_incomplete'] = false;
+        $validated['location'] =  DB::raw("ST_Point({$validated['latitude']}, {$validated['longitude']})");
 
         if ($request->hasFile('profile_picture')) {
             $imagePath = $request->file('profile_picture')->store('images', 'public');

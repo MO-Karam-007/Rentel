@@ -14,6 +14,7 @@
         "laravel/sanctum": "^4.0",
         "laravel/socialite": "^5.16",
         "laravel/tinker": "^2.9",
+        "malhal/laravel-geographical": "^1.0",
         "munafio/chatify": "^1.6",
         "predis/predis": "^2.2",
         "pusher/pusher-php-server": "^7.2",

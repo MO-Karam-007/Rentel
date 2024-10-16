@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Item_image;
 use App\Models\Item_specification;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -19,9 +20,37 @@ class ItemController extends BaseController implements HasMiddleware
     public static function middleware()
     {
         return [
-            new Middleware('auth:sanctum', except: ['index', 'show'])
+            new Middleware('auth:sanctum', except: ['index'])
         ];
     }
+
+
+
+    // private function getLocationBasedTrials($longitude, $latitude, $radius = 5)
+    // {
+    //     // Convert radius from miles to meters
+    //     $radiusInMeters = $radius * 1609.34;
+
+    //     // Calculate the center sphere coordinates
+    //     $centerSphere = [
+    //         $longitude,
+    //         $latitude,
+    //         $radiusInMeters / 6378137 // Convert radius to radians
+    //     ];
+
+    //     $closeTrials = Item::with(['category', 'images', 'specifications'])
+    //         ->select('items.*')
+    //         ->selectRaw("ST_Distance_Sphere(point(longitude, latitude), point(?, ?)) AS sphere_distance", [
+    //             $longitude,
+    //             $latitude
+    //         ])
+    //         ->where('location', $centerSphere)
+    //         ->orderBy('sphere_distance')
+    //         ->get();
+
+    //     return $closeTrials;
+    // }
+
 
     public function index(Request $request)
     {
@@ -48,9 +77,6 @@ class ItemController extends BaseController implements HasMiddleware
 
         return $this->sendResponse($items, 'Data retrived successfully');
     }
-
-
-
     public function store(Request $request)
     {
         $validated = $request->validate([
@@ -67,11 +93,11 @@ class ItemController extends BaseController implements HasMiddleware
             'longitude' => 'required',
             'item_image' => 'image|mimes:jpeg,png,jpg,gif,svg|max:2048',
             'item_images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
-
         ]);
 
-        $user = Auth::user();
 
+        $user = Auth::user();
+        $validated['location'] =  DB::raw("ST_Point({$validated['latitude']}, {$validated['longitude']})");
         $validated['lender_id']  = $user->id;
         $validated['tag'] = Str::slug($validated['name'], '-') . '-' . Str::random(2);
         // $validated['location'] = DB::raw("ST_SetSRID(ST_MakePoint({$validated['longitude']}, {$validated['latitude']}), 4326)");
@@ -156,5 +182,25 @@ class ItemController extends BaseController implements HasMiddleware
         $item->delete();
 
         return $this->sendResponse(['message' => 'Item deleted successfully'], 200);
+    }
+
+
+
+    function getNearbyUsers($latitude, $longitude, $radius = 22)
+    {
+        $nearbyUsers = DB::table('users')
+            ->select('users.*', DB::raw("
+            ( 6371 * acos( cos( radians($latitude) ) 
+            * cos( radians(latitude) ) 
+            * cos( radians(longitude) - radians($longitude) ) 
+            + sin( radians($latitude) ) 
+            * sin(   
+ radians(latitude) ) ) ) AS distance
+        "))
+            ->having('distance', '<=', $radius)
+            ->orderBy('distance')
+            ->get();
+
+        return $nearbyUsers;
     }
 }

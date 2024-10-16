@@ -31,6 +31,7 @@ return new class extends Migration
             $table->decimal('longitude', 10, 7)->nullable();
             $table->boolean("profile_incomplete")->nullable();
             $table->timestamp("email_verified_at")->nullable();
+            $table->geography('location', subtype: 'point', srid: 4326);
 
             $table->timestamps();
         });

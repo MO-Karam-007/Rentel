@@ -8,11 +8,16 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Facades\DB;
 use Laravel\Sanctum\HasApiTokens;
+use Malhal\Geographical\Geographical;
 
 class User extends Authenticatable
 {
-    use HasFactory, Notifiable, HasApiTokens;
+    use HasFactory;
+    use Notifiable;
+    use HasApiTokens;
+    use  Geographical;
 
     /**
      * The attributes that are mass assignable.
@@ -34,7 +39,8 @@ class User extends Authenticatable
         'google_id',
         'latitude',
         'longitude',
-        'profile_incomplete'
+        'profile_incomplete',
+        'location'
     ];
 
     /**
@@ -79,5 +85,20 @@ class User extends Authenticatable
     public function linkedSocialAccounts()
     {
         return $this->hasOne(LinkedSocialAccount::class);
+    }
+
+    public static function findNearbyUsers($latitude, $longitude, $radius = 6)
+    {
+        return DB::table('users')
+            ->selectRaw("*, (
+                6371 * acos(
+                    cos(radians(?)) * cos(radians(latitude)) * 
+                    cos(radians(longitude) - radians(?)) + 
+                    sin(radians(?)) * sin(radians(latitude))
+                )
+            ) AS distance", [$latitude, $longitude, $latitude])
+            ->having('distance', '<', $radius)
+            ->orderBy('distance')
+            ->get();
     }
 }

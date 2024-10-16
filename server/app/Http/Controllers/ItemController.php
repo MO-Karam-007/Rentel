@@ -54,6 +54,7 @@ class ItemController extends BaseController implements HasMiddleware
 
     public function index(Request $request)
     {
+        $userId = Auth::id();
 
         $latitude = $request->input('latitude');
         $longitude = $request->input('longitude');
@@ -71,12 +72,15 @@ class ItemController extends BaseController implements HasMiddleware
                 ->get();
         } else {
             // If no location is provided, retrieve all items
-            $items = Item::with(['category', 'images', 'specifications'])->get();
+            $items = Item::with(['category', 'images', 'specifications'])->where('user_id', '!=', $userId)->get();
         }
         // $items = Item::with(['category', 'images', 'specifications'])->get();
 
         return $this->sendResponse($items, 'Data retrived successfully');
     }
+
+
+    
     public function store(Request $request)
     {
         $validated = $request->validate([

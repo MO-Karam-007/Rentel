@@ -61,6 +61,12 @@ class Item extends Model
     {
         return $this->belongsTo(User::class, 'lender_id');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'favorites')->withTimestamps();
+    }
+
     public function images()
     {
         return $this->hasMany(Item_image::class);

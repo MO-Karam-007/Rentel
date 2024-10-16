@@ -87,6 +87,11 @@ class User extends Authenticatable
         return $this->hasOne(LinkedSocialAccount::class);
     }
 
+    public function favorites()
+    {
+        return $this->belongsToMany(Item::class, 'favorites')->withTimestamps();
+    }
+
     public static function findNearbyUsers($latitude, $longitude, $radius = 6)
     {
         return DB::table('users')

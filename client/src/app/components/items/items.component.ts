@@ -5,6 +5,7 @@ import { RouterLink } from '@angular/router';
 import { ItemService } from '../../services/item.service';
 import { SupabaseService } from '../../services/supabase.service';
 import { catchError } from 'rxjs';
+import { RentalService } from '../../services/rental.service';
 
 @Component({
   selector: 'app-items',
@@ -19,8 +20,8 @@ export class ItemsComponent {
   items: any[];
 
 
-  constructor(private itemService: ItemService) {
-    this.token = localStorage.getItem('token');
+  constructor(private itemService: ItemService, private rentalService: RentalService) {
+    // this.token = localStorage.getItem('token');
 
     this.getitems()
   }
@@ -33,7 +34,8 @@ export class ItemsComponent {
   }
 
   getitems() {
-    this.itemService.items(this.token).subscribe(
+    const token = localStorage.getItem('token') || '';
+    this.itemService.items(token).subscribe(
       (data) => {
         // console.log(data.data);
         this.cars = data.data
@@ -46,5 +48,30 @@ export class ItemsComponent {
 
   }
 
+  renting(id: any) {
+    const token = localStorage.getItem('token');
+    const endDate = this.calculateEndDate();
+    const data = {
+      item_id: id,
+      end_date: endDate
+    };
+
+
+    this.rentalService.rentItem(data, token).subscribe({
+      next: (response) => {
+        console.log('Rental created successfully', response);
+      },
+      error: (error) => {
+        console.error('Error creating rental', error);
+      }
+    });
+
+  }
+  calculateEndDate(): string {
+    const today = new Date();
+    const futureDate = new Date(today);
+    futureDate.setDate(today.getDate() + 7); // Example: Rent for 7 days
+    return futureDate.toISOString().split('T')[0]; // Return date in 'YYYY-MM-DD' format
+  }
 }
 

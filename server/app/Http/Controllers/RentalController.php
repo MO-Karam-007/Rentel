@@ -31,15 +31,17 @@ class RentalController extends BaseController implements HasMiddleware
         $user = Auth::user();
 
         $validated = $request->validate([
-            'start_date' => 'required|date',
-            'end_date' => 'required|date|after_or_equal:start_date',
-            'status' => 'required|in:requested,approved,active,returned',
-            'rental_price' => 'nullable|numeric',
+            'end_date' => 'required|date|after_or_equal:' . now(),
             'item_id' => 'required|exists:items,id'
         ]);
 
+        $item = Item::findOrFail($validated['item_id']);
 
         $validated['borrower_id'] = $user->id;
+        $validated['start_date'] = now();
+        $validated['status'] = 'requested';
+        $validated['rental_price'] = $item->price;
+
 
         $rental = Rental::create($validated);
 

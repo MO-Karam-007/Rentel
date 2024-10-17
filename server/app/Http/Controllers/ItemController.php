@@ -20,7 +20,7 @@ class ItemController extends BaseController implements HasMiddleware
     public static function middleware()
     {
         return [
-            new Middleware('auth:sanctum', except: ['index'])
+            new Middleware('auth:sanctum', except: [])
         ];
     }
 
@@ -72,7 +72,7 @@ class ItemController extends BaseController implements HasMiddleware
                 ->get();
         } else {
             // If no location is provided, retrieve all items
-            $items = Item::with(['category', 'images', 'specifications'])->where('user_id', '!=', $userId)->get();
+            $items = Item::with(['category', 'images', 'specifications', 'user'])->where('lender_id', '!=', $userId)->get();
         }
         // $items = Item::with(['category', 'images', 'specifications'])->get();
 
@@ -80,7 +80,7 @@ class ItemController extends BaseController implements HasMiddleware
     }
 
 
-    
+
     public function store(Request $request)
     {
         $validated = $request->validate([

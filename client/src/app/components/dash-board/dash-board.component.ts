@@ -5,6 +5,8 @@ import Map from 'ol/Map';
 import View from 'ol/View';
 import { OSM } from 'ol/source';
 import { ItemService } from '../../services/item.service';
+import { RentalService } from '../../services/rental.service';
+
 import TileLayer from 'ol/layer/Tile';
 @Component({
   selector: 'app-dash-board',
@@ -16,7 +18,8 @@ import TileLayer from 'ol/layer/Tile';
 export class DashBoardComponent implements OnInit {
   cars: any[] = [];
   token: string;
-
+  borrowerRentals: any[] = [];
+  itemOwnerRentals: any[] = [];
 
   public map!: Map
 
@@ -54,4 +57,30 @@ export class DashBoardComponent implements OnInit {
     );
 
   }
+  getBorrowerRentals(): void {
+    const token = localStorage.getItem('token') || '';
+    this..getBorrowerRentals(token).subscribe(
+      (data) => {
+        this.borrowerRentals = Array.isArray(data) ? data : [];
+      },
+      (error) => {
+        console.error('Error fetching borrower rentals', error);
+      }
+    );
+  }
+
+  // Fetch item owner rentals
+  getItemOwnerRentals(): void {
+    const token = localStorage.getItem('token') || '';
+    this.rentalService.getItemOwnerRentals(token).subscribe(
+      (data) => {
+        this.itemOwnerRentals = Array.isArray(data) ? data : [];
+      },
+      (error) => {
+        console.error('Error fetching item owner rentals', error);
+      }
+    );
+  }
+
+
 }

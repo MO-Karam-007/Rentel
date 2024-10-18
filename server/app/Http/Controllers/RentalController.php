@@ -27,27 +27,26 @@ class RentalController extends BaseController implements HasMiddleware
     }
 
     public function store(Request $request)
-    {
-        $user = Auth::user();
+{
+    $user = Auth::user();
 
-        $validated = $request->validate([
-            'end_date' => 'required|date|after_or_equal:' . now(),
-            'item_id' => 'required|exists:items,id'
-        ]);
+    $validated = $request->validate([
+        'end_date' => 'required|date|after_or_equal:' . now(),
+        'item_id' => 'required|exists:items,id'
+    ]);
 
-        $item = Item::findOrFail($validated['item_id']);
+    $item = Item::findOrFail($validated['item_id']);
 
-        $validated['borrower_id'] = $user->id;
-        $validated['start_date'] = now();
-        $validated['status'] = 'requested';
-        $validated['rental_price'] = $item->price;
+    $validated['borrower_id'] = $user->id;
+    $validated['item_owner_id'] = $item->lender_id;  // Set item owner
+    $validated['start_date'] = now();
+    $validated['status'] = 'requested';
+    $validated['rental_price'] = $item->price;
 
+    $rental = Rental::create($validated);
 
-        $rental = Rental::create($validated);
-
-        return $this->sendResponse(['message' => 'Rental created successfully', 'rental' => $rental], 201);
-    }
-
+    return $this->sendResponse(['message' => 'Rental created successfully', 'rental' => $rental], 201);
+}
     public function show($id)
     {
         $rental = Rental::with('item', 'borrowers')->find($id);
@@ -87,4 +86,37 @@ class RentalController extends BaseController implements HasMiddleware
 
         return $this->sendResponse(['message' => 'Rental deleted successfully'], 200);
     }
+    
+    public function approveRental(Rental $rental)
+{
+    Gate::authorize('modify', $rental);
+
+    if ($rental->status !== 'requested') {
+        return $this->sendError('Rental cannot be approved', 400);
+    }
+
+    $rental->status = 'approved';
+    $rental->save();
+
+    return $this->sendResponse(['message' => 'Rental approved successfully'], 200);
+}
+
+
+public function getBorrowerRentals()
+{
+    $user = Auth::user();
+    $rentals = Rental::where('borrower_id', $user->id)->with('item', 'itemOwner')->get();
+
+    return $this->sendResponse($rentals, 'Borrower rentals retrieved successfully');
+}
+
+
+
+public function getItemOwnerRentals()
+{
+    $user = Auth::user();
+    $rentals = Rental::where('item_owner_id', $user->id)->with('item', 'borrower')->get();
+
+    return $this->sendResponse($rentals, 'Item owner rentals retrieved successfully');
+}
 }

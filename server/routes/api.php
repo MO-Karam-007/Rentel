@@ -85,6 +85,7 @@ Route::post('/messages', [PusherController::class, 'store']);
 Route::middleware('auth:sanctum')->group(function () {
     Route::post('/complete-data', [RegisteredUserController::class, 'completeProfile']);
     Route::get('/current-user', [RegisteredUserController::class, 'currentUser']);
+    Route::get('/my-items', [ItemController::class, 'myItems']);
 
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });

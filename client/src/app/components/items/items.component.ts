@@ -23,7 +23,6 @@ export class ItemsComponent {
   constructor(private itemService: ItemService, private rentalService: RentalService) {
     // this.token = localStorage.getItem('token');
 
-    this.getitems()
   }
 
   ngOnInit(): void {
@@ -31,20 +30,42 @@ export class ItemsComponent {
     //   console.log(response)
     //   this.cars = response.data; // Adjust as needed based on your API response
     // });
+    this.getitems()
+
   }
 
   getitems() {
+    console.log("This is the get items ");
     const token = localStorage.getItem('token') || '';
     this.itemService.items(token).subscribe(
       (data) => {
-        // console.log(data.data);
-        this.cars = data.data
-        // this.userImage = `localhost:8000/storage/` + profile.profile_picture; // Adjust based on your API response
+        this.cars = data.data; // Store the full list of items
+        console.log('Items fetched:', this.cars);
+
+
       },
       (error) => {
-        console.error('Error fetching user data', error);
+        console.error('Error fetching items', error);
       }
     );
+  }
+
+  onSearchParamsChange(params: { distance: number; term: string }) {
+    const token = localStorage.getItem('token') || '';
+    
+    const { distance, term } = params;
+    console.log("params,", params);
+
+    this.itemService.getItems(token, distance, term).subscribe(
+      (data) => {
+        console.log("Domty", data.data);
+        this.cars = data.data; // Store the full list of items
+      },
+      (error) => {
+        console.error('Error fetching items', error);
+      }
+    )
+    // this.
 
   }
 

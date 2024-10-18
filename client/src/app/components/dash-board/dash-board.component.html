@@ -75,23 +75,23 @@
                             </thead>
                             <tbody class="bg-white rounded-lg overflow-hidden">
                                 <!-- Row 1 -->
-                                @for (item of [2,5,7,8]; track $index) {
+                                @for (item of cars; track $index) {
                                 <tr
                                     [routerLink]="['/frame']"
                                     routerLinkActive="router-link-active"
                                     class="bg-white dark:bg-gray-800 hover:bg-gray-100">
                                     <td
                                         class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        #001
+                                        #0{{item.id}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        Apple MacBook Pro 17"
+                                        {{item.name}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        $2999
+                                        {{item.price}}
                                     </td>
                                     <td class="px-6 py-4">
-                                        01/01/2024
+                                        {{item.startDate}}
                                     </td>
                                     <td class="px-6 py-4">
                                         05/01/2024

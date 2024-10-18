@@ -25,59 +25,85 @@ class ItemController extends BaseController implements HasMiddleware
     }
 
 
+    function haversineGreatCircleDistance($lat1, $lon1, $lat2, $lon2, $radius = 6371)
+    {
+        $lat1 = deg2rad($lat1);
+        $lon1 = deg2rad($lon1);
+        $lat2 = deg2rad($lat2);
+        $lon2 = deg2rad($lon2);
 
-    // private function getLocationBasedTrials($longitude, $latitude, $radius = 5)
-    // {
-    //     // Convert radius from miles to meters
-    //     $radiusInMeters = $radius * 1609.34;
+        // Haversine formula
+        $dLat = $lat2 - $lat1;
+        $dLon = $lon2 - $lon1;
 
-    //     // Calculate the center sphere coordinates
-    //     $centerSphere = [
-    //         $longitude,
-    //         $latitude,
-    //         $radiusInMeters / 6378137 // Convert radius to radians
-    //     ];
+        $a = sin($dLat / 2) * sin($dLat / 2) +
+            cos($lat1) * cos($lat2) *
+            sin($dLon / 2) * sin($dLon / 2);
 
-    //     $closeTrials = Item::with(['category', 'images', 'specifications'])
-    //         ->select('items.*')
-    //         ->selectRaw("ST_Distance_Sphere(point(longitude, latitude), point(?, ?)) AS sphere_distance", [
-    //             $longitude,
-    //             $latitude
-    //         ])
-    //         ->where('location', $centerSphere)
-    //         ->orderBy('sphere_distance')
-    //         ->get();
+        $c = 2 * atan2(sqrt($a), sqrt(1 - $a));
+        $distance = $radius * $c;
 
-    //     return $closeTrials;
-    // }
-
+        return $distance;
+    }
 
     public function index(Request $request)
     {
+
+        $searchTerm = $request->input('search');
         $userId = Auth::id();
 
-        $latitude = $request->input('latitude');
-        $longitude = $request->input('longitude');
-        $minDistance = 0; // Minimum distance in meters (7 km)
-        $maxDistance = $request->input('max'); // Maximum distance in meters (22 km)
+        $userLat = Auth::user()->latitude;
+        $userLon = Auth::user()->longitude;
 
-        if ($maxDistance > 22000) {
-            return response()->json(['message' => 'Out of our range'], 401);
+        $maxDistanceInKm = $request->query('maxDistance', 21);
+
+        $items = Item::with(['category', 'images', 'specifications', 'user'])
+            ->where('lender_id', '!=', $userId)
+            ->get();
+
+        if ($searchTerm) {
+            $items = $items->filter(function ($item) use ($searchTerm) {
+                return Str::contains(strtolower($item->name), strtolower($searchTerm))
+                    || Str::contains(strtolower($item->description), strtolower($searchTerm));
+            });
         }
 
-        if ($latitude && $longitude) {
-            // Use PostGIS function to calculate distances
-            $items = Item::selectRaw('*, ST_Distance(location, ST_MakePoint(?, ?)::geography) as distance', [$longitude, $latitude])
-                ->whereRaw('ST_DWithin(location::geography, ST_MakePoint(?, ?)::geography, ?)', [$longitude, $latitude, $maxDistance])
-                ->get();
-        } else {
-            // If no location is provided, retrieve all items
-            $items = Item::with(['category', 'images', 'specifications', 'user'])->where('lender_id', '!=', $userId)->get();
-        }
-        // $items = Item::with(['category', 'images', 'specifications'])->get();
+        $filteredItems = $items->filter(function ($item) use ($userLat, $userLon, $maxDistanceInKm) {
+            // Get item's latitude and longitude
+            $itemLat = $item->latitude;
+            $itemLon = $item->longitude;
 
-        return $this->sendResponse($items, 'Data retrived successfully');
+            $distance = $this->haversineGreatCircleDistance($userLat, $userLon, $itemLat, $itemLon);
+
+            return $distance <= $maxDistanceInKm;
+        })->map(function ($item) use ($userLat, $userLon) {
+            $itemLat = $item->latitude;
+            $itemLon = $item->longitude;
+
+            $distance = $this->haversineGreatCircleDistance($userLat, $userLon, $itemLat, $itemLon);
+
+            $item->distance = round($distance, 2);
+
+            return $item;
+        });
+
+
+
+
+
+        return $this->sendResponse($filteredItems->values(), 'Items within range retrieved successfully');
     }
+
+
+    public function myItems(Request $request)
+    {
+        $userId = Auth::id();
+
+        $items = Item::with(['category', 'images', 'specifications', 'user'])->where('lender_id', '=', $userId)->get();
+
+        return $items;
+    }
+
 
 
 
@@ -105,7 +131,6 @@ class ItemController extends BaseController implements HasMiddleware
         $validated['location'] =  DB::raw("ST_Point({$validated['latitude']}, {$validated['longitude']})");
         $validated['lender_id']  = $user->id;
         $validated['tag'] = Str::slug($validated['name'], '-') . '-' . Str::random(2);
-        // $validated['location'] = DB::raw("ST_SetSRID(ST_MakePoint({$validated['longitude']}, {$validated['latitude']}), 4326)");
 
         if ($request->hasFile('item_image')) {
             $imagePath = $request->file('item_image')->store('images', 'public');
@@ -124,8 +149,6 @@ class ItemController extends BaseController implements HasMiddleware
             }
         }
 
-
-
         if ($request->has('specifications')) {
             foreach ($request->input('specifications') as $specification) {
                 Item_specification::create([
@@ -138,8 +161,6 @@ class ItemController extends BaseController implements HasMiddleware
         // }
 
         $item = Item::create($validated);
-
-
 
         return response()->json(['message' => 'Item created successfully', 'item' => $item->load(['images', 'specifications'])], 201);
     }
@@ -200,25 +221,5 @@ class ItemController extends BaseController implements HasMiddleware
         }
 
         return response()->json(['items' => $items], 200);
-    }
-
-
-
-    function getNearbyUsers($latitude, $longitude, $radius = 22)
-    {
-        $nearbyUsers = DB::table('users')
-            ->select('users.*', DB::raw("
-            ( 6371 * acos( cos( radians($latitude) )
-            * cos( radians(latitude) )
-            * cos( radians(longitude) - radians($longitude) )
-            + sin( radians($latitude) )
-            * sin(  
- radians(latitude) ) ) ) AS distance
-        "))
-            ->having('distance', '<=', $radius)
-            ->orderBy('distance')
-            ->get();
-
-        return $nearbyUsers;
     }
 }

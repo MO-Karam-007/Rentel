@@ -1,131 +1,42 @@
 <section id="content">
     <main class="disable-scrolling">
-        <div class="head-title ">
+        <div class="head-title">
             <div class="left">
                 <h1>Dashboard</h1>
-
                 <ul class="breadcrumb">
-                    <li>
-                        <a href="#">Dashboard</a>
-                    </li>
-                    <li>
-                        <i class="fa-solid fa-chevron-right"></i></li>
-                    <li>
-                        <a class="active" href="#">Home</a>
-                    </li>
+                    <li><a href="#">Dashboard</a></li>
+                    <li><i class="fa-solid fa-chevron-right"></i></li>
+                    <li><a class="active" href="#">Home</a></li>
                 </ul>
             </div>
         </div>
 
         <ul class="box-info">
-            <li>
+            <li (click)="selectTab('requests')">
                 <i class="bx fa-solid fa-retweet"></i>
-                <i class></i>
-                <span class="text">
-                    <!-- <h3>80</h3> -->
-                    <p>Requests</p>
-                </span>
+                <span class="text"><p>Requests</p></span>
             </li>
-            <li>
+            <li (click)="selectTab('rented')">
                 <i class="bx fa-solid fa-hand-holding-hand"></i>
-                <span class="text">Item Rented
-                    <!-- <h3>30</h3> -->
-                    <p>Renting History</p>
-                </span>
+                <span class="text"><p>Rented Items</p></span>
             </li>
-            <li>
+            <li (click)="selectTab('your-items')">
                 <i class="bx fa-solid fa-wallet"></i>
-                <span class="text">
-                    <!-- <h3>580 $</h3> -->
-                    <p>Your Items</p>
-                </span>
+                <span class="text"><p>Your Items</p></span>
             </li>
         </ul>
 
-        <div class="table-data ">
+        <div class="table-data">
             <div class="order">
                 <div class="head">
-                    <h3>Recent Orders</h3>
-
-                    <div class="relative overflow-x-auto disable-scrolling">
-                        <table
-                            class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-                            <thead
-                                class="text-xs text-gray-900 uppercase dark:text-gray-400">
-                                <tr>
-                                    <th scope="col" class="px-6 py-3">
-                                        Ref Number
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Item Name
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Price
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Start Date
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        End Date
-                                    </th>
-                                    <th scope="col" class="px-6 py-3">
-                                        Status
-                                    </th>
-                                </tr>
-                            </thead>
-                            <tbody class="bg-white rounded-lg overflow-hidden">
-                                <!-- Row 1 -->
-                                @for (item of cars; track $index) {
-                                <tr
-                                    [routerLink]="['/frame']"
-                                    routerLinkActive="router-link-active"
-                                    class="bg-white dark:bg-gray-800 hover:bg-gray-100">
-                                    <td
-                                        class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                        #0{{item.id}}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{item.name}}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{item.price}}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {{item.startDate}}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        05/01/2024
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <span
-                                            class="bg-yellow-200 text-yellow-800 text-sm font-semibold px-3 py-1 rounded-full">Requested</span>
-                                    </td>
-                                </tr>
-                                }
-                            </tbody>
-
-                        </table>
-
-                        <div
-                            class="bg-white w-full px-4 py-2  mt-4 rounded-2xl flex justify-between">
-                            <i
-                                class="fa-solid fa-arrow-left cursor-pointer text-gray-400"></i>
-                            <i
-                                class="fa-solid fa-arrow-right  cursor-pointer"></i>
-                        </div>
-                    </div>
-
+                    <h3>{{ selectedTab === 'requests' ? 'Requests' : selectedTab === 'rented' ? 'Rented Items' : 'Your Items' }}</h3>
+                    <ng-container [ngSwitch]="selectedTab">
+                        <app-requests *ngSwitchCase="'requests'"></app-requests>
+                        <app-rented-items *ngSwitchCase="'rented'"></app-rented-items>
+                        <app-your-items *ngSwitchCase="'your-items'"></app-your-items>
+                    </ng-container>
                 </div>
-
             </div>
-
         </div>
-
-        <div id="map"
-            class="map rounded-lg mt-4 overflow-hidden"></div>
-        <!-- <div class="w-full h-[20vh] bg-blue-100"></div> -->
-
     </main>
-    <!-- MAIN -->
 </section>
-<!-- CONTENT -->

@@ -19,4 +19,21 @@ export class RentalService {
 
   }
 
+  getBorrowerRentals(token: string): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get(`${this.baseUrl}/rentals/borrower`, { headers });
+  }
+
+  // Get rentals for the item owner
+  getItemOwnerRentals(token: string): Observable<any> {
+    const headers =  { 'Authorization': `Bearer ${token}` };
+    return this.http.get(`${this.baseUrl}/rentals/item-owner`, { headers });
+  }
+
+  // Approve a rental
+  approveRental(rentalId: number, token: string): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.post(`${this.baseUrl}/rentals/${rentalId}/approve`, {}, { headers });
+  }
+
 }

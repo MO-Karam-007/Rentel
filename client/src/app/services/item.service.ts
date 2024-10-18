@@ -10,13 +10,18 @@ export class ItemService {
   private baseUrl = env.baseUrl;
 
   constructor(private http: HttpClient) { }
-  getItems(latitude: number, longitude: number, max: number): Observable<any> {
-    const params = new HttpParams()
-      .set('latitude', latitude.toString())
-      .set('longitude', longitude.toString())
-    // .set('max', max.toString());
+  
+  getItems(token: string, maxDistance: number = 7, searchTerm: string = ''): Observable<any> {
 
-    return this.http.get<any>(`${this.baseUrl}`, { params });
+    let params = new HttpParams()
+      .set('maxDistance', maxDistance.toString())
+      .set('search', searchTerm);
+    console.log(searchTerm);
+
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+
+    return this.http.get<any>(`${this.baseUrl}/items`, { params, headers });
   }
 
   items(token: string): Observable<any> {
@@ -26,13 +31,16 @@ export class ItemService {
   }
 
   createItem(data: any, token: string) {
-   
+
     const headers = { 'Authorization': `Bearer ${token}` };
 
     return this.http.post(`${this.baseUrl}/items`, data, { headers })
+  }
 
+  myItems(token: string) {
+    const headers = { 'Authorization': `Bearer ${token}` };
 
-
+    return this.http.get(`${this.baseUrl}/my-items`, { headers })
   }
 
 }

@@ -5,14 +5,28 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreWishlistRequest;
 use App\Http\Requests\UpdateWishlistRequest;
 use App\Models\Wishlist;
+use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Facades\Auth;
 
 class WishlistController extends Controller
 {
+    public static function middleware()
+    {
+        return [
+            new Middleware('auth:sanctum', except: [])
+        ];
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
+        $userId = Auth::id();
+
+        $items = Wishlist::with(['category', 'images', 'specifications', 'user'])->where('lender_id', '=', $userId)->get();
+
+        return $items;
         //
     }
 
@@ -21,7 +35,11 @@ class WishlistController extends Controller
      */
     public function create()
     {
-        
+
+        // Click Auch add in pivot table wishlist
+        //  store user id item Id
+
+
     }
 
     /**

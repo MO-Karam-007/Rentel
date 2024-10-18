@@ -92,3 +92,31 @@
 - **Mobile Responsiveness**
 
   - Ensure that all pages are optimized for mobile devices.
+
+get additionalImages(): FormArray {
+return this.imageForm.get('additionalImages') as FormArray;
+}
+
+addImage() {
+this.additionalImages.push(this.fb.control('', Validators.required));
+}
+
+removeImage(index: number) {
+this.additionalImages.removeAt(index);
+}
+
+// Submit Handler
+onSubmit() {
+if (this.itemForm.valid && this.imageForm.valid && this.specForm.valid) {
+const formData = {
+itemDetails: this.itemForm.value,
+images: this.imageForm.value.additionalImages,
+specifications: this.specForm.value.specifications
+};
+
+      console.log('Form Data: ', formData);
+      // Send formData to your service or API
+    }
+
+}
+}

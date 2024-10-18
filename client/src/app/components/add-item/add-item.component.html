@@ -4,105 +4,104 @@
     <!-- Page Title -->
     <h1 class="text-3xl font-bold text-[black] mb-6">Create Item</h1>
 
-    <form class="grid grid-cols-1 gap-6" [formGroup]="form"
+    <form class="grid grid-cols-1 gap-6" [formGroup]="itemForm"
         (ngSubmit)="onSubmit()">
-        <div >
-            <h3>Item Informations</h3>
-            <div class="p-2">
-                <input type="text"
-                    id="title"
-                    name="name"
-                    formControlName="name"
-                    placeholder="Item Title"
+        <h3>Item Informations</h3>
+        <div class="p-2">
+            <input type="text"
+                id="title"
+                name="name"
+                formControlName="name"
+                placeholder="Item Title"
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
+                style="background-color: #f6f6f6;">
+        </div>
+
+        <!-- Category -->
+
+        <div class="m-2">
+
+            <select id="category"
+                name="category_id"
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
+                style="background-color: #f6f6f6;"
+                formControlName="category_id">
+                <option value>Select a category</option>
+                @for (item of categories; track $index) {
+                <option [value]='item.id'>{{item.category}}</option>
+
+                }
+            </select>
+
+        </div>
+        <input type="text" formControlName="latitude"
+            hidden>
+        <input type="text" formControlName="longitude"
+            hidden>
+        <!-- Description -->
+        <div class="p-2">
+            <textarea
+                formControlName="description"
+                placeholder="Description"
+                class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
+                style="background-color: #f6f6f6;"></textarea>
+        </div>
+
+        <!-- Image Upload -->
+        <div>
+
+            <div class="text-center">
+                <div class="mb-2">
+                    <input
+                        id="item_image"
+                        type="file"
+                        (change)="handleFileInput($event, 'item_image')"
+                        class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
+                </div>
+            </div>
+        </div>
+
+        <!-- Start Date and End Date -->
+        <div class="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Start Date -->
+            <div class="flex items-center bg-[#f6f6f6] rounded-md p-2">
+                <span
+                    class="flex-shrink-0 flex items-center mr-3 text-gray-500">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span class="ml-2">Start Date</span>
+                </span>
+                <input type="datetime-local"
+                    [min]="min" #start id="start-date"
+                    name="start-date"
+                    formControlName="startDate"
                     class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
                     style="background-color: #f6f6f6;">
             </div>
 
-            <!-- Category -->
-
-            <div class="m-2">
-
-                <select id="category"
-                    name="category_id"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
-                    style="background-color: #f6f6f6;"
-                    formControlName="category_id">
-                    <option value>Select a category</option>
-                    @for (item of categories; track $index) {
-                    <option [value]='item.id'>{{item.category}}</option>
-
-                    }
-                </select>
+            <!-- End Date -->
+            <div class="flex items-center bg-[#f6f6f6] rounded-md p-2">
+                <span
+                    class="flex-shrink-0 flex items-center mr-3 text-gray-500">
+                    <i class="fa-regular fa-calendar"></i>
+                    <span class="ml-2">End Date</span>
+                </span>
+                <input type="datetime-local"
+                    id="end-date"
+                    name="end-date"
+                    formControlName="endDate"
+                    [min]="start.value"
+                    [disabled]="!start.value"
+                    formControlName="endDate"
+                    class="disabled:cursor-not-allowed block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
+                    style="background-color: #f6f6f6;">
 
             </div>
-            <input type="text" formControlName="latitude"
-                hidden>
-            <input type="text" formControlName="longitude"
-                hidden>
-            <!-- Description -->
-            <div class="p-2">
-                <textarea
-                    formControlName="description"
-                    placeholder="Description"
-                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
-                    style="background-color: #f6f6f6;"></textarea>
-            </div>
+        </div>
 
-            <!-- Image Upload -->
-            <div>
-
-                <div class="text-center">
-                    <div class="mb-2">
-                        <input
-                            id="item_image"
-                            type="file"
-                            (change)="handleFileInput($event, 'item_image')"
-                            class="block w-full text-sm text-gray-900 border border-gray-300 rounded-lg cursor-pointer bg-gray-50 dark:text-gray-400 focus:outline-none dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400">
-                    </div>
-                </div>
-            </div>
-
-            <!-- Start Date and End Date -->
-            <div class="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Start Date -->
-                <div class="flex items-center bg-[#f6f6f6] rounded-md p-2">
-                    <span
-                        class="flex-shrink-0 flex items-center mr-3 text-gray-500">
-                        <i class="fa-regular fa-calendar"></i>
-                        <span class="ml-2">Start Date</span>
-                    </span>
-                    <input type="datetime-local"
-                        [min]="min" #start id="start-date"
-                        name="start-date"
-                        formControlName="startDate"
-                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
-                        style="background-color: #f6f6f6;">
-                </div>
-
-                <!-- End Date -->
-                <div class="flex items-center bg-[#f6f6f6] rounded-md p-2">
-                    <span
-                        class="flex-shrink-0 flex items-center mr-3 text-gray-500">
-                        <i class="fa-regular fa-calendar"></i>
-                        <span class="ml-2">End Date</span>
-                    </span>
-                    <input type="datetime-local"
-                        id="end-date"
-                        name="end-date"
-                        formControlName="endDate"
-                        [min]="start.value"
-                        [disabled]="!start.value"
-                        formControlName="endDate"
-                        class="disabled:cursor-not-allowed block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 p-2"
-                        style="background-color: #f6f6f6;">
-
-                </div>
-            </div>
-
-            <!-- Status and Tags -->
-            <div class="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
-                <!-- Status -->
-                <!-- <div class="flex items-center bg-[#f6f6f6] rounded-md">
+        <!-- Status and Tags -->
+        <div class="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
+            <!-- Status -->
+            <!-- <div class="flex items-center bg-[#f6f6f6] rounded-md">
                 <select id="status" name="status"
                     class="block w-full px-2 h-12 rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50"
                     style="background-color: #f6f6f6; padding: 0;">
@@ -111,38 +110,36 @@
                 </select>
             </div> -->
 
-                <div class>
-                    <select id="status"
-                        name="status"
-                        formControlName="status"
-                        class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 h-12"
-                        style="background-color: #f6f6f6;">
-                        <option value="ture">Avalible</option>
-                        <option value="false">Not Avalible</option>
+            <div class>
+                <select id="status"
+                    name="status"
+                    formControlName="status"
+                    class="block w-full rounded-md border-gray-300 shadow-sm focus:border-black focus:ring-black focus:ring-opacity-50 h-12"
+                    style="background-color: #f6f6f6;">
+                    <option value="ture">Avalible</option>
+                    <option value="false">Not Avalible</option>
 
-                    </select>
-                </div>
+                </select>
+            </div>
 
-                <!-- Tags -->
-                <div>
+            <!-- Tags -->
+            <div>
 
-                    <div class="h-full ">
-                        <div class>
-                            <div class=" relative">
-                                <input type="text"
-                                    id="price"
-                                    class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                                    placeholder="15$"
-                                    formControlName="price"
-                                    required />
+                <div class="h-full ">
+                    <div class>
+                        <div class=" relative">
+                            <input type="text"
+                                id="price"
+                                class=" bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                placeholder="15$"
+                                formControlName="price"
+                                required />
 
-                                <p class="absolute top-2 right-4">/ 1 day</p>
-                            </div>
+                            <p class="absolute top-2 right-4">/ 1 day</p>
                         </div>
                     </div>
                 </div>
             </div>
-
         </div>
 
         <!-- Description and Image Upload -->
@@ -150,7 +147,29 @@
 
             <!-- Group of images   -->
 
-            <!--
+            <!--  -->
+            <div formGroupName="specifications">
+                <h3>specifications</h3>
+                <div *ngFor="let spec of specifications.controls; let i=index"
+                    [formGroupName]="i"
+                    class="mb-1">
+                    <input formControlName="spec_name"
+                        class="w-25"
+                        placeholder="Specification Name">
+                    <input formControlName="spec_value"
+                        class="w-25"
+                        placeholder="Specification value">
+                    <button type="button" (click)="removeSpecification(i)"
+                        class="w-25 bg-red-800 hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md">
+                        <i class="fa-solid fa-minus"></i></button>
+                </div>
+                <button
+                    type="button"
+                    class="bg-black hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md"
+                    (click)="addSpecification()">Add
+                    Specification</button>
+            </div>
+
             <div formArrayName="images">
                 <h3>Images</h3>
                 <div class="mb-1"
@@ -167,9 +186,7 @@
                 <button type="button"
                     class="bg-black hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md"
                     (click)="addImage()">Add Image</button>
-            </div> -->
-
-            <!--  -->
+            </div>
         </div>
 
         <!-- Registration Button -->
@@ -183,26 +200,7 @@
     </form>
 
     <!-- <form>
-        <div formArrayName="skills">
-            <h3>specifications</h3>
-            <div *ngFor="let skill of skills.controls; let i=index"
-                [formGroupName]="i" class="mb-1">
-                <input formControlName
-                    class="w-25"
-                    placeholder="Specification Name">
-                <input formControlName="level"
-                    class="w-25"
-                    placeholder="Specification value">
-                <button type="button" (click)="removeSkill(i)"
-                    class="w-25 bg-red-800 hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md">
-                    <i class="fa-solid fa-minus"></i></button>
-            </div>
-            <button
-                type="button"
-                class="bg-black hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md"
-                (click)="addSkill()">Add
-                Specification</button>
-        </div>
+     
     </form> -->
 
 </div>

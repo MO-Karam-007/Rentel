@@ -4,6 +4,7 @@ import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } fr
 import { ItemService } from '../../services/item.service';
 import { CategoriesService } from '../../services/categories.service';
 import { Router } from '@angular/router';
+import { CdkVirtualForOf } from '@angular/cdk/scrolling';
 
 @Component({
   selector: 'app-add-item',
@@ -14,11 +15,10 @@ import { Router } from '@angular/router';
 })
 
 export class AddItemComponent implements OnInit {
-  form!: FormGroup;
-  // specificationsForm!: FormArray
+  itemForm!: FormGroup;
+  specForm!: FormGroup;
+  imageForm!: FormGroup;
   minDateTime: string;
-  // specificationsForm!: FormArray;
-
 
   @ViewChild('start') startEl!: ElementRef<any>;
   myDate = new Date();
@@ -26,7 +26,6 @@ export class AddItemComponent implements OnInit {
   token: string;
   previewUrls: string[] = [];  // Store image preview URLs
   categories: any[] = []
-
 
   // getControlNames(): string[] {
   //   return Object.keys(this.form.get('userInfo')?.controls || {});
@@ -37,39 +36,31 @@ export class AddItemComponent implements OnInit {
     private fb: FormBuilder,
     private itemService: ItemService,
     private categoriesService: CategoriesService) {
-
-    // console.log(getLocation());
-
-
-
-
-    // const now = new Date();
-    // this.minDateTime = now.toISOString().slice(0, 16); // Format as 'YYYY-MM-DDTHH:mm'
   }
 
-
-
-
   itemsArray: number[];
+
+
   ngOnInit() {
+    this.initForm();
     this.getLocation();
 
     this.getCategories();
 
-    this.form = this.fb.group({
-      name: ['', Validators.required],
-      category_id: ['', Validators.required],
-      description: [''],
-      price: ['', Validators.required],
-      latitude: [null, Validators.required],
-      longitude: [null, Validators.required],
-      item_image: [null, Validators.nullValidator],
-      startDate: ['', Validators.required],
-      endDate: ['', Validators.required],
-      current_state: ['available', Validators.nullValidator]
-      // skills: this.fb.array([]),  // Array of skills
-      // images: this.fb.array([])   // Array of images
-    });
+    // this.form = this.fb.group({
+    //   name: ['', Validators.required],
+    //   category_id: ['', Validators.required],
+    //   description: [''],
+    //   price: ['', Validators.required],
+    //   latitude: [null, Validators.required],
+    //   longitude: [null, Validators.required],
+    //   item_image: [null, Validators.nullValidator],
+    //   startDate: ['', Validators.required],
+    //   endDate: ['', Validators.required],
+    //   current_state: ['available', Validators.nullValidator]
+    //   // skills: this.fb.array([]),  // Array of skills
+    //   // images: this.fb.array([])   // Array of images
+    // });
     //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
     //Add 'implements OnInit' to the class.
 
@@ -99,12 +90,51 @@ export class AddItemComponent implements OnInit {
   }
 
 
+  initForm() {
+    this.itemForm = this.fb.group({
+      name: ['', Validators.required],
+      description: [''],
+      category_id: ['', Validators.required],
+      price: ['', Validators.required],
+      latitude: [null, Validators.required],
+      longitude: [null, Validators.required],
+      item_image: [null, Validators.nullValidator],
+      // status: ['', Validators.nullValidator],
+      startDate: ['', Validators.required],
+      endDate: ['', Validators.required],
+      current_state: ['available', Validators.nullValidator],
+      specifications: this.fb.array([]),
+      images: this.fb.array([])
+    });
+  }
+
+  createSpecField() {
+    return this.fb.group({
+      spec_name: ['', Validators.required],
+      spec_value: ['', Validators.required]
+    });
+  }
+
+
+  // Method to array specification form
+  get specifications() {
+    return this.itemForm.get('specifications') as FormArray;
+  }
+
+  addSpecification() {
+    this.specifications.push(this.createSpecField());
+  }
+
+  removeSpecification(index: number) {
+    this.specifications.removeAt(index);
+  }
+
   getLocation(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(
         (position: any) => {
           if (position) {
-            this.form.patchValue({
+            this.itemForm.patchValue({
               latitude: position.coords.latitude,
               longitude: position.coords.longitude
             });
@@ -119,38 +149,16 @@ export class AddItemComponent implements OnInit {
 
 
   getCategories() {
-    console.log("Inside");
     this.categoriesService.categories().subscribe((data: any) => {
       this.categories = data.data;
     });
   }
 
-  get skills(): FormArray {
-    return this.form.get('skills') as FormArray;
-  }
 
   get images(): FormArray {
-    return this.form.get('images') as FormArray;
+    return this.itemForm.get('images') as FormArray;
   }
 
-
-
-
-  // Add new skill to the form
-  addSkill() {
-    const skillForm = this.fb.group({
-      name: ['', Validators.required],
-      level: ['', Validators.required]
-    });
-    this.skills.push(skillForm);
-  }
-
-  // Remove a skill from the form
-  removeSkill(index: number) {
-    this.skills.removeAt(index);
-  }
-
-  // Add a new image control
   addImage() {
     const imageForm = this.fb.control(null);  // Placeholder for image file
     this.images.push(imageForm);
@@ -170,7 +178,7 @@ export class AddItemComponent implements OnInit {
       const file = input.files[0];
 
       // Corrected form control access
-      const userInfoForm = this.form;
+      const userInfoForm = this.itemForm;
 
       if (userInfoForm) {
         // Update the specific control in the userInfo nested form
@@ -202,56 +210,75 @@ export class AddItemComponent implements OnInit {
 
 
   onSubmit() {
-
-    console.log("Hello WORLD111");
-
-    if (this.form.invalid) {
-      console.log(this.form);
-      console.log("Hello WORLD RTTOT");
-      return;
-    }
-    const formData = new FormData();
-
-
-    formData.append('name', this.form.value.name);
-    formData.append('category_id', this.form.value.category_id);
-    formData.append('description', this.form.value.description);
-    formData.append('price', this.form.value.price);
-    formData.append('latitude', this.form.value.latitude);
-    formData.append('longitude', this.form.value.longitude);
-    // formData.append('status', this.form.value.status);
-    formData.append('startDate', this.form.value.startDate);
-    formData.append('endDate', this.form.value.endDate);
-    formData.append('current_state', this.form.value.current_state);
-
-
-
-    if (this.form.value.item_image) {
-      formData.append('item_image', this.form.value.item_image);
-    }
+    console.log("Hekki Matata");
 
     const token = localStorage.getItem('token') || '';
+    // 
+    console.log('Form Data: ', this.itemForm.value);
 
-    console.log("Inside 11111111111111111");
+
+    // if (this.itemForm.get('item_image')?.value) {
+    //   formData.itemDetails.append('item_image', this.itemForm.get('item_image')?.value);
+    // }
+
+
+    // const item = this.itemForm
+    // if (this.itemForm.valid && this.imageForm.valid && this.specForm.valid) {
+    // const formData = {
+    //   // itemDetails: this.itemForm.value,
+    //   // images: this.imageForm.value.additionalImages,
+    //   // specifications: this.specForm.value
+    // };
+
+    // const speco = formData.specifications.map(specification => {
+    // return {
+    // spec_name: specification.spec_name,
+    // spec_value: specification.spec_value
+    // }
+    // })
+    // console.log('Form Data: ', this.specifications);
+
+    const formData = new FormData();
+    // }
+    formData.append('name', this.itemForm.get('name')?.value); // Adjust 'itemName' as needed
+    formData.append('price', this.itemForm.get('price')?.value);
+    // formData.append('status', this.itemForm.get('status')?.value);
+    formData.append('category_id', this.itemForm.get('category_id')?.value);
+    formData.append('description', this.itemForm.get('description')?.value);
+    formData.append('latitude', this.itemForm.get('latitude')?.value);
+    formData.append('longitude', this.itemForm.get('longitude')?.value);
+    formData.append('startDate', this.itemForm.get('startDate')?.value);
+    formData.append('endDate', this.itemForm.get('endDate')?.value);
+    formData.append('current_state', this.itemForm.get('current_state')?.value);
+
+
+    if (this.itemForm.value.item_image) {
+      formData.append('item_image', this.itemForm.value.item_image);
+    }
+
+    this.specifications.controls.forEach((spec, index) => {
+      formData.append(`specifications[${index}][spec_name]`, spec.get('spec_name')?.value);
+      formData.append(`specifications[${index}][spec_value]`, spec.get('spec_value')?.value);
+    });
     console.log(formData);
-    console.log("Inside 11111111111111111");
+
+    // if (this.itemForm.value.item_image) {
+    // formData.append('item_image', this.itemForm.value.item_image);
+    // }
 
 
-    // // Append skills to formData
-    // this.skills.controls.forEach((skill, index) => {
-    //   formData.append(`skills[${index}][name]`, skill.get('name')?.value);
-    //   formData.append(`skills[${index}][level]`, skill.get('level')?.value);
+    // console.log(formData);
+
+
+    // this.specifications.controls.forEach((spec, index) => {
+    //   formData.specifications.append(`specifications[${index}][spec_name]`, spec.get('spec_name')?.value);
+    //   formData.specifications.append(`specifications[${index}][spec_value]`, spec.get('spec_value')?.value);
     // });
 
-    // // Append images to formData
-    // this.images.controls.forEach((imageCtrl, index) => {
-    //   const image = imageCtrl.value;
-    //   if (image) {
-    //     formData.append(`images[${index}]`, image);
-    //   }
-    // });
 
-    // Submit the form data via HTTP POST request
+
+
+
     this.itemService.createItem(formData, token).subscribe(
       response => {
 
@@ -263,25 +290,60 @@ export class AddItemComponent implements OnInit {
         console.error('Error adding item:', error);
       }
     );
+
+
   }
 
 
-  // getFormValidationErrors() {
-  //   Object.keys(this.form.get('userInfo').controls).forEach(key => {
-  //     const controlErrors = this.myForm.get(key)?.errors;
-  //     if (controlErrors) {
-  //       Object.keys(controlErrors).forEach(keyError => {
-  //         console.log(`Field: ${key}, Error Type: ${keyError}, Error Details: `, controlErrors[keyError]);
-  //       });
-  //     }
-  //   });
-  // }
-
-
-  daysBetween(date1: Date, date2: Date): number {
-    const oneDay = 24 * 60 * 60 * 1000; // Hours * Minutes * Seconds * Milliseconds
-    const diffInTime = Math.abs(date2.getTime() - date1.getTime());
-    return Math.floor(diffInTime / oneDay);
-  }
 
 }
+
+
+//   // // Append skills to formData
+//   // this.skills.controls.forEach((skill, index) => {
+//   //   formData.append(`skills[${index}][name]`, skill.get('name')?.value);
+//   //   formData.append(`skills[${index}][level]`, skill.get('level')?.value);
+//   // });
+
+//   // // Append images to formData
+// this.images.controls.forEach((imageCtrl, index) => {
+//   const image = imageCtrl.value;
+//   if (image) {
+//     formData.append(`images[${index}]`, image);
+//   }
+// });
+
+//   // Submit the form data via HTTP POST request
+//   this.itemService.createItem(formData, token).subscribe(
+//     response => {
+
+//       console.log("Inside the method");
+//       console.log(response);
+//       console.log('Item added successfully:', response);
+//     },
+//     error => {
+//       console.error('Error adding item:', error);
+//     }
+//   );
+// }
+
+
+// getFormValidationErrors() {
+//   Object.keys(this.form.get('userInfo').controls).forEach(key => {
+//     const controlErrors = this.myForm.get(key)?.errors;
+//     if (controlErrors) {
+//       Object.keys(controlErrors).forEach(keyError => {
+//         console.log(`Field: ${key}, Error Type: ${keyError}, Error Details: `, controlErrors[keyError]);
+//       });
+//     }
+//   });
+// }
+
+
+// daysBetween(date1: Date, date2: Date): number {
+//   const oneDay = 24 * 60 * 60 * 1000; // Hours * Minutes * Seconds * Milliseconds
+//   const diffInTime = Math.abs(date2.getTime() - date1.getTime());
+//   return Math.floor(diffInTime / oneDay);
+// }
+
+

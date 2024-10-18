@@ -59,7 +59,7 @@ class ItemController extends BaseController implements HasMiddleware
 
         $items = Item::with(['category', 'images', 'specifications', 'user'])
             ->where('lender_id', '!=', $userId)
-            
+
             ->get();
 
         if ($searchTerm) {
@@ -137,6 +137,7 @@ class ItemController extends BaseController implements HasMiddleware
             $imagePath = $request->file('item_image')->store('images', 'public');
             $validated['item_image'] = $imagePath;
         }
+        $item = Item::create($validated);
 
 
         if ($request->hasFile('item_images')) {
@@ -161,7 +162,6 @@ class ItemController extends BaseController implements HasMiddleware
         }
         // }
 
-        $item = Item::create($validated);
 
         return response()->json(['message' => 'Item created successfully', 'item' => $item->load(['images', 'specifications'])], 201);
     }

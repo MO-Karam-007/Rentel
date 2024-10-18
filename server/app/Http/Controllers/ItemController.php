@@ -59,6 +59,7 @@ class ItemController extends BaseController implements HasMiddleware
 
         $items = Item::with(['category', 'images', 'specifications', 'user'])
             ->where('lender_id', '!=', $userId)
+            
             ->get();
 
         if ($searchTerm) {

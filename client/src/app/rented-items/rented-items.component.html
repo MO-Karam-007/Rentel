@@ -10,11 +10,11 @@
     </thead>
     <tbody>
         <!-- Replace this with your actual data logic -->
-        <tr *ngFor="let request of cars">
-            <td class="px-6 py-4">{{ request.refNumber }}</td>
-            <td class="px-6 py-4">{{ request.itemName }}</td>
-            <td class="px-6 py-4">{{ request.price }}</td>
-            <td class="px-6 py-4">{{ request.startDate }}</td>
+        <tr *ngFor="let request of rentals">
+            <td class="px-6 py-4">{{ request.id }}</td>
+            <td class="px-6 py-4">{{ request.item.name}}</td>
+            <td class="px-6 py-4">{{ request.rental_price }}</td>
+            <td class="px-6 py-4">{{ request.start_date }}</td>
             <td class="px-6 py-4">{{ request.status }}</td>
         </tr>
     </tbody>

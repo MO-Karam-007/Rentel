@@ -21,13 +21,13 @@ export class RentalService {
 
   getBorrowerRentals(token: string): Observable<any> {
     const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(`${this.baseUrl}/rentals/borrower`, { headers });
+    return this.http.get(`${this.baseUrl}/myrentels`, { headers });
   }
 
   // Get rentals for the item owner
   getItemOwnerRentals(token: string): Observable<any> {
     const headers =  { 'Authorization': `Bearer ${token}` };
-    return this.http.get(`${this.baseUrl}/rentals/item-owner`, { headers });
+    return this.http.get(`${this.baseUrl}/itemrentel-req`, { headers });
   }
 
   // Approve a rental

@@ -106,8 +106,8 @@ Route::get('/users/{id}/items', [ItemController::class, 'getUserItems']);
 
 
 Route::middleware('auth:sanctum')->group(function () {
-    Route::get('/rentals/borrower', [RentalController::class, 'getBorrowerRentals']);
-    Route::get('/rentals/item-owner', [RentalController::class, 'getItemOwnerRentals']);
+    Route::get('/myrentels', [RentalController::class, 'getBorrowerRentals']);
+    Route::get('/itemrentel-req', [RentalController::class, 'getItemOwnerRentals']);
     Route::post('/rentals/{rental}/approve', [RentalController::class, 'approveRental']);
 });
 

@@ -42,5 +42,11 @@ export class ItemService {
 
     return this.http.get(`${this.baseUrl}/my-items`, { headers })
   }
+  deleteItem(id: number, token: string): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${token}` };
+  
+    return this.http.delete(`${this.baseUrl}/items/${id}`, { headers });
+  }
+  
 
 }

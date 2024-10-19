@@ -94,5 +94,7 @@ export class ItemsComponent {
     futureDate.setDate(today.getDate() + 7); // Example: Rent for 7 days
     return futureDate.toISOString().split('T')[0]; // Return date in 'YYYY-MM-DD' format
   }
+
+  
 }
 

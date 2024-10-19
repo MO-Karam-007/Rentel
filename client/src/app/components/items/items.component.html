@@ -63,7 +63,7 @@
                         class="text-sm font-bold text-green-500">&#36;{{item.price}}/day</span>
                     <button
                         (click)="renting(item.id)"
-                        class="text-sm font-bold bg-black text-white px-2 py-1 rounded-md hover:bg-blue-600">Rent
+                        class="text-sm font-bold bg-black text-white px-2 py-1 rounded-md hover:bg-blue-600" (click)="renting(item.id)">Rent
                         Now</button>
                 </div>
             </div>

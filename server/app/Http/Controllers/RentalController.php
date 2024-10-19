@@ -87,6 +87,9 @@ class RentalController extends BaseController implements HasMiddleware
         return $this->sendResponse(['message' => 'Rental deleted successfully'], 200);
     }
     
+
+
+    
     public function approveRental(Rental $rental)
 {
     Gate::authorize('modify', $rental);
@@ -104,19 +107,19 @@ class RentalController extends BaseController implements HasMiddleware
 
 public function getBorrowerRentals()
 {
-    $user = Auth::user();
-    $rentals = Rental::where('borrower_id', $user->id)->with('item', 'itemOwner')->get();
-
-    return $this->sendResponse($rentals, 'Borrower rentals retrieved successfully');
+    $userId = Auth::id();
+    $rentals = Rental::with('item')-> where('borrower_id', '=', $userId)->get();
+return  $rentals;
+  //  return $this->sendResponse($rentals, 'Borrower rentals retrieved successfully');
 }
 
 
 
 public function getItemOwnerRentals()
 {
-    $user = Auth::user();
-    $rentals = Rental::where('item_owner_id', $user->id)->with('item', 'borrower')->get();
-
-    return $this->sendResponse($rentals, 'Item owner rentals retrieved successfully');
+    $userId = Auth::id();
+    $rentals = Rental::where('item_owner_id', $userId)->with('item', 'borrower')->get();
+    return  $rentals;
+  //  return $this->sendResponse($rentals, 'Item owner rentals retrieved successfully');
 }
 }

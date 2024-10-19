@@ -9,6 +9,9 @@ use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Gate;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Log;
+use App\Notifications\rentemail;
 
 class RentalController extends BaseController implements HasMiddleware
 {
@@ -101,8 +104,33 @@ class RentalController extends BaseController implements HasMiddleware
     $rental->status = 'approved';
     $rental->save();
 
-    return $this->sendResponse(['message' => 'Rental approved successfully'], 200);
+    $borrower = $rental->borrower;  // Using the borrower relationship
+    $owner = $rental->itemOwner;    // Using the itemOwner relationship
+
+    if (!$owner) {
+        Log::error('Owner not found for rental:', ['rental_id' => $rental->id]);
+        return $this->sendError('Owner not found', 404);
+    }
+    // Send an email to the borrower with the owner information
+    
+      if($borrower->notify(new rentemail($rental))) {
+        return $this->sendResponse([
+            'message' => 'Rental approved successfully',
+            'borrower' => [
+                'id' => $borrower->id,
+                'name' => $borrower->username,
+                'email' => $borrower->email
+            ],
+            'owner' => [
+                'id' => $owner->id,
+                'name' => $owner->username,
+                'email' => $owner->email
+            ]
+        ], 200);
+      }
+        
 }
+
 
 
 public function getBorrowerRentals()

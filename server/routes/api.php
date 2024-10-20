@@ -12,6 +12,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\TagController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\FollowerController;
+use App\Http\Controllers\NotificationController;
 
 
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
@@ -109,7 +110,13 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/myrentels', [RentalController::class, 'getBorrowerRentals']);
     Route::get('/itemrentel-req', [RentalController::class, 'getItemOwnerRentals']);
     Route::post('/rentals/{rental}/approve', [RentalController::class, 'approveRental']);
+    Route::post('/posts/{post}/offer/{itemId}', [PostController::class, 'offer']);
 });
+
+//Route::post('/posts/{post}/offer', [PostController::class, 'offer'])->middleware('auth:sanctum');
+Route::get('notifications', [NotificationController::class, 'index'])->middleware('auth:sanctum');
+Route::get('notifications/count', [NotificationController::class, 'count'])->middleware('auth:sanctum');
+Route::middleware('auth:sanctum')->post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
 
 // Route::middleware('api')->group(function () {
 //     // Route::controller(RegisterController::class)->group(function () {

@@ -3,7 +3,7 @@ import { Component, inject, PLATFORM_ID } from '@angular/core';
 import { platformBrowser } from '@angular/platform-browser';
 import { RouterLink } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
-
+import { NotificationService } from '../../services/notification.service'; 
 
 
 @Component({
@@ -17,9 +17,10 @@ export class NavbarComponent {
   userImage: string ;
   // @Input() bg: string = 'bg-black';
   token!: string;
+  notificationCount: number = 0;
   private readonly _PLATFORM_ID = inject(PLATFORM_ID)
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService ,private notificationService: NotificationService) {
 
     if (this.token) {
       console.log(this.token);
@@ -46,6 +47,7 @@ export class NavbarComponent {
       }
     }
 
+    this.fetchNotificationCount();
   }
 
 
@@ -57,6 +59,17 @@ export class NavbarComponent {
       },
       (error) => {
         console.error('Error fetching user data', error);
+      }
+    );
+  }
+
+  fetchNotificationCount() {
+    this.notificationService.getNotificationCount().subscribe(
+      (response) => {
+        this.notificationCount = response.count; // Assuming the response has the count
+      },
+      (error) => {
+        console.error('Error fetching notification count:', error);
       }
     );
   }

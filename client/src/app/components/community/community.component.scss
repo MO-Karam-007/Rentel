@@ -1,0 +1,27 @@
+html, body {
+    height: 100%; /* Ensure html and body take full height */
+    margin: 0; /* Remove default margin */
+}
+
+.disable-scrolling {
+    overflow: hidden; /* Prevent scrolling of the main content */
+}
+
+
+.overflow-y-auto {
+    overflow-y: auto; /* Enable vertical scrolling */
+}
+
+.loader {
+    border: 4px solid rgba(0, 0, 0, 0.1);
+    border-radius: 50%;
+    border-top: 4px solid #3498db; /* Blue color */
+    width: 240px; /* Size of the loader */
+    height: 240px; /* Size of the loader */
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+}

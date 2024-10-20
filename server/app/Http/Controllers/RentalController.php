@@ -113,22 +113,20 @@ class RentalController extends BaseController implements HasMiddleware
     }
     // Send an email to the borrower with the owner information
     
-      if($borrower->notify(new rentemail($rental))) {
+       $borrower->notify(new rentemail($rental));
         return $this->sendResponse([
-            'message' => 'Rental approved successfully',
-            'borrower' => [
-                'id' => $borrower->id,
-                'name' => $borrower->username,
-                'email' => $borrower->email
-            ],
-            'owner' => [
-                'id' => $owner->id,
-                'name' => $owner->username,
-                'email' => $owner->email
-            ]
-        ], 200);
-      }
-        
+        'message' => 'Rental approved successfully',
+        'borrower' => [
+            'id' => $borrower->id,
+            'name' => $borrower->username,
+            'email' => $borrower->email
+        ],
+        'owner' => [
+            'id' => $owner->id,
+            'name' => $owner->username,
+            'email' => $owner->email
+        ]
+    ], 200);
 }
 
 

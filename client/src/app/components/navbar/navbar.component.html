@@ -27,18 +27,18 @@
     </div>
     }@else {
     <div class="flex flex-2 items-center ">
-        <span
+        <!-- <span
             [routerLink]="['/messenger']"
             class="bg-black h-fit  me-2 px-2 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500 notifiable">
             <i class="fa-regular fa-message text-white text-lg"></i>
             <div class="notification">5</div>
-        </span>
+        </span> -->
 
         <span
             [routerLink]="['/notifications']"
             class="bg-black h-fit  me-2 px-2 rounded dark:bg-gray-700 dark:text-gray-400 border border-gray-500 notifiable">
             <i class="fa-regular fa-bell text-white text-lg"></i>
-            <div class="notification">1</div>
+            <div class="notification">{{notificationCount}}</div>
 
         </span>
 

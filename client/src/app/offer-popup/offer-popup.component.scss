@@ -1,0 +1,30 @@
+table {
+    border-collapse: separate;
+    border-spacing: 0 15px; /* Adds space between rows */
+  }
+  
+  thead th {
+    letter-spacing: 0.05em;
+  }
+  
+  tbody tr {
+    transition: background-color 0.3s ease;
+  }
+  
+  button {
+    cursor: pointer;
+  }
+  .loading-spinner {
+    position: absolute; /* Use absolute positioning */
+    top: 50%;          /* Center vertically */
+    left: 50%;         /* Center horizontally */
+    transform: translate(-50%, -50%); /* Adjust to center the element */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100px; /* Set a fixed height */
+    width: 100px;  /* Set a fixed width */
+    padding: 20px; /* Optional padding */
+}
+
+  

@@ -91,57 +91,66 @@
                 class="disable-scrolling space-y-5 max-h-[500px] overflow-y-auto ext-4xl font-bold mb-4  rounded p-5 ">
                 <!-- Example Post Card -->
            <!-- Example Post Cards -->
-<div *ngFor="let post of posts" class="flex flex-col gap-3 p-4 border border-gray-200 rounded-lg shadow mb-10">
-    <div test-id="card-header" class="flex justify-between items-center">
-      <div class="flex justify-center items-center gap-3">
-        <div class="flex-shrink-0">
-          <img class="w-[3.5rem] h-[3.5rem] rounded-xl"
-               src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
-               alt="User profile">
-        </div>
-        <div class="min-w-0 flex-1">
-          <p class="font-bold text-gray-900">
-            <a href="#">{{ post.creator?.username }}</a> <!-- Adjust if creator has name -->
-          </p>
-          <p class="text-gray-500">
-            <a href="#">&#64;{{ post.creator?.name?.toLowerCase().replace(' ', '') }}</a>
-          </p>
-        </div>
-      </div>
-  
-      <div class="flex-shrink-0">
-        <button type="button"
-                class="inline-flex items-center rounded-xl bg-gray-600 px-2 py-1.5 text-sm font-sm text-white hover:bg-gray-400">
-          <i class="fa-solid fa-plus mr-2"></i>
-          <span>Follow</span>
-        </button>
-      </div>
-    </div>
-  
-    <div test-id="card-body">
-      <h2 class="text-xl font-semibold">{{ post.title }}</h2> <!-- Accessing post title -->
-      <p class="text-gray-600 mt-2">
-        {{ post.description }} <!-- Displaying the description -->
-      </p>
-    </div>
-    
-    <hr class="h-1">
-  
-    <div class="flex justify-between text-sm gap-5" test-id="card-actions">
-      <div>
-        <p class="inline-flex items-center rounded-xl bg-red-600 px-1.5 py-1 text-[0.6rem] font-sm text-white ml-2">
-          <span>Category</span> <!-- Add your category here -->
-        </p>
-      </div>
-      <div>
-        <button class="border-2 px-3 py-1 mr-2 rounded-[10px] hover:bg-gray-400 hover:bg-gray-100 text-gray-900 font-semibold shadow">Offer</button>
-        <button class="border-2 px-3 py-1 rounded-[10px] hover:bg-gray-100 text-gray-900 font-semibold shadow">Message</button>
-      </div>
-    </div>
-  </div>
-  
+           <div class="flex flex-col gap-3 p-4 border border-gray-200 rounded-lg shadow mb-10">
+            <!-- Loading Indicator -->
+            <div *ngIf="loading" class="flex justify-center items-center h-64">
+              <div class="loader"></div> <!-- Loader div -->
+            </div>
+          
+            <!-- Posts Section -->
+            <div *ngIf="!loading">
+              <div *ngFor="let post of posts" class="flex flex-col gap-3 p-4 border border-gray-200 rounded-lg shadow mb-10">
+                <div test-id="card-header" class="flex justify-between items-center">
+                  <div class="flex justify-center items-center gap-3">
+                    <div class="flex-shrink-0">
+                      <img class="w-[3.5rem] h-[3.5rem] rounded-xl"
+                           src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                           alt="User profile">
+                    </div>
+                    <div class="min-w-0 flex-1">
+                      <p class="font-bold text-gray-900">
+                        <a href="#">{{ post.creator?.username }}</a>
+                      </p>
+                      <p class="text-gray-500">
+                        <a href="#">&#64;{{ post.creator?.name?.toLowerCase().replace(' ', '') }}</a>
+                      </p>
+                    </div>
+                  </div>
+          
+                  <div class="flex-shrink-0">
+                    <button type="button"
+                            class="inline-flex items-center rounded-xl bg-gray-600 px-2 py-1.5 text-sm font-sm text-white hover:bg-gray-400">
+                      <i class="fa-solid fa-plus mr-2"></i>
+                      <span>Follow</span>
+                    </button>
+                  </div>
+                </div>
+          
+                <div test-id="card-body">
+                  <h2 class="text-xl font-semibold">{{ post.title }}</h2>
+                  <p class="text-gray-600 mt-2">
+                    {{ post.description }}
+                  </p>
+                </div>
+          
+                <hr class="h-1">
+          
+                <div class="flex justify-between text-sm gap-5" test-id="card-actions">
+                  <div>
+                    <p class="inline-flex items-center rounded-xl bg-red-600 px-1.5 py-1 text-[0.6rem] font-sm text-white ml-2">
+                      <span>Category</span>
+                    </p>
+                  </div>
+                  <div>
+                    <button class="border-2 px-3 py-1 mr-2 rounded-[10px] hover:bg-gray-400 hover:bg-gray-100 text-gray-900 font-semibold shadow" (click)="openItemDialog(post.id)">Offer</button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          
     <!-- Right Sidebar (1/4 width, fixed) -->
-    <div class="w-1/4 h-full ">
+    <!-- <div class="w-1/4 h-full ">
         <div class="p-4">
             <section aria-labelledby="who-to-follow-heading">
                 <h2 id="who-to-follow-heading"
@@ -171,38 +180,19 @@
                                     <span>Follow</span>
                                 </button>
                             </div>
-                        </li>
+                        </li> -->
 
                         <!-- Similar List Items -->
-
+<!-- 
                     </ul>
                 </div>
                 }
             </section>
         </div>
         <div class="max-w-6xl mx-auto p-6 my-5">
-            <h1 class="text-2xl font-bold text-gray-900 mb-2">Trendy Items</h1>
+            <h1 class="text-2xl font-bold text-gray-900 mb-2">Trendy Items</h1> -->
 
-            <!-- Grid for Trendy Items -->
-            <div class="flex flex-row flex-wrap justify-between ">
-                @for (item of [1,2,3,5,7,8]; track $index) {
-                <h3
-                    class="text-center p-4 font-bold text-gray-900 rounded-lg shadow-lg  w-fit">Nature</h3>
-                }
-            </div>
-
-            <div
-                class="newsletter-subscribe p-4 bg-white shadow-md rounded-md mt-6">
-                <h4 class="text-lg font-semibold mb-4">Subscribe to
-                    Newsletter</h4>
-                <form>
-                    <input type="email" placeholder="Enter your email"
-                        class="w-full px-4 py-2 mb-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-black">
-                    <button type="submit"
-                        class="w-full bg-blue-500 text-white py-2 rounded-md hover:bg-blue-600">Subscribe</button>
-                </form>
-            </div>
-
+           
             <!-- Load More Button -->
         </div>
     </div>

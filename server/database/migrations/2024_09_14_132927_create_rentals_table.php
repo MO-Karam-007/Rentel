@@ -17,7 +17,7 @@ return new class extends Migration
             $table->foreignId('item_id')->constrained('items');
             $table->date('start_date');
             $table->date('end_date');
-            $table->enum('status', ['requested', 'approved', 'active', 'returned']);
+            $table->enum('status', ['requested', 'approved', 'rejected', 'active', 'returned', 'cancelded']);
             $table->decimal('rental_price', 10, 2)->nullable();
             $table->timestamps();
         });

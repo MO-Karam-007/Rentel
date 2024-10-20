@@ -20,7 +20,7 @@ class ItemController extends BaseController implements HasMiddleware
     public static function middleware()
     {
         return [
-            new Middleware('auth:sanctum', except: [])
+            new Middleware('auth:sanctum', except: ['show'])
         ];
     }
 
@@ -59,7 +59,6 @@ class ItemController extends BaseController implements HasMiddleware
 
         $items = Item::with(['category', 'images', 'specifications', 'user'])
             ->where('lender_id', '!=', $userId)
-
             ->get();
 
         if ($searchTerm) {
@@ -170,11 +169,13 @@ class ItemController extends BaseController implements HasMiddleware
 
     public function show($id)
     {
-        $item = Item::find($id);
+        $item = Item::with(['category', 'images', 'specifications', 'user'])->find($id);
 
         if (!$item) {
             return $this->sendError('Item not found', 404);
         }
+
+
         return  $this->sendResponse($item, 200);
     }
 

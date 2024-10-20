@@ -87,6 +87,11 @@ class User extends Authenticatable
         return $this->hasOne(LinkedSocialAccount::class);
     }
 
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewed');
+    }
+
     public function favorites()
     {
         return $this->belongsToMany(Item::class, 'favorites')->withTimestamps();
@@ -97,8 +102,8 @@ class User extends Authenticatable
         return DB::table('users')
             ->selectRaw("*, (
                 6371 * acos(
-                    cos(radians(?)) * cos(radians(latitude)) * 
-                    cos(radians(longitude) - radians(?)) + 
+                    cos(radians(?)) * cos(radians(latitude)) *
+                    cos(radians(longitude) - radians(?)) +
                     sin(radians(?)) * sin(radians(latitude))
                 )
             ) AS distance", [$latitude, $longitude, $latitude])

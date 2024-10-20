@@ -33,7 +33,7 @@ export const routes: Routes = [
         component: CommunityComponent,
         title: 'Discover others needs',
       },
-      { path: 'frame', component: Farme2Component },
+      { path: 'item/:id', component: Farme2Component },
       { path: 'profile', component: ProfileComponent },
       { path: 'messenger', component: MessageMainComponent, title: 'Messeges' },
       {
@@ -42,6 +42,12 @@ export const routes: Routes = [
         title: 'notifications',
       },
       // { path: "dashboard", component: DashBoardComponent },
+      //  One item page
+      //  Admin dashboard  
+      // Categories users(ban) posts(Delete) items(delete) rentals(index)
+      // 
+      // 
+      // 
     ],
   },
   {

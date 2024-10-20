@@ -80,6 +80,12 @@ class Item extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function reviews()
+    {
+        return $this->morphMany(Review::class, 'reviewed');
+    }
+
+
     public function getImageUrlAttribute()
     {
         return asset('storage/images/' . $this->images->first()->image_path);

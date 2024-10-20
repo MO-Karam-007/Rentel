@@ -39,6 +39,7 @@ export class LoginComponent {
         // Redirection
         if (res.data.profileCompletion) {
           this.router.navigate(['/complete-data']);
+
         } else {
           this.router.navigate(['/']);
         }

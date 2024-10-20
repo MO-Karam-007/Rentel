@@ -10,7 +10,11 @@ export class ItemService {
   private baseUrl = env.baseUrl;
 
   constructor(private http: HttpClient) { }
-  
+
+
+  getItem(id: number) {
+    return this.http.get<any>(`${this.baseUrl}/items/${id}`);
+  }
   getItems(token: string, maxDistance: number = 7, searchTerm: string = ''): Observable<any> {
 
     let params = new HttpParams()
@@ -44,9 +48,9 @@ export class ItemService {
   }
   deleteItem(id: number, token: string): Observable<any> {
     const headers = { 'Authorization': `Bearer ${token}` };
-  
+
     return this.http.delete(`${this.baseUrl}/items/${id}`, { headers });
   }
-  
+
 
 }

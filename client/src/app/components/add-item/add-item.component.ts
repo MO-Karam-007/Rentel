@@ -5,6 +5,7 @@ import { ItemService } from '../../services/item.service';
 import { CategoriesService } from '../../services/categories.service';
 import { Router } from '@angular/router';
 import { CdkVirtualForOf } from '@angular/cdk/scrolling';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-add-item',
@@ -35,7 +36,8 @@ export class AddItemComponent implements OnInit {
     private router: Router,
     private fb: FormBuilder,
     private itemService: ItemService,
-    private categoriesService: CategoriesService) {
+    private categoriesService: CategoriesService,
+    private toastrService: ToastrService) {
   }
 
   itemsArray: number[];
@@ -46,46 +48,6 @@ export class AddItemComponent implements OnInit {
     this.getLocation();
 
     this.getCategories();
-
-    // this.form = this.fb.group({
-    //   name: ['', Validators.required],
-    //   category_id: ['', Validators.required],
-    //   description: [''],
-    //   price: ['', Validators.required],
-    //   latitude: [null, Validators.required],
-    //   longitude: [null, Validators.required],
-    //   item_image: [null, Validators.nullValidator],
-    //   startDate: ['', Validators.required],
-    //   endDate: ['', Validators.required],
-    //   current_state: ['available', Validators.nullValidator]
-    //   // skills: this.fb.array([]),  // Array of skills
-    //   // images: this.fb.array([])   // Array of images
-    // });
-    //Called after the constructor, initializing input properties, and the first call to ngOnChanges.
-    //Add 'implements OnInit' to the class.
-
-    // this.form.get('userInfo.startDate')?.valueChanges.subscribe(() => {
-    //   this.calculateDuration();
-    // });
-
-    // this.form.get('userInfo.endDate')?.valueChanges.subscribe(() => {
-    //   this.calculateDuration();
-    // });
-
-
-    // if (`${this.myDate.getMonth() + 1
-    //   }`.length < 2) {
-    //   this.min = `${this.myDate.getFullYear()} -0${this.myDate.getMonth() + 1} -${this.myDate.getDate()} `;
-    // } else if (`${this.myDate.getDate()} `.length < 2) {
-    //   this.min = `${this.myDate.getFullYear()} -${this.myDate.getMonth() + 1} -0${this.myDate.getDate()} `;
-    // } else if (`${this.myDate.getMonth() + 1} `.length < 2 && `${this.myDate.getDate()} `.length < 2) {
-    //   this.min = `${this.myDate.getFullYear()} -0${this.myDate.getMonth() + 1} -0${this.myDate.getDate()} `;
-    // } else {
-    //   this.min = `${this.myDate.getFullYear()} -${this.myDate.getMonth() + 1} -${this.myDate.getDate()} `;
-
-
-    // }
-
 
   }
 
@@ -196,9 +158,10 @@ export class AddItemComponent implements OnInit {
   onFileChange(event: any, index: number) {
     const file = event.target.files[0];
     if (file) {
+      // Update the FormArray at the specific index
       this.images.at(index).setValue(file);
 
-      // Generate image preview URL
+      // Generate image preview
       const reader = new FileReader();
       reader.onload = () => {
         this.previewUrls[index] = reader.result as string;
@@ -210,39 +173,15 @@ export class AddItemComponent implements OnInit {
 
 
   onSubmit() {
-    console.log("Hekki Matata");
-
     const token = localStorage.getItem('token') || '';
-    // 
     console.log('Form Data: ', this.itemForm.value);
 
 
-    // if (this.itemForm.get('item_image')?.value) {
-    //   formData.itemDetails.append('item_image', this.itemForm.get('item_image')?.value);
-    // }
-
-
-    // const item = this.itemForm
-    // if (this.itemForm.valid && this.imageForm.valid && this.specForm.valid) {
-    // const formData = {
-    //   // itemDetails: this.itemForm.value,
-    //   // images: this.imageForm.value.additionalImages,
-    //   // specifications: this.specForm.value
-    // };
-
-    // const speco = formData.specifications.map(specification => {
-    // return {
-    // spec_name: specification.spec_name,
-    // spec_value: specification.spec_value
-    // }
-    // })
-    // console.log('Form Data: ', this.specifications);
 
     const formData = new FormData();
-    // }
+
     formData.append('name', this.itemForm.get('name')?.value); // Adjust 'itemName' as needed
     formData.append('price', this.itemForm.get('price')?.value);
-    // formData.append('status', this.itemForm.get('status')?.value);
     formData.append('category_id', this.itemForm.get('category_id')?.value);
     formData.append('description', this.itemForm.get('description')?.value);
     formData.append('latitude', this.itemForm.get('latitude')?.value);
@@ -260,34 +199,25 @@ export class AddItemComponent implements OnInit {
       formData.append(`specifications[${index}][spec_name]`, spec.get('spec_name')?.value);
       formData.append(`specifications[${index}][spec_value]`, spec.get('spec_value')?.value);
     });
-    console.log(formData);
 
-    // if (this.itemForm.value.item_image) {
-    // formData.append('item_image', this.itemForm.value.item_image);
-    // }
-
-
-    // console.log(formData);
-
-
-    // this.specifications.controls.forEach((spec, index) => {
-    //   formData.specifications.append(`specifications[${index}][spec_name]`, spec.get('spec_name')?.value);
-    //   formData.specifications.append(`specifications[${index}][spec_value]`, spec.get('spec_value')?.value);
-    // });
-
-
-
+    if (this.images.controls) {
+      console.log(this.images.controls);
+      this.images.controls.forEach((image, index) => {
+        console.log("Image number");
+        console.log(image.value);
+        formData.append(`images[${index}]`, image.value);
+      });
+    }
 
 
     this.itemService.createItem(formData, token).subscribe(
       response => {
+        this.toastrService.success("Item Created Successfully");
+        this.router.navigate(['/dashboard']);
 
-        console.log("Inside the method");
-        console.log(response);
-        console.log('Item added successfully:', response);
       },
       error => {
-        console.error('Error adding item:', error);
+        this.toastrService.error(error.error.message);
       }
     );
 

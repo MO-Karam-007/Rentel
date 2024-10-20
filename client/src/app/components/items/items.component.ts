@@ -34,6 +34,11 @@ export class ItemsComponent {
 
   }
 
+
+  sendId(id: number) {
+    console.log(id);
+    return
+  }
   getitems() {
     console.log("This is the get items ");
     const token = localStorage.getItem('token') || '';
@@ -52,7 +57,7 @@ export class ItemsComponent {
 
   onSearchParamsChange(params: { distance: number; term: string }) {
     const token = localStorage.getItem('token') || '';
-    
+
     const { distance, term } = params;
     console.log("params,", params);
 
@@ -95,6 +100,6 @@ export class ItemsComponent {
     return futureDate.toISOString().split('T')[0]; // Return date in 'YYYY-MM-DD' format
   }
 
-  
+
 }
 

@@ -170,12 +170,11 @@
                     Specification</button>
             </div>
 
-            <div formArrayName="images">
+            <!-- <div formArrayName="images">
                 <h3>Images</h3>
                 <div class="mb-1"
                     *ngFor="let imageCtrl of images.controls; let i=index">
-                    <input type="file"
-                        (change)="onFileChange($event, i)">
+                    <input type="file" (change)="onFileChange($event, i)">
                     <img *ngIf="previewUrls[i]" [src]="previewUrls[i]"
                         alt="Image Preview" width="100">
                     <button type="button"
@@ -186,7 +185,7 @@
                 <button type="button"
                     class="bg-black hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md"
                     (click)="addImage()">Add Image</button>
-            </div>
+            </div> -->
         </div>
 
         <!-- Registration Button -->
@@ -200,7 +199,7 @@
     </form>
 
     <!-- <form>
-     
+
     </form> -->
 
 </div>

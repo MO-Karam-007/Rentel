@@ -17,8 +17,7 @@ class Review extends Model
     }
 
     public function reviewer()
-    { https://www.linkedin.com/company/gensystembs/
+    {
         return $this->belongsTo(User::class, 'reviewer_id');
     }
-
 }

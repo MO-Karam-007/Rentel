@@ -1,0 +1,115 @@
+<div class="flex min-h-screen bg-gray-900 text-gray-200">
+  <!-- Sidebar -->
+  <aside class="w-64 bg-gray-800 shadow-lg">
+    <div class="p-6 text-center">
+      <h1 class="text-2xl font-semibold text-white">Admin Dashboard</h1>
+      <img
+        src="avatar_image_url"
+        alt="avatar"
+        class="w-24 h-24 mx-auto rounded-full mt-4"
+      />
+    </div>
+    <ul class="mt-6 space-y-2 text-gray-300">
+      <li class="p-4 hover:bg-gray-700 rounded">
+        <a href="#" class="flex items-center space-x-2">
+          <i class="bx bx-home text-xl"></i>
+          <span>Dashboard</span>
+        </a>
+      </li>
+      <li class="p-4 hover:bg-gray-700 rounded">
+        <a href="#" class="flex items-center space-x-2">
+          <i class="bx bxs-user-circle text-xl"></i>
+          <span>Users</span>
+        </a>
+      </li>
+      <li class="p-4 hover:bg-gray-700 rounded">
+        <a href="#" class="flex items-center space-x-2">
+          <i class="bx bxs-file text-xl"></i>
+          <span>Posts</span>
+        </a>
+      </li>
+      <li class="p-4 hover:bg-gray-700 rounded">
+        <a href="#" class="flex items-center space-x-2">
+          <i class="bx bxs-cube text-xl"></i>
+          <span>Items</span>
+        </a>
+      </li>
+      <li class="p-4 hover:bg-gray-700 rounded">
+        <a href="#" class="flex items-center space-x-2">
+          <i class="bx bx-log-out text-xl"></i>
+          <span>Sign Out</span>
+        </a>
+      </li>
+    </ul>
+  </aside>
+
+  <!-- Main Content -->
+  <main class="flex-1 p-6">
+    <h2 class="text-2xl font-bold">Admin Overview</h2>
+
+    <!-- Admin Stats -->
+    <div class="grid gap-6 mt-6 lg:grid-cols-3">
+      <div class="p-6 bg-gray-800 shadow-md rounded-lg">
+        <h3 class="text-lg font-medium">Total Users</h3>
+        <p class="text-3xl font-bold">150</p>
+      </div>
+      <div class="p-6 bg-gray-800 shadow-md rounded-lg">
+        <h3 class="text-lg font-medium">Active Posts</h3>
+        <p class="text-3xl font-bold">300</p>
+      </div>
+      <div class="p-6 bg-gray-800 shadow-md rounded-lg">
+        <h3 class="text-lg font-medium">Pending Requests</h3>
+        <p class="text-3xl font-bold">45</p>
+      </div>
+    </div>
+
+    <!-- Recent Activity -->
+    <div class="mt-8 bg-gray-800 shadow-md rounded-lg">
+      <div class="p-4">
+        <h3 class="text-lg font-semibold">Recent Orders</h3>
+      </div>
+      <div class="overflow-x-auto">
+        <table class="min-w-full bg-gray-800">
+          <thead>
+            <tr
+              class="w-full bg-gray-700 text-gray-400 uppercase text-sm leading-normal"
+            >
+              <th class="py-3 px-6 text-left">Order #</th>
+              <th class="py-3 px-6 text-left">Customer</th>
+              <th class="py-3 px-6 text-left">Status</th>
+              <th class="py-3 px-6 text-left">Total</th>
+              <th class="py-3 px-6 text-left">Date</th>
+              <th class="py-3 px-6 text-left">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="text-gray-400 text-sm">
+            <tr class="border-b border-gray-700 hover:bg-gray-700">
+              <td class="py-3 px-6 text-left">#1234</td>
+              <td class="py-3 px-6 text-left">John Doe</td>
+              <td class="py-3 px-6 text-left">Pending</td>
+              <td class="py-3 px-6 text-left">$450.00</td>
+              <td class="py-3 px-6 text-left">10/14/2023</td>
+              <td class="py-3 px-6 text-left">
+                <button class="text-blue-500 hover:underline">View</button>
+                <button class="text-green-500 hover:underline ml-2">
+                  Edit
+                </button>
+              </td>
+            </tr>
+            <!-- Repeat for other orders -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+</div>
+
+<!-- Sidebar Toggle Script (for mobile view) -->
+<script>
+  document
+    .getElementById("sidebarToggle")
+    .addEventListener("click", function () {
+      const sidebar = document.getElementById("sidebar");
+      sidebar.classList.toggle("hidden");
+    });
+</script>

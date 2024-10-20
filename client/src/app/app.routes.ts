@@ -19,6 +19,7 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { TransactionsComponent } from './pages/transactions/transactions.component';
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { CompleteProfileComponent } from './pages/complete-profile/complete-profile.component';
+import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
 
 export const routes: Routes = [
   {
@@ -36,6 +37,7 @@ export const routes: Routes = [
       { path: 'item/:id', component: Farme2Component },
       { path: 'profile', component: ProfileComponent },
       { path: 'messenger', component: MessageMainComponent, title: 'Messeges' },
+      { path: 'admindashboard', component: AdminDashboardComponent, title: 'admindashboard' },
       {
         path: 'notifications',
         component: NotificationsComponent,

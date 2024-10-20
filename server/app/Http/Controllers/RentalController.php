@@ -12,6 +12,8 @@ use Illuminate\Support\Facades\Gate;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Log;
 use App\Notifications\rentemail;
+use App\Notifications\AcceptReqNoti;
+
 
 class RentalController extends BaseController implements HasMiddleware
 {
@@ -105,15 +107,19 @@ class RentalController extends BaseController implements HasMiddleware
     $rental->save();
 
     $borrower = $rental->borrower;  // Using the borrower relationship
-    $owner = $rental->itemOwner;    // Using the itemOwner relationship
+    $owner = $rental->itemOwner; 
+    $item=$rental->item;
+    
 
     if (!$owner) {
         Log::error('Owner not found for rental:', ['rental_id' => $rental->id]);
         return $this->sendError('Owner not found', 404);
     }
     // Send an email to the borrower with the owner information
-    
-       $borrower->notify(new rentemail($rental));
+    $borrower->notify(new AcceptReqNoti($owner, $rental ,$item));
+
+
+   //    $borrower->notify(new rentemail($rental));
         return $this->sendResponse([
         'message' => 'Rental approved successfully',
         'borrower' => [

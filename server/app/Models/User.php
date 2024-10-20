@@ -106,4 +106,9 @@ class User extends Authenticatable
             ->orderBy('distance')
             ->get();
     }
+
+    public function favoriteItems()
+    {
+        return $this->belongsToMany(Item::class, 'favorites')->using(Favorite::class);
+    }
 }

@@ -110,4 +110,9 @@ class Item extends Model
 
         return $closeTrials;
     }
+
+    public function favoritedByUsers()
+    {
+        return $this->belongsToMany(User::class, 'favorites')->using(Favorite::class);
+    }
 }

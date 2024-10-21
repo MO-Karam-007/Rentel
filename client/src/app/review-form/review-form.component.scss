@@ -1,56 +1,84 @@
-.review-form-container {
-    max-width: 400px;
-    margin: 20px auto;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    background-color: white;
-  }
-  
-  h3 {
-    text-align: center;
-    margin-bottom: 20px;
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  label {
-    display: block;
-    margin-bottom: 5px;
-  }
-  
-  input, select, textarea {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    border-radius: 4px;
-    border: 1px solid #ccc;
-  }
-  
-  textarea {
-    resize: none;
-    height: 100px;
-  }
-  
-  button {
-    width: 100%;
-    padding: 10px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    cursor: pointer;
-  }
-  
-  button[disabled] {
-    background-color: #ccc;
-    cursor: not-allowed;
-  }
-  
-  .error-text {
-    color: red;
-    font-size: 12px;
-  }
+.dialog-container {
+  width: 500px;
+  padding: 20px; /* Add more padding for a spacious look */
+  font-family: Arial, sans-serif; /* Set a default font */
+  background-color: #f9f9f9; /* Light background color for better contrast */
+  border-radius: 8px; /* Rounded corners for the dialog */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Soft shadow for depth */
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Center content horizontally */
+}
+
+h2 {
+  font-size: 28px; /* Slightly increase the heading size */
+  margin-bottom: 20px; /* Add space below the heading */
+  color: #333; /* Darker text color for better readability */
+  text-align: center; /* Center the heading text */
+}
+
+.rating-container {
+  display: flex;
+  align-items: center;
+  justify-content: center; /* Center the stars */
+  margin-bottom: 20px; /* Add space below the rating */
+}
+
+.star {
+  font-size: 50px; /* Increase the size of the stars */
+  cursor: pointer;
+  color: lightgray; /* Default star color */
+  transition: color 0.3s; /* Smooth color transition */
+}
+
+.star.filled {
+  color: gold; /* Color for filled stars */
+}
+
+.mat-form-field {
+  width:80%;
+  /* Full width for text fields */
+  margin-bottom: 15px; /* Space below the form fields */
+}
+
+textarea {
+  width: 200px;
+  min-height: 120px; /* Increase the height of the textarea */
+  font-size: 16px; /* Increase font size in textarea */
+ // border: 1px solid #ccc; /* Light border for textarea */
+ // border-radius: 4px; /* Slight rounding of corners */
+  padding: 10px; /* Padding inside the textarea */
+}
+
+.error-text {
+  color: red; /* Color for error messages */
+  font-size: 14px; /* Increase error message font size */
+  margin-top: 5px; /* Add space above error messages */
+}
+
+.mat-dialog-actions {
+  display: flex;
+  justify-content: center; /* Center buttons in the action area */
+  margin-top: 20px; /* Add space above the buttons */
+}
+
+.mat-button, .mat-raised-button {
+  font-size: 16px; /* Increase button font size */
+  margin-left: 10px; /* Add space between buttons */
+  padding: 10px 20px; /* More padding for buttons */
+  border-radius: 5px; /* Rounded corners for buttons */
+  transition: background-color 0.3s, transform 0.3s; /* Transition for hover effects */
+}
+
+.mat-button:hover, .mat-raised-button:hover {
+  transform: scale(1.05); /* Slightly scale up on hover */
+}
+
+.mat-raised-button {
+  background-color: #007bff; /* Primary color for raised buttons */
+  color: white; /* White text for better contrast */
+}
+
+.mat-raised-button:hover {
+  background-color: #0056b3; /* Darker shade on hover */
+}

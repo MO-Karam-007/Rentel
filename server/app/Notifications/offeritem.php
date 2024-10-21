@@ -31,13 +31,17 @@ class offeritem extends Notification
     // Define the data to be stored in the notification table
     public function toDatabase($notifiable)
     {
+        // Assuming you have a method to generate the item URL, for example:
+            $itemUrl = "http://localhost:4200/item/{$this->itemId}"; // Corrected syntax for variable interpolation        //http://localhost:4200/item/4
+    
         return [
             'offer_made_by' => $this->user->username,     // The name of the user who made the offer
-            'offer_made_by_id' => $this->user->id,    // The ID of the user who made the offer
-            'post_title' => $this->post->title,       // Title of the post the offer is made on
+            'offer_made_by_id' => $this->user->id,        // The ID of the user who made the offer
+            'post_title' => $this->post->title,           // Title of the post the offer is made on
             'post_id' => $this->post->id, 
-            'item_id' => $this->itemId,            // ID of the post
-            'message' => $this->user->username . ' offer an item for your post ' . $this->post->title 
+            'item_id' => $this->itemId,                   // ID of the post
+            'message' => $this->user->username . ' made an offer for your post ' . $this->post->title . '. You can view the item <a href="' . $itemUrl . '">here</a>.'
         ];
     }
+    
 }

@@ -1,28 +1,48 @@
-<div class="review-form-container">
-    <h3>Submit a Review</h3>
-  
-    <form [formGroup]="reviewForm" (ngSubmit)="onSubmit()">
-      <!-- Rating Input -->
-      <div class="form-group">
-        <label for="rating">Rating</label>
-        <select id="rating" formControlName="rating">
-          <option value="">Select Rating</option>
-          <option *ngFor="let r of ratings" [value]="r">{{ r }}</option>
-        </select>
-        <div *ngIf="reviewForm.get('rating')?.invalid && reviewForm.get('rating')?.touched">
-          <small class="error-text">Rating is required.</small>
-        </div>
+<div class="dialog-container">
+  <h2>Make your Review</h2>
+  <form (ngSubmit)="onSubmit()" #reviewForm="ngForm">
+    <!-- Star Rating Input -->
+    <div class="rating-container">
+      <span 
+        *ngFor="let star of stars; let i = index" 
+        class="star" 
+        [class.filled]="i < Reviewdata.rating"
+        (click)="rate(i + 1)"
+      >
+        &#9733;
+      </span>
+      <input type="hidden" name="rating" [(ngModel)]="Reviewdata.rating" required />
+      <div *ngIf="!Reviewdata.rating && reviewForm.submitted" class="error-text">
+        Rating is required.
       </div>
-  
-      <!-- Comment Input -->
-      <div class="form-group">
-        <label for="comment">Comment</label>
-        <textarea id="comment" formControlName="comment" placeholder="Write your review..."></textarea>
-        <div *ngIf="reviewForm.get('comment')?.invalid && reviewForm.get('comment')?.touched">
-          <small class="error-text">Comment is required (min 10 characters).</small>
-        </div>
+    </div>
+
+    <!-- Comment Textarea Field -->
+    <mat-form-field appearance="outline">
+      <textarea
+        matInput
+        placeholder="Enter your comment"
+        name="comment"
+        [(ngModel)]="Reviewdata.comment"
+        required
+        minlength="10"
+      ></textarea>
+      <div *ngIf="reviewForm.submitted && reviewForm.controls['comment']?.invalid" class="error-text">
+        Comment is required (min 10 characters).
       </div>
-  
-      <button type="submit" [disabled]="reviewForm.invalid">Submit Review</button>
-    </form>
-  </div>
+    </mat-form-field>
+
+    <!-- Actions (Cancel/Submit Buttons) -->
+    <mat-dialog-actions class="actions">
+      <button mat-button type="button" (click)="onCancel()">Cancel</button>
+      <button
+        mat-raised-button
+        color="primary"
+        type="submit"
+        [disabled]="!reviewForm.valid"
+      >
+        Submit
+      </button>
+    </mat-dialog-actions>
+  </form>
+</div>

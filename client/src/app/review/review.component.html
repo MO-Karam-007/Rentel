@@ -1,39 +1,45 @@
 <div class="profile-card">
-
   <div class="reviews-section">
     <h3>Reviews</h3>
-    <div class="rating-summary">
-      <h1>{{ profile.rating }}</h1>
-      <p>{{ profile.reviews.length }} reviews</p>
-      <div class="stars">
-        <span *ngFor="let star of getStars(profile.rating)">
-          ★
-        </span>
-      </div>
-      <div class="rating-bars">
-        <div *ngFor="let rating of profile.ratingDistribution">
-          <div class="rating-row">
-            <span>{{ rating.value }} stars</span>
-            <div class="progress-bar">
-              <div [style.width]="rating.percentage + '%'"></div>
+
+    <!-- Loading Indicator -->
+    <div *ngIf="isLoading" class="loading-spinner">
+      <div class="spinner"></div> <!-- Placeholder for spinner -->
+    </div>
+
+    <!-- Content after loading -->
+    <div *ngIf="!isLoading">
+      <div class="rating-summary">
+        <h1>{{ getAverageRating() }}</h1>
+        <p>{{ reviews.length }} reviews</p>
+        <div class="stars">
+          <div class="rating-bars">
+            <div *ngFor="let rating of getRatingDistribution()">
+              <div class="rating-row">
+                <span>{{ rating.value }} stars</span>
+                <div class="progress-bar">
+                  <div [style.width]="rating.percentage + '%'"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="review-list">
+          <div *ngFor="let review of reviews" class="review-item">
+            <div class="seller-info">
+              <div class="seller-name">
+                {{ review.username }}
+              </div>
+            </div>
+            <div class="review-text">
+              <span class="stars">{{ getStars(review.rating) }}</span>
+              <p>{{ review.comment }}</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-
-    <div class="review-list">
-      <div *ngFor="let review of profile.reviews" class="review-item">
-        <div class="seller-info">
-          <div class="seller-name">
-            {{ review.sellerName }}
-          </div>
-        </div>
-        <div class="review-text">
-          <span class="stars">★★★★★</span>
-          <p>{{ review.comment }}</p>
-        </div>
-      </div>
-    </div>
   </div>
 </div>
+

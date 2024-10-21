@@ -1,15 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RentalService } from '../services/rental.service';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-requests',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule ,MatProgressSpinnerModule],
   templateUrl: './requests.component.html',
   styleUrl: './requests.component.scss'
 })
 export class RequestsComponent {
+  isLoading: boolean = true; // Flag for loading state
   
   requests: any[] = [
     {
@@ -37,9 +39,11 @@ export class RequestsComponent {
       (data) => {
         console.log(data);
         this.requests = Array.isArray(data) ? data : [];
+        this.isLoading = false; // Set loading to false when data is received
       },
       (error) => {
         console.error('Error fetching item owner rentals', error);
+        this.isLoading = false; // Ensure loading is false on error
       }
     );
   }

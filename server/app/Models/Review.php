@@ -9,15 +9,16 @@ class Review extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['reviewer_id', 'reviewed_id', 'reviewed_type', 'rating', 'comment'];
+    protected $fillable = ['reviewer_id', 'reviewed_id',  'rating', 'comment'];
 
     public function reviewed()
     {
-        return $this->morphTo();
+        return $this->belongsTo(Item::class, 'reviewed_id');
     }
 
     public function reviewer()
     {
         return $this->belongsTo(User::class, 'reviewer_id');
     }
+
 }

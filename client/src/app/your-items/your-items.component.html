@@ -1,28 +1,31 @@
-<table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-    <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
-        <tr>
-            <th scope="col" class="px-6 py-3">Ref Number</th>
-            <th scope="col" class="px-6 py-3">Item Name</th>
-            <th scope="col" class="px-6 py-3">Price</th>
-            <th scope="col" class="px-6 py-3">Start Date</th>
-            <th scope="col" class="px-6 py-3">Status</th>
-            <th scope="col" class="px-6 py-3">Actions</th> <!-- Added Actions Column -->
-
-        </tr>
-    </thead>
-    <tbody>
-        <!-- Replace this with your actual data logic -->
-        <tr *ngFor="let request of cars">
-            <td class="px-6 py-4">{{ request.id }}</td>
-            <td class="px-6 py-4">{{ request.name }}</td>
-            <td class="px-6 py-4">{{ request.price }}</td>
-            <td class="px-6 py-4">{{ request.startDate }}</td>
-            <td class="px-6 py-4">{{ request.current_state }}</td>
-            <td class="px-6 py-4">
-                <button class="text-red-500 hover:text-red-700" (click)="deleteItem(request.id)">
-                    Delete
-                </button>
-            </td>
-        </tr>
-    </tbody>
-</table>
+<div *ngIf="isLoading" class="flex justify-center items-center h-full">
+    <mat-spinner></mat-spinner>
+  </div>
+  
+  <table *ngIf="!isLoading" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+      <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
+          <tr>
+              <th scope="col" class="px-6 py-3">Ref Number</th>
+              <th scope="col" class="px-6 py-3">Item Name</th>
+              <th scope="col" class="px-6 py-3">Price</th>
+              <th scope="col" class="px-6 py-3">Start Date</th>
+              <th scope="col" class="px-6 py-3">Status</th>
+              <th scope="col" class="px-6 py-3">Actions</th> <!-- Added Actions Column -->
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let request of cars">
+              <td class="px-6 py-4">{{ request.id }}</td>
+              <td class="px-6 py-4">{{ request.name }}</td>
+              <td class="px-6 py-4">{{ request.price }}</td>
+              <td class="px-6 py-4">{{ request.startDate }}</td>
+              <td class="px-6 py-4">{{ request.current_state }}</td>
+              <td class="px-6 py-4">
+                  <button class="text-red-500 hover:text-red-700" (click)="deleteItem(request.id)">
+                      Delete
+                  </button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+  

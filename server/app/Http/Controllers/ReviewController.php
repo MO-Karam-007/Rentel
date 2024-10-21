@@ -35,43 +35,22 @@ class ReviewController extends BaseController implements HasMiddleware
         $user = Auth::id();
         $validated = $request->validate([
             'reviewed_id' => 'required',
-            'reviewed_type' => 'required|in:App\\Models\\User,App\\Models\\Item',
             'rating' => 'required|integer|min:1|max:5',
             'comment' => 'nullable|string',
+            
         ]);
 
         $validated['reviewer_id'] = $user;
 
-        if ($request->reviewed_type == 'App\\Models\\Item') {
-            $hasBorrowed = DB::table('rentals')
-                ->where('item_id', $request->reviewed_id)
-                ->where('borrower_id', $user)
-                ->where('status', 'returned')
-                ->exists();
-
-
-            if (!$hasBorrowed) {
-                return response()->json([
-                    'message' => 'You cannot review this item because you have not borrowed it before.'
-                ], 403); // Forbidden response
-            }
-        } elseif ($request->reviewed_type == 'App\\Models\\User') {
-            $item = Item::find($request->reviewed_id);
-
-            if (!$item || $item->owner_id != $request->reviewed_id) {
-                return response()->json([
-                    'message' => 'Invalid owner or item.'
-                ], 404); // Not Found response
-            }
-        }
-
-
-
+    
 
         $review = Review::create($validated);
 
         return response()->json(['message' => 'Review created successfully', 'review' => $review], 201);
     }
+
+
+
 
     public function show($id)
     {
@@ -109,10 +88,49 @@ class ReviewController extends BaseController implements HasMiddleware
 
         return $this->sendResponse(['message' => 'Review deleted successfully'], 200);
     }
+
+    // public function getItemReviews($itemId)
+    // {
+    //     // Retrieve all reviews for the given item ID
+    //     $reviews = Review::where('reviewed_id', $itemId)->get();
+    
+    //     // Check if any reviews exist
+    //     if ($reviews->isEmpty()) {
+    //         return response()->json(['message' => 'No reviews found for this item'], 404);
+    //     }
+    
+    //     // Return the reviews in the response
+    //     return response()->json(['reviews' => $reviews], 200);
+    // }
+    public function getItemReviews($itemId)
+{
+    // Retrieve all reviews for the given item ID along with reviewer username
+    $reviews = Review::with('reviewer') // Assuming 'reviewer' is the relationship in the Review model
+        ->where('reviewed_id', $itemId)
+        ->get();
+
+    // Check if any reviews exist
+    if ($reviews->isEmpty()) {
+        return response()->json(['message' => 'No reviews found for this item'], 404);
+    }
+
+    // Transform reviews to include the reviewer's username
+    $reviewsWithUsernames = $reviews->map(function ($review) {
+        return [
+            'id' => $review->id,
+            'reviewer_id' => $review->reviewer_id,
+            'username' => $review->reviewer->username, // Assuming 'username' is the field in the User model
+            'rating' => $review->rating,
+            'comment' => $review->comment,
+            // Add any other fields you want to return
+        ];
+    });
+
+    // Return the reviews in the response
+    return response()->json(['reviews' => $reviewsWithUsernames], 200);
+}
+
+    
 }
 
 
-//  public function reviews()
-//{
- //   return $this->morphMany(Review::class, 'reviewed');
-//}

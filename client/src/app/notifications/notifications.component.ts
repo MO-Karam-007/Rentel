@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
 import { CommonModule } from '@angular/common';
-
+import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-notifications',
   standalone: true,
@@ -12,7 +12,8 @@ import { CommonModule } from '@angular/common';
 export class NotificationsComponent {
   notifications: any[] = [];  // Holds the notifications
   loading: boolean = true;  // Initially true to show loading spinner
-  constructor(private notificationService: NotificationService) {}
+  sanitizedMessage: any; // To hold sanitized HTML
+  constructor(private notificationService: NotificationService ,private sanitizer: DomSanitizer) {}
 
   ngOnInit(): void {
     this.fetchNotifications();
@@ -32,7 +33,9 @@ export class NotificationsComponent {
       }
     );
   }
-
+  getSanitizedMessage(message: string) {
+    return this.sanitizer.bypassSecurityTrustHtml(message);
+  }
   markAsRead(notificationId: number) {
     this.notificationService.markNotificationAsRead(notificationId).subscribe(
       () => {

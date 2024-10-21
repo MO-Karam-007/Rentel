@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { CommonModule } from '@angular/common'; // Import this!
+import { ReviewService } from '../review.service';
 @Component({
   selector: 'app-review',
   standalone: true,
@@ -8,6 +9,18 @@ import { CommonModule } from '@angular/common'; // Import this!
   styleUrl: './review.component.scss'
 })
 export class ReviewComponent {
+  reviews: any[] = []; // Array to store reviews
+  isLoading = true; // Flag to show loading state
+  constructor(private reviewService: ReviewService) {}
+  @Input() itemId!: number; // Use ! to indicate that this property will be initialized later
+
+  // You can use itemId in your component logic as needed
+  ngOnInit() {
+    console.log('Item ID received in review component:', this.itemId);
+    if (this.itemId) {
+      this.getItemReviews(this.itemId);
+    }
+  }
   profile = {
     name: 'Thomas Lacier',
     flag: 'assets/spain-flag.png',
@@ -44,7 +57,52 @@ export class ReviewComponent {
   };
   getStars(rating: number): string[] {
     const fullStars = Math.floor(rating);
-    const stars = Array(fullStars).fill('★');
-    return stars;
+    const halfStar = rating % 1 !== 0 ? ['★'] : []; // Check for half star
+    const emptyStars = Array(5 - fullStars - halfStar.length).fill('☆');
+
+    // Combine full, half, and empty stars into a single array
+    return [...Array(fullStars).fill('★'), ...halfStar, ...emptyStars];
+}
+
+  getItemReviews(itemId: number): void {
+    this.reviewService.getItemReviews(itemId).subscribe(
+      (data) => {
+        //console.log(data)
+        this.reviews = data.reviews; // Assuming the response is an array of reviews
+        console.log(this.reviews)
+
+        this.isLoading = false; // Set loading to false when data is received
+      },
+      (error) => {
+        console.error('Error fetching item reviews', error);
+        this.isLoading = false; // Set loading to false on error
+      }
+    );
   }
+
+
+  getAverageRating(): number {
+    if (this.reviews.length === 0) return 0; // Prevent division by zero
+    const totalRating = this.reviews.reduce((sum, review) => sum + review.rating, 0);
+    return parseFloat((totalRating / this.reviews.length).toFixed(1)); // Average to one decimal place
+  }
+
+  getRatingDistribution(): { value: number; percentage: number }[] {
+    const distribution: { [key: number]: number } = {};
+    this.reviews.forEach(review => {
+      distribution[review.rating] = (distribution[review.rating] || 0) + 1;
+    });
+  
+    // Calculate total reviews
+    const totalReviews = this.reviews.length;
+  
+    // Create an array with rating values and their respective percentages
+    return Array.from({ length: 5 }, (_, index) => {
+      const rating = index + 1; // Ratings from 1 to 5
+      const count = distribution[rating] || 0;
+      const percentage = totalReviews > 0 ? (count / totalReviews) * 100 : 0;
+      return { value: rating, percentage };
+    });
+  }
+  
 }

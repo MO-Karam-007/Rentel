@@ -26,10 +26,6 @@ export class ItemsComponent {
   }
 
   ngOnInit(): void {
-    // this.itemService.getItems().subscribe((response) => {
-    //   console.log(response)
-    //   this.cars = response.data; // Adjust as needed based on your API response
-    // });
     this.getitems()
 
   }

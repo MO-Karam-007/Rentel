@@ -1,0 +1,72 @@
+<div class="bg-gray-100 w-25 ">
+    <!-- Navigation Bar -->
+
+    <aside
+        class="group/sidebar bg-gray-100 flex rounded-xl flex-col lg:w-[300px] w-[250px]  m-0 z-40 inset-y-0 left-0 sidenav sticky  h-full loopple-fixed-start">
+        <div class="relative pl-3 my-5 overflow-y-hidden ">
+            <div class="flex flex-col w-full font-medium">
+
+                <!-- menu item -->
+                <button class="hover:bg-white hover:rounded-l-xl"> <span
+                        class="select-none flex items-center px-4 py-[.775rem] cursor-pointer my-[.4rem] rounded-[.95rem]">
+                        <i class="fa-regular fa-user text-stone-500 mr-4"></i>
+                        <a
+                            [routerLink]="['/admin-users']"
+                            class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Users</a>
+                    </span>
+                </button>
+
+                <button class="hover:bg-white hover:rounded-l-xl	">
+                    <span
+                        class="select-none flex items-center px-4 py-[.775rem] cursor-pointer  text-stone-500my mr-4-[.4rem] rounded-[.95rem]">
+                        <i class="fa-regular fa-user text-stone-500 mr-4"></i>
+                        <a
+                            [routerLink]="['/admin-categories']"
+                            class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Categories</a>
+
+                    </span>
+                </button>
+                <button
+                    class="hover:bg-white hover:rounded-l-xl">
+                    <span
+                        class="select-none flex items-center px-4 py-[.775rem] cursor-pointer  text-stone-500my mr-4-[.4rem] rounded-[.95rem]">
+                        <i
+                            class="fa-solid fa-clock-rotate-left text-stone-500 mr-4"></i>
+                        <a
+                            [routerLink]="['/admin-posts']"
+                            class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Posts</a>
+                    </span>
+                </button>
+
+                <button class="hover:bg-white hover:rounded-l-xl"> <span
+                        class="select-none flex items-center px-4 py-[.775rem] cursor-pointer  text-stone-500my mr-4-[.4rem] rounded-[.95rem]">
+                        <i class="fa-regular fa-heart text-stone-500 mr-4"></i>
+
+                        <a
+                            [routerLink]="['/admin-rentals']"
+                            class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Rentals</a>
+                    </span>
+                </button>
+
+                <button
+                    class="hover:bg-white hover:rounded-l-xl ">
+                    <span
+                        class="select-none flex items-center px-4 py-[.775rem] cursor-pointer  text-stone-500  mr-4-[.4rem] rounded-[.95rem] ">
+
+                        <a
+                            [routerLink]="['/admin-items']"
+                            class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-rose-800 ">
+
+                            <i
+                                class="fa-solid fa-arrow-right-from-bracket mr-4"></i>
+                            <i class></i>Items</a>
+                    </span>
+                </button>
+
+            </div>
+        </div>
+
+    </aside>
+</div>
+
+<!-- Main Content Grid -->

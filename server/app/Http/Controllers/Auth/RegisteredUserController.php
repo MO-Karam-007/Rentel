@@ -21,6 +21,21 @@ class RegisteredUserController extends BaseController
      *
      * @throws \Illuminate\Validation\ValidationException
      */
+
+    public function getUsers(Request $request)
+    {
+        $user = Auth::user()->role;
+        if ($user == 'admin') {
+            $query = User::where('profile_incomplete', false);
+            $users = $query->paginate(10);
+
+            return $this->sendResponse($users, 201);
+        } else {
+            return $this->sendError('User not Authenticated', [], 401);
+        }
+    }
+
+
     public function store(Request $request)
     {
         $request->validate([
@@ -42,7 +57,7 @@ class RegisteredUserController extends BaseController
 
         $token = $user->createToken('api-token')->plainTextToken;
 
-        //  GIS 
+        //  GIS
         return $this->sendResponse(['token' => $token, 'message' => 'User created successfully'], 201);
     }
     public function completeProfile(Request $request)
@@ -87,5 +102,59 @@ class RegisteredUserController extends BaseController
     {
         $user = Auth::user();
         return $this->sendResponse(['message' => $user], 201);
+    }
+
+
+    public function banUser($id)
+    {
+
+        $user = Auth::user()->role;
+        if ($user === 'admin') {
+
+            $user = User::find($id);
+
+            if ($user) {
+                $user->banned = true;
+                $user->suspended_until = null; // Clear any suspension
+                $user->save();
+
+                return response()->json(['message' => 'User has been permanently banned.']);
+            }
+
+            return response()->json(['message' => 'User not found.'], 404);
+        } else {
+            return $this->sendError('User not authenticated', [], 401);
+        }
+    }
+
+    public function suspendUser($id, $days = 3)
+    {
+        $user = User::find($id);
+
+        if ($user) {
+            $user->suspended_until = now()->addDays($days);
+            $user->banned = false; // Ensure the user is not banned
+            $user->save();
+
+            return response()->json(['message' => "User has been suspended for {$days} days."]);
+        }
+
+        return response()->json(['message' => 'User not found.'], 404);
+    }
+
+
+    public function unbanOrUnsuspendUser($id)
+    {
+        $user = User::find($id);
+
+        if ($user) {
+            $user->banned = false;
+            $user->suspended_until = null; // Remove any suspension
+            $user->save();
+
+            return response()->json(['message' => 'User has been unbanned or unsuspended.']);
+        }
+
+        return response()->json(['message' => 'User not found.'], 404);
     }
 }

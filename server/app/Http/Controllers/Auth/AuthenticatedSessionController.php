@@ -17,7 +17,9 @@ class AuthenticatedSessionController extends BaseController
      * Handle an incoming authentication request.
      */
 
-        
+
+
+
     public function store(LoginRequest $request)
     {
         // Token-based authentication
@@ -37,7 +39,11 @@ class AuthenticatedSessionController extends BaseController
         // $request->session()->regenerate();
         // dd("4");
 
-        return $this->sendResponse(['token' => $token, 'profileCompletion' => $user->profile_incomplete], 201);
+        return $this->sendResponse([
+            'token' => $token,
+            'profileCompletion' => $user->profile_incomplete,
+            "role" => $user->role
+        ], 201);
         // return $this->sendResponse(['token' => $token], 'User logged in successfully');
     }
 

@@ -58,7 +58,7 @@ export class SidebarComponent {
 
     this.router.navigate(['/']);
 
-    window.location.reload();
+    // window.location.reload();
   }
 
 }

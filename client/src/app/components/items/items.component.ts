@@ -6,6 +6,7 @@ import { ItemService } from '../../services/item.service';
 import { SupabaseService } from '../../services/supabase.service';
 import { catchError } from 'rxjs';
 import { RentalService } from '../../services/rental.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-items',
@@ -20,7 +21,7 @@ export class ItemsComponent {
   items: any[];
 
 
-  constructor(private itemService: ItemService, private rentalService: RentalService) {
+  constructor(private itemService: ItemService, private rentalService: RentalService ,private _snackBar: MatSnackBar) {
     // this.token = localStorage.getItem('token');
 
   }
@@ -81,18 +82,23 @@ export class ItemsComponent {
       item_id: id,
       end_date: endDate
     };
-
-
+  
     this.rentalService.rentItem(data, token).subscribe({
       next: (response) => {
         console.log('Rental created successfully', response);
+        this._snackBar.open('Rental created successfully!', 'Close', {
+          duration: 3000,  // Toast duration in milliseconds
+        });
       },
       error: (error) => {
         console.error('Error creating rental', error);
+        this._snackBar.open('Error creating rental. Please try again.', 'Close', {
+          duration: 3000,
+        });
       }
     });
-
   }
+  
   calculateEndDate(): string {
     const today = new Date();
     const futureDate = new Date(today);

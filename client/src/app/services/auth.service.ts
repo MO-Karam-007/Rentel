@@ -23,6 +23,12 @@ export class AuthService {
     return this.http.get(`${this.baseUrl}/current-user`, { headers })
   }
 
+  allUsers(token: string): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    return this.http.get(`${this.baseUrl}/all-users`, { headers })
+  }
+
   getProtectedData() {
     const token = localStorage.getItem('auth_token');
     const headers = new HttpHeaders().set('Authorization', `Bearer ${token}`);
@@ -35,7 +41,7 @@ export class AuthService {
   }
 
   loginWithGoogle() {
-      window.location.href = 'localhost:8000/oauth/google/redirect';
+    window.location.href = 'localhost:8000/oauth/google/redirect';
   }
 
   completeProfile(data: any, token: string): Observable<any> {

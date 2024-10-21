@@ -40,7 +40,9 @@ class User extends Authenticatable
         'latitude',
         'longitude',
         'profile_incomplete',
-        'location'
+        'location',
+        'banned',
+        'suspended_until',
     ];
 
     /**
@@ -115,5 +117,9 @@ class User extends Authenticatable
     public function favoriteItems()
     {
         return $this->belongsToMany(Item::class, 'favorites')->using(Favorite::class);
+    }
+    public function isSuspended()
+    {
+        return $this->suspended_until && $this->suspended_until->isFuture();
     }
 }

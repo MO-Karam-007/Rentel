@@ -20,6 +20,13 @@ import { TransactionsComponent } from './pages/transactions/transactions.compone
 import { FavoritesComponent } from './pages/favorites/favorites.component';
 import { CompleteProfileComponent } from './pages/complete-profile/complete-profile.component';
 import { AdminDashboardComponent } from './admin-dashboard/admin-dashboard.component';
+import { AdminComponent } from './layouts/admin/admin.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
+import { UserCardComponent } from './components/cards/user-card/user-card.component';
+import { CategoriesCardComponent } from './components/cards/categories-card/categories-card.component';
+import { PostsCardComponent } from './components/cards/posts-card/posts-card.component';
+import { RentalsCardComponent } from './components/cards/rentals-card/rentals-card.component';
+import { ItemsCardComponent } from './components/cards/items-card/items-card.component';
 
 export const routes: Routes = [
   {
@@ -45,11 +52,11 @@ export const routes: Routes = [
       },
       // { path: "dashboard", component: DashBoardComponent },
       //  One item page
-      //  Admin dashboard  
+      //  Admin dashboard
       // Categories users(ban) posts(Delete) items(delete) rentals(index)
-      // 
-      // 
-      // 
+      //
+      //
+      //
     ],
   },
   {
@@ -61,6 +68,20 @@ export const routes: Routes = [
       { path: 'complete-data', component: CompleteProfileComponent, title: 'login' },
     ],
   },
+
+  {
+    path: '',
+    component: AdminComponent,
+    children: [
+      { path: 'admin-controls', component: DashboardComponent, title: 'Dashboard' },
+      { path: 'admin-users', component: UserCardComponent, title: 'users' },
+      { path: 'admin-categories', component: CategoriesCardComponent, title: 'users' },
+      { path: 'admin-items', component: ItemsCardComponent, title: 'users' },
+      { path: 'admin-posts', component: PostsCardComponent, title: 'users' },
+      { path: 'admin-rentals', component: RentalsCardComponent, title: 'users' },
+    ],
+  },
+
 
   {
     path: '',

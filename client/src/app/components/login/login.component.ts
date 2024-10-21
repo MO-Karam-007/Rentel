@@ -15,6 +15,7 @@ import { ToastrModule, ToastrService } from 'ngx-toastr';
 export class LoginComponent {
 
 
+  user: any;
   credentials: any = {
     email: '',
     password: ''
@@ -30,16 +31,21 @@ export class LoginComponent {
 
     this.credentials.email = form.value.email
     this.credentials.password = form.value.password
+
+
     this.authService.login(this.credentials).subscribe(
       (res: any) => {
         // console.log(res.data.profileCompletion);
-
         localStorage.setItem('token', res.data.token);
 
-        // Redirection
+
+
+
+
         if (res.data.profileCompletion) {
           this.router.navigate(['/complete-data']);
-
+        } else if (res.data.role === 'admin') {
+          this.router.navigate(['/admin-controls']);
         } else {
           this.router.navigate(['/']);
         }

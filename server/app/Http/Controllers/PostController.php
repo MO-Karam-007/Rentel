@@ -10,6 +10,7 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
 use App\Notifications\offeritem;
+
 class PostController extends BaseController implements HasMiddleware
 {
     public static function middleware()
@@ -69,38 +70,41 @@ class PostController extends BaseController implements HasMiddleware
 
     public function destroy(Post $post)
     {
-        $post->delete();
-
-        return $this->sendResponse([], 'Post deleted successfully');
+        $user = Auth::user()->role;
+        if ($user === 'admin') {
+            $post->delete();
+            return $this->sendResponse([], 'Post deleted successfully');
+        } else {
+            return $this->sendError('User not authorized to delete this post', [], 403);
+        }
     }
 
-    public function offer($postId , $itemId)
+    public function offer($postId, $itemId)
     {
         // Retrieve the post
         $post = Post::with('creator')->find($postId);
-    
+
         // Check if the post exists
         if (!$post) {
             return $this->sendError('Post not found', [], 404);
         }
-    
+
         // Get the authenticated user (the one making the offer)
         $authUser = Auth::user();
-    
+
         if (!$authUser) {
             return $this->sendError('User not authenticated', [], 401);
         }
-    
+
         // Get the creator of the post
         $creator = $post->creator;
-    
+
         // Check if the creator exists and isn't the same as the authenticated user
         if ($creator && $creator->id !== $authUser->id) {
             // Send notification to the creator of the post via the database channel
-            $creator->notify(new offeritem($authUser, $post ,$itemId));
+            $creator->notify(new offeritem($authUser, $post, $itemId));
         }
-    
+
         return $this->sendResponse([], 'Offer made and notification sent successfully');
     }
-    
 }

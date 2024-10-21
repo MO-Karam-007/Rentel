@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Item;
 use App\Models\Item_image;
 use App\Models\Item_specification;
-use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -23,7 +22,6 @@ class ItemController extends BaseController implements HasMiddleware
             new Middleware('auth:sanctum', except: ['show'])
         ];
     }
-
 
     function haversineGreatCircleDistance($lat1, $lon1, $lat2, $lon2, $radius = 6371)
     {
@@ -44,6 +42,18 @@ class ItemController extends BaseController implements HasMiddleware
         $distance = $radius * $c;
 
         return $distance;
+    }
+
+    public function allItems()
+    {
+        $user = Auth::user()->role;
+        if ($user === 'admin') {
+            $items = Item::with(['category', 'images', 'specifications', 'user'])->get();
+
+            return $items;
+        } else {
+            return $this->sendError('You are not allow for action', 404);
+        }
     }
 
     public function index(Request $request)
@@ -86,11 +96,6 @@ class ItemController extends BaseController implements HasMiddleware
 
             return $item;
         });
-
-
-
-
-
         return $this->sendResponse($filteredItems->values(), 'Items within range retrieved successfully');
     }
 
@@ -100,7 +105,6 @@ class ItemController extends BaseController implements HasMiddleware
         $userId = Auth::id();
 
         $items = Item::with(['category', 'images', 'specifications', 'user'])->where('lender_id', '=', $userId)->get();
-
         return $items;
     }
 

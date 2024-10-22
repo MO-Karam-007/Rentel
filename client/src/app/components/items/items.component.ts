@@ -7,11 +7,13 @@ import { SupabaseService } from '../../services/supabase.service';
 import { catchError } from 'rxjs';
 import { RentalService } from '../../services/rental.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { WishlistService } from '../../wishlist.service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-items',
   standalone: true,
-  imports: [NavbarComponent, SearchComponent, RouterLink],
+  imports: [NavbarComponent, SearchComponent, RouterLink ,CommonModule],
   templateUrl: './items.component.html',
   styleUrl: './items.component.scss'
 })
@@ -19,16 +21,17 @@ export class ItemsComponent {
   cars: any[] = []
   token: string;
   items: any[];
+  wishlist: any[] = [];
 
 
-  constructor(private itemService: ItemService, private rentalService: RentalService ,private _snackBar: MatSnackBar) {
+  constructor(private itemService: ItemService, private rentalService: RentalService ,private _snackBar: MatSnackBar ,private wish :WishlistService) {
     // this.token = localStorage.getItem('token');
 
   }
 
   ngOnInit(): void {
-    this.getitems()
-
+    this.getitems();
+    this.getWishlist();
   }
 
 
@@ -100,6 +103,83 @@ export class ItemsComponent {
     const futureDate = new Date(today);
     futureDate.setDate(today.getDate() + 7); // Example: Rent for 7 days
     return futureDate.toISOString().split('T')[0]; // Return date in 'YYYY-MM-DD' format
+  }
+
+  addwish(itemid: number) {
+    const wishitem = {
+      item_id: itemid
+    };
+  
+    this.wish.createWish(wishitem).subscribe({
+      next: (response) => {
+        console.log('wish done', response);
+        this._snackBar.open('Item added to wishlist successfully!', 'Close', {
+          duration: 3000,  // Toast duration in milliseconds
+        });
+      },
+      error: (error) => {
+        console.error('Error creating wish', error);
+        this._snackBar.open('Error wishing. Please try again.', 'Close', {
+          duration: 3000,
+        });
+      }
+    });
+  }
+  deletewish(itemid: number) {
+    const wishitem = {
+        item_id: itemid
+    };
+
+    this.wish.deleteWish(wishitem).subscribe({
+        next: (response) => {
+            console.log('Wish removed successfully', response);
+            this._snackBar.open('Item removed from wishlist!', 'Close', {
+                duration: 3000,  // Toast duration in milliseconds
+            });
+        },
+        error: (error) => {
+            console.error('Error removing wish', error);
+            this._snackBar.open('Error removing item. Please try again.', 'Close', {
+                duration: 3000,
+            });
+        }
+    });
+}
+
+
+  getWishlist(): void {
+    this.wish.getWishList().subscribe(
+      (data) => {
+        //console.log(data);
+        this.wishlist = Array.isArray(data) ? data : [];
+        console.log(this.wishlist);
+
+      },
+      (error) => {
+        console.error('Error fetching borrower rentals', error);
+      }
+    );
+  }
+
+
+
+  isItemInWishlist(itemId: number): boolean {
+    return this.wishlist.some(item => item.id === itemId);
+  }
+
+  // Toggle wishlist status for an item
+  toggleWishlist(itemId: number) {
+    if (this.isItemInWishlist(itemId)) {
+      // Remove from wishlist
+    this.deletewish(itemId);
+    this.getWishlist();
+
+    } else {
+      this.addwish(itemId);
+      this.getWishlist();
+
+
+    }
   }
 
 

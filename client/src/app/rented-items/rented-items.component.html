@@ -19,15 +19,19 @@
               <td class="px-6 py-4">{{ request.item.name }}</td>
               <td class="px-6 py-4">{{ request.rental_price }}</td>
               <td class="px-6 py-4">{{ request.start_date }}</td>
-              <td class="px-6 py-4">{{ request.status }}</td>
-              <td class="px-2 py-4">
-                  <button 
-                      class="btn btn-primary px-6 py-2" 
-                      [disabled]="request.status === 'requested'" 
-                      [ngClass]="{'opacity-50 cursor-not-allowed': request.status === 'requested'}"
-                      (click)="openReviewDialog(request.item.id)">
-                      Make Review
-                  </button>
+              <td class="px-6 py-4" [ngClass]="{ 'text-green-500': request.status === 'approved' }">
+                {{ request.status }}
+            </td>               <td class="px-2 py-4">
+                <button 
+    class="btn btn-primary border border-blue-500 text-black-500 px-6 py-2 
+           hover:bg-blue-600 hover:border-blue-600 hover:text-white transition duration-300 ease-in-out"
+    [disabled]="request.status === 'requested'" 
+    [ngClass]="{'opacity-50 cursor-not-allowed': request.status === 'requested'}"
+    (click)="openReviewDialog(request.item.id)">
+    Make Review
+</button>
+
+
               </td>
           </tr>
       </tbody>

@@ -55,8 +55,11 @@ class FavoriteController extends Controller
     public function removeFavorite(Request $request)
     {
         $user = auth()->user(); // Get the authenticated user
-        $user->favoriteItems()->detach($request->item_id);
-
+        $item = Item::findOrFail($request->item_id); // Get the item by ID
+    
+        // Detach the item from the user's favorites
+        $user->favoriteItems()->detach($item->id);
+    
         return response()->json(['message' => 'Item removed from favorites.'], 200);
     }
 }

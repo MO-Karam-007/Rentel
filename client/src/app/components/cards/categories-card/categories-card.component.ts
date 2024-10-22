@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from '../../../services/categories.service';
 import { FormsModule } from '@angular/forms';
 import { NgClass } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 
 
 @Component({
   selector: 'app-categories-card',
   standalone: true,
-  imports: [FormsModule, NgClass],
+  imports: [FormsModule, NgClass ,CommonModule],
   templateUrl: './categories-card.component.html',
   styleUrl: './categories-card.component.scss'
 })

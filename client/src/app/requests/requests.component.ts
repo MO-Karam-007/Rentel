@@ -56,6 +56,8 @@ export class RequestsComponent {
         response => {
           console.log('Rental approved successfully', response);
           // Handle success response (e.g., display a success message, update UI)
+          this.getItemOwnerRentals();
+
         },
         error => {
           console.error('Error approving rental', error);

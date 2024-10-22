@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { ItemService } from '../../services/item.service';
 import { RentalService } from '../../services/rental.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
+import { WishlistService } from '../../wishlist.service';
 
 
 
@@ -23,7 +24,7 @@ export class Farme2Component implements OnInit {
 
   productId: number;  // To store the extracted id
 
-  constructor(private route: ActivatedRoute, private itemService: ItemService ,private rentalService: RentalService ,  private _snackBar: MatSnackBar) { }
+  constructor(private route: ActivatedRoute, private itemService: ItemService ,private rentalService: RentalService ,  private _snackBar: MatSnackBar , private wishlist: WishlistService )  { }
   ngOnInit(): void {
     this.productId = +this.route.snapshot.paramMap.get('id');
     console.log(this.productId);
@@ -68,5 +69,7 @@ export class Farme2Component implements OnInit {
       }
     });
   }
+
+  
   
 }

@@ -30,13 +30,24 @@
                     [routerLink]="['/item',item.id]"
                     [src]="'http://localhost:8000/storage/' + item.item_image"
                     alt="Item Image">
-                <div class="absolute bottom-0 right-0 p-2">
-                    <button
-                        class="bg-gray-200 text-gray-700 px-2 py-1 rounded-md hover:bg-gray-300">
-                        <i class="fa-regular fa-heart"></i>
-
-                    </button>
-                </div>
+                    <div class="absolute bottom-0 right-0 p-2">
+                        <button
+                            (click)="toggleWishlist(item.id)"
+                            class="px-3 py-2 rounded-full border bg-gray-200 text-gray-700 border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-105 focus:outline-none"
+                        >
+                            <i
+                                class="fa-heart text-2xl" 
+                                [ngClass]="{
+                                  'fa-solid text-red-500': isItemInWishlist(item.id), 
+                                  'fa-regular text-gray-500': !isItemInWishlist(item.id)
+                                }"
+                            ></i>
+                        </button>
+                    </div>
+                    
+                    
+                    
+                    
             </div>
             <div class="p-4">
                 <div class="flex items-center" [routerLink]="['/profile']">

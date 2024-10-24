@@ -1,0 +1,38 @@
+<div class="container mx-auto h-screen flex items-center justify-center">
+  <!-- Sign Out Card -->
+  <div class="bg-dark p-8 rounded-xl shadow-lg w-full max-w-md text-center">
+  
+    <!-- Sign Out Message -->
+    <h1 class="text-2xl font-semibold text-white mb-4">
+      Are you sure you want to sign out?
+    </h1>
+    <p class="text-gray-400 mb-6">
+      By signing out, you will be logged out of your session.
+    </p>
+
+    <!-- Sign Out and Cancel Buttons -->
+    <div class="flex justify-center space-x-4">
+      <!-- Sign Out Button -->
+      <button
+        class="bg-primary text-white px-4 py-2 rounded-full hover:bg-primary-dark transition-colors"
+        onclick="handleSignOut()"
+      >
+        Sign Out
+      </button>
+      <!-- Cancel Button -->
+      <button
+        class="bg-light text-gray-700 px-4 py-2 rounded-full hover:bg-light-dark transition-colors"
+        onclick="window.location.href='/dashboard'"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function handleSignOut() {
+    // Logic for signing out the user, like clearing session/cookie and redirecting.
+    window.location.href = "/sign-out-action"; // Replace with your sign-out logic
+  }
+</script>

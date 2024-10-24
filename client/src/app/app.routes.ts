@@ -27,6 +27,7 @@ import { CategoriesCardComponent } from './components/cards/categories-card/cate
 import { PostsCardComponent } from './components/cards/posts-card/posts-card.component';
 import { RentalsCardComponent } from './components/cards/rentals-card/rentals-card.component';
 import { ItemsCardComponent } from './components/cards/items-card/items-card.component';
+import { SignoutPageComponent } from './pages/signout-page/signout-page.component';
 
 export const routes: Routes = [
   {
@@ -49,6 +50,11 @@ export const routes: Routes = [
         path: 'notifications',
         component: NotificationsComponent,
         title: 'notifications',
+      },
+      {
+        path: 'signout',
+        component: SignoutPageComponent,
+        title: 'signout',
       },
       // { path: "dashboard", component: DashBoardComponent },
       //  One item page

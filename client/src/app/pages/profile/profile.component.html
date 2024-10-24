@@ -1,19 +1,18 @@
 <div class="container mx-auto px-4 py-6">
   <!-- Profile Header -->
   <div
-    class="flex flex-col lg:flex-row lg:items-center bg-gray-900 rounded-lg p-6 shadow-lg"
-  >
+    class="flex flex-col lg:flex-row lg:items-center  rounded-lg p-6 ">
     <div class="mb-4 lg:mb-0 lg:mr-6">
       <img
         *ngIf="!isLoading"
         [src]="'http://localhost:8000/storage/'+userImage"
         alt="Profile image"
-        class="w-40 h-40 rounded-full shadow-lg"
-      />
-      <div *ngIf="isLoading" class="w-40 h-40 rounded-full bg-gray-700 animate-spin"></div> <!-- Spinner -->
+        class="w-40 h-40 rounded-full " />
+      <div *ngIf="isLoading" class="w-40 h-40 rounded-full  animate-spin"></div>
+      <!-- Spinner -->
     </div>
 
-    <div *ngIf="!isLoading" class="flex-grow text-white">
+    <div *ngIf="!isLoading" class="flex-grow text-black">
       <h1 class="text-3xl font-semibold mb-2">{{userName}}</h1>
       <p class="text-lg text-gray-300">{{userAdress}}</p>
       <p class="text-lg text-gray-300">{{userEmail}}</p>
@@ -26,19 +25,21 @@
   </div>
 
   <!-- User Interaction Section -->
-  <div class="mt-6 bg-gray-900 p-6 rounded-lg shadow-lg">
-    <h2 class="text-2xl font-semibold text-white mb-4">User Interactions</h2>
-    <div *ngIf="!isLoading" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-      <div *ngFor="let item of rentals" class="bg-gray-800 p-4 rounded-lg shadow">
-        <h3 class="text-xl font-semibold text-white">{{ item.item.name }}</h3>
+  <div class="mt-6  p-6 rounded-lg ">
+    <h2 class="text-2xl font-semibold text-black mb-4">User Interactions</h2>
+    <div *ngIf="!isLoading"
+      class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      <div *ngFor="let item of rentals" class=" p-4 rounded-lg ">
+        <h3 class="text-xl font-semibold text-black">{{ item.item.name }}</h3>
         <p class="text-gray-400">Price: ${{ item.rental_price }}</p>
         <p class="text-gray-400">Status: {{ item.status }}</p>
         <p class="text-gray-400">Dates: {{ item.start_date}}</p>
       </div>
     </div>
 
-    <div *ngIf="isLoading" class="text-center text-white">
-      <div class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"></div>
+    <div *ngIf="isLoading" class="text-center text-black">
+      <div
+        class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"></div>
       <p>Loading...</p>
     </div>
   </div>

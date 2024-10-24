@@ -43,7 +43,7 @@ export const routes: Routes = [
         title: 'Discover others needs',
       },
       { path: 'item/:id', component: Farme2Component },
-      { path: 'profile', component: ProfileComponent },
+      { path: 'profile', component: ProfileComponent, title: 'Profile' },
       { path: 'messenger', component: MessageMainComponent, title: 'Messeges' },
       { path: 'admindashboard', component: AdminDashboardComponent, title: 'admindashboard' },
       {

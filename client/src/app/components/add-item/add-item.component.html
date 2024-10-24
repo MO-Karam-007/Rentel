@@ -6,7 +6,7 @@
 
     <form class="grid grid-cols-1 gap-6" [formGroup]="itemForm"
         (ngSubmit)="onSubmit()">
-        <h3>Item Informations</h3>
+        <h3 class="text-xlg font-bold">Item Informations</h3>
         <div class="p-2">
             <input type="text"
                 id="title"
@@ -109,7 +109,7 @@
                     <option value="inactive">Inactive</option>
                 </select>
             </div> -->
-
+            <!-- 
             <div class>
                 <select id="status"
                     name="status"
@@ -118,11 +118,8 @@
                     style="background-color: #f6f6f6;">
                     <option value="ture">Avalible</option>
                     <option value="false">Not Avalible</option>
-
                 </select>
-            </div>
-
-            <!-- Tags -->
+            </div> -->
             <div>
 
                 <div class="h-full ">
@@ -140,24 +137,19 @@
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Description and Image Upload -->
-        <div class="p-2 grid grid-cols-1 md:grid-cols-2 gap-6">
 
             <!-- Group of images   -->
 
             <!--  -->
             <div formGroupName="specifications">
-                <h3>specifications</h3>
                 <div *ngFor="let spec of specifications.controls; let i=index"
                     [formGroupName]="i"
-                    class="mb-1">
+                    class="mb-1 flex justify-between">
                     <input formControlName="spec_name"
-                        class="w-25"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Specification Name">
                     <input formControlName="spec_value"
-                        class="w-25"
+                        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-60 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         placeholder="Specification value">
                     <button type="button" (click)="removeSpecification(i)"
                         class="w-25 bg-red-800 hover:bg-[#6b0220] text-white font-bold py-3 px-4 rounded-md">

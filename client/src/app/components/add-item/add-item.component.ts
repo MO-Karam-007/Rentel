@@ -213,7 +213,7 @@ export class AddItemComponent implements OnInit {
 
     this.itemService.createItem(formData, token).subscribe(
       response => {
-        this.toastrService.success("Item Created Successfully");
+        this.toastrService.warning("The item submitted and waiting the approve");
         this.router.navigate(['/dashboard']);
 
       },

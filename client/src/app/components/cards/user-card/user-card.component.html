@@ -27,8 +27,9 @@
 
     <!-- </form> -->
 
-    <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-auto ">
+    <div class="relative overflow-x-auto  sm:rounded-lg w-auto ">
 
+        @if(usersList){
         <table
             class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
             <thead
@@ -95,6 +96,13 @@
                 }
             </tbody>
         </table>
+        }
+        @else{
+        <div class="px-16 py-12 border-none   ">
+
+            <app-loading />
+        </div>
+        }
     </div>
 
     <app-pagination

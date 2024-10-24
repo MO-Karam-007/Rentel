@@ -89,6 +89,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/current-user', [RegisteredUserController::class, 'currentUser']);
     Route::get('/my-items', [ItemController::class, 'myItems']);
     Route::get('/all-items', [ItemController::class, 'allItems']);
+    Route::get('/publish-item/{id}', [ItemController::class, 'publishItem']);
     Route::get('/all-users', [RegisteredUserController::class, 'getUsers']);
     Route::post('/logout', [AuthenticatedSessionController::class, 'destroy']);
 });
@@ -125,11 +126,11 @@ Route::middleware('auth:sanctum')->post('/favorites', [FavoriteController::class
 Route::get('item/{itemId}/reviews', [ReviewController::class, 'getItemReviews']);
 
 
-    Route::middleware('auth:sanctum')->group(function () {
-        Route::get('/favorites', [FavoriteController::class, 'getUserFavorites']);
-       // Route::post('/userfavorites', [FavoriteController::class, 'addFavorite']);
-        Route::delete('/favorites', [FavoriteController::class, 'removeFavorite']);
-    });
+Route::middleware('auth:sanctum')->group(function () {
+    Route::get('/favorites', [FavoriteController::class, 'getUserFavorites']);
+    // Route::post('/userfavorites', [FavoriteController::class, 'addFavorite']);
+    Route::delete('/favorites', [FavoriteController::class, 'removeFavorite']);
+});
 
 // Route::middleware('api')->group(function () {
 //     // Route::controller(RegisterController::class)->group(function () {

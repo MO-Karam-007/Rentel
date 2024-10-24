@@ -1,0 +1,25 @@
+// 1: With data-attibutes & content
+
+.method-1 {
+    position: relative;
+    display: inline-block;
+    font-size: 100px;
+    color: #d4d4d4;
+  
+    &:before {
+      content: attr(data-text);
+      position: absolute;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 0;
+      color: #72cc96;
+      animation: fill-1 2s infinite;
+    }
+  }
+  
+  @keyframes fill-1 {
+    50%   { width: 100%; }
+    100%  { width: 0%;   }
+  }
+  
+  

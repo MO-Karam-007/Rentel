@@ -39,6 +39,23 @@ export class RentalService {
     return this.http.get(`${this.baseUrl}/itemrentel-req`, { headers });
   }
 
+
+  rentals(token: string, search: string = '', status: string = '', page: number = 1, limit: number = 5): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+
+    if (search) {
+      params = params.set('search', search);
+    }
+    if (status) {
+      params = params.set('status', status);
+    }
+
+    const headers = { 'Authorization': `Bearer ${token}` };
+    return this.http.get(`${this.baseUrl}/rentals`, { params, headers });
+  }
+
   // Approve a rental
   approveRental(rentalId: number, token: string): Observable<any> {
     const headers = { 'Authorization': `Bearer ${token}` };

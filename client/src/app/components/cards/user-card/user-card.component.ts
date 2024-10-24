@@ -2,11 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from '../../pagination/pagination.component';
+import { LoadingComponent } from "../../loading/loading.component";
 
 @Component({
   selector: 'app-user-card',
   standalone: true,
-  imports: [FormsModule, PaginationComponent],
+  imports: [FormsModule, PaginationComponent, LoadingComponent],
   templateUrl: './user-card.component.html',
   styleUrl: './user-card.component.scss'
 })
@@ -31,12 +32,13 @@ export class UserCardComponent implements OnInit {
   }
 
   search() {
-    this.currentPage = 1; // Reset to first page when searching
+    this.currentPage = 1;
     this.users(this.searchQuery);
   }
 
   users(query: string) {
-    const token = localStorage.getItem('token') || '';
+    // const token = localStorage.getItem('token') || '';
+    const token = this.authService.getToken()
 
     this.authService.allUsers(token, query, this.currentPage, this.itemsPerPage).subscribe(
       (data) => {

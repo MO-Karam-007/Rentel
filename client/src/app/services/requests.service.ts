@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { env } from '../app.config';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -19,10 +19,19 @@ export class RequestsService {
   setToken(token: string): void {
     localStorage.setItem('token', token);  // Set token in localStorage
   }
-  getRequests() {
-    return this.http.get<any>(`${this.baseUrl}/posts`);
+  getRequests(search: string = '', page: number = 1, limit: number = 8) {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+
+    if (search) {
+      params = params.set('search', search);
+    }
+
+    return this.http.get<any>(`${this.baseUrl}/posts`, { params });
   }
   deleteRequest(id: number, token: string) {
+    
     const headers = { 'Authorization': `Bearer ${token}` };
 
     return this.http.delete<any>(`${this.baseUrl}/posts/${id}`, { headers })

@@ -28,13 +28,13 @@ export class CommunityComponent {
       this.authService.currentUser(token).subscribe(
         (response) => {
           console.log(response);
-          this.authId = response.data.message.id; // Assuming the API returns a user object with an id
+          this.authId = response.data.message.id;
           console.log(this.authId)
-          this.loadPosts(); // Load posts after retrieving the user's ID
+          this.loadPosts();
         },
         (error) => {
           console.error('Error fetching current user:', error);
-          this.loading = false; // Handle error and stop loading
+          this.loading = false;
         }
       );
     } else {
@@ -43,11 +43,14 @@ export class CommunityComponent {
     }
   }
   loadPosts() {
+    console.log("HHHHHHHHHHHhhhhh");
+
     this.postService.getPosts().subscribe(
       (response) => {
         if (response.success) { // Check if the response indicates success
           // Filter out posts created by the authenticated user
-          this.posts = response.data
+
+          this.posts = response.data.data
             .filter((post: any) => post.creator_id !== this.authId) // Exclude user's own posts
             .map((post: any) => ({
               id: post.id,

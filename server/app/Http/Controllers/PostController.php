@@ -20,9 +20,21 @@ class PostController extends BaseController implements HasMiddleware
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $posts = Post::with('creator')->get();
+        $posts = Post::with('creator');
+
+        if ($request->has('search')) {
+            $search = $request->input('search');
+            $posts->where(function ($q) use ($search) {
+                $q->where('title', 'like', '%' . $search . '%')
+                    ->orWhere('description', 'like', '%' . $search . '%');
+            });
+        }
+
+        $perPage = $request->input('limit', 10);
+        $posts = $posts->paginate($perPage);
+
         return $this->sendResponse($posts, 'Posts retrieved successfully');
     }
 

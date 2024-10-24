@@ -21,14 +21,45 @@ class RentalController extends BaseController implements HasMiddleware
     public static function middleware()
     {
         return [
-            new Middleware('auth:sanctum', except: ['index', 'show'])
+            new Middleware('auth:sanctum', except: ['show'])
         ];
     }
 
-    public function index()
+    public function index(Request $request)
     {
-        $rentals = Rental::with('item', 'borrowers')->get();
-        return $this->sendResponse($rentals, 'Rentals retrieved successfully');
+
+        $user = Auth::user()->role;
+
+        if ($user == 'admin') {
+            $rentals = Rental::with('item', 'borrowers', 'item.user');
+            if ($request->has('search')) {
+                $search = $request->input('search');
+
+                $rentals = $rentals->whereHas('item.user', function ($query) use ($search) {
+                    // Search by lender's (owner's) username
+                    $query->where('username', 'like', '%' . $search . '%');
+                })
+                    ->orWhereHas('borrowers', function ($query) use ($search) {
+                        // Search by borrower's username
+                        $query->where('username', 'like', '%' . $search . '%');
+                    })
+                    ->orWhereHas('item', function ($query) use ($search) {
+                        // Search by borrower's username
+                        $query->where('name', 'like', '%' . $search . '%');
+                    });;
+            }
+
+
+            if ($request->has('status')) {
+                $status = $request->input('status');
+                $rentals->where('status', 'like', '%' . $status . '%');
+            }
+            $perPage = $request->input('limit', 10);
+            $rentals = $rentals->paginate($perPage);
+            return $this->sendResponse($rentals, 'Posts retrieved successfully');
+        } else {
+            return $this->sendError('User not authorized to delete this post', [], 403);
+        }
     }
 
     public function store(Request $request)
@@ -37,7 +68,8 @@ class RentalController extends BaseController implements HasMiddleware
 
         $validated = $request->validate([
             'end_date' => 'required|date|after_or_equal:' . now(),
-            'item_id' => 'required|exists:items,id'
+            'item_id' => 'required|exists:items,id',
+            'current_status' => 'required'
         ]);
 
         $item = Item::findOrFail($validated['item_id']);
@@ -46,6 +78,7 @@ class RentalController extends BaseController implements HasMiddleware
         $validated['item_owner_id'] = $item->lender_id;  // Set item owner
         $validated['start_date'] = now();
         $validated['status'] = 'requested';
+        $validated['current_status'] = 'inprogress';
         $validated['rental_price'] = $item->price;
 
         $rental = Rental::create($validated);
@@ -107,34 +140,34 @@ class RentalController extends BaseController implements HasMiddleware
         $rental->status = 'approved';
         $rental->save();
 
-    $borrower = $rental->borrower;  // Using the borrower relationship
-    $owner = $rental->itemOwner;
-    $item=$rental->item;
+        $borrower = $rental->borrower;  // Using the borrower relationship
+        $owner = $rental->itemOwner;
+        $item = $rental->item;
 
 
-    if (!$owner) {
-        Log::error('Owner not found for rental:', ['rental_id' => $rental->id]);
-        return $this->sendError('Owner not found', 404);
-    }
-    // Send an email to the borrower with the owner information
-    $borrower->notify(new AcceptReqNoti($owner, $rental ,$item));
+        if (!$owner) {
+            Log::error('Owner not found for rental:', ['rental_id' => $rental->id]);
+            return $this->sendError('Owner not found', 404);
+        }
+        // Send an email to the borrower with the owner information
+        $borrower->notify(new AcceptReqNoti($owner, $rental, $item));
 
 
-   //    $borrower->notify(new rentemail($rental));
+        //    $borrower->notify(new rentemail($rental));
         return $this->sendResponse([
-        'message' => 'Rental approved successfully',
-        'borrower' => [
-            'id' => $borrower->id,
-            'name' => $borrower->username,
-            'email' => $borrower->email
-        ],
-        'owner' => [
-            'id' => $owner->id,
-            'name' => $owner->username,
-            'email' => $owner->email
-        ]
-    ], 200);
-}
+            'message' => 'Rental approved successfully',
+            'borrower' => [
+                'id' => $borrower->id,
+                'name' => $borrower->username,
+                'email' => $borrower->email
+            ],
+            'owner' => [
+                'id' => $owner->id,
+                'name' => $owner->username,
+                'email' => $owner->email
+            ]
+        ], 200);
+    }
 
 
 

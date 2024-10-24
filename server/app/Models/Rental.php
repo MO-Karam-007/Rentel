@@ -15,7 +15,8 @@ class Rental extends Model
         'status',
         'rental_price',
         'borrower_id',
-        'item_owner_id'
+        'item_owner_id',
+        'current_status'
     ];
 
     protected $casts = [
@@ -35,7 +36,7 @@ class Rental extends Model
         return $this->belongsTo(User::class, 'borrower_id');
     }
 
-    
+
 
     public function borrower()
     {
@@ -46,6 +47,4 @@ class Rental extends Model
     {
         return $this->belongsTo(User::class, 'item_owner_id');
     }
-
-    
 }

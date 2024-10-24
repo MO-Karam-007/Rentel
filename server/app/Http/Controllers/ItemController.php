@@ -44,17 +44,39 @@ class ItemController extends BaseController implements HasMiddleware
         return $distance;
     }
 
-    public function allItems()
+    public function allItems(Request $request)
     {
         $user = Auth::user()->role;
-        if ($user === 'admin') {
-            $items = Item::with(['category', 'images', 'specifications', 'user'])->get();
 
-            return $items;
+        if ($user === 'admin') {
+            $items = Item::with(['category', 'images', 'specifications', 'user'])
+                ->where('visible', false);
+
+            // Check for a search term and apply the search logic
+            if ($searchTerm = $request->input('search')) {
+                $items->where(function ($query) use ($searchTerm) {
+                    $query->where('name', 'like', "%{$searchTerm}%")
+                        ->orWhereHas('category', function ($query) use ($searchTerm) {
+                            $query->where('category', 'like', "%{$searchTerm}%");
+                        })
+                        ->orWhereHas('user', function ($query) use ($searchTerm) {
+                            $query->where('username', 'like', "%{$searchTerm}%")
+                                ->orWhere('email', 'like', "%{$searchTerm}%");
+                        });
+                });
+            }
+
+            // Pagination: Change the number '10' to however many items you want per page
+            $perPage = $request->input('limit', 10);
+            $items = $items->paginate($perPage);
+
+
+            return response()->json($items); // Return the items as JSON
         } else {
-            return $this->sendError('You are not allow for action', 404);
+            return $this->sendError('You are not allowed to perform this action', 403); // Use 403 for forbidden access
         }
     }
+
 
     public function index(Request $request)
     {
@@ -69,6 +91,7 @@ class ItemController extends BaseController implements HasMiddleware
 
         $items = Item::with(['category', 'images', 'specifications', 'user'])
             ->where('lender_id', '!=', $userId)
+            ->where('visible', true)
             ->get();
 
         if ($searchTerm) {
@@ -94,6 +117,7 @@ class ItemController extends BaseController implements HasMiddleware
 
             $item->distance = round($distance, 2);
 
+
             return $item;
         });
         return $this->sendResponse($filteredItems->values(), 'Items within range retrieved successfully');
@@ -107,6 +131,9 @@ class ItemController extends BaseController implements HasMiddleware
         $items = Item::with(['category', 'images', 'specifications', 'user'])->where('lender_id', '=', $userId)->get();
         return $items;
     }
+
+
+
 
 
 
@@ -209,15 +236,21 @@ class ItemController extends BaseController implements HasMiddleware
 
     public function destroy(Item $item)
     {
-        Gate::authorize('modify', $item);
+        $user = Auth::user();
 
-        $item->delete();
+        // Allow deletion if the user is authorized or if the user is an admin
+        if ($user->role === 'admin' || Gate::allows('modify', $item)) {
+            $item->delete();
 
-        return $this->sendResponse(['message' => 'Item deleted successfully'], 200);
+            return $this->sendResponse(['message' => 'Item deleted successfully'], 200);
+        } else {
+            return $this->sendResponse(['message' => 'Unauthorized'], 403);
+        }
     }
 
     public function getUserItems($userId)
     {
+
         // Retrieve items where lender_id matches the provided user ID
         $items = Item::where('lender_id', $userId)->get();
 
@@ -228,4 +261,38 @@ class ItemController extends BaseController implements HasMiddleware
 
         return response()->json(['items' => $items], 200);
     }
+
+    public function publishItem($id)
+    {
+        $user = Auth::user();
+
+        if ($user->role === 'admin') {
+            // Change visibility
+            $item = Item::findOrFail($id);
+
+
+            $item->visible = true;
+
+            if ($item->save()) {
+                return $this->sendResponse(['message' => 'Item is now visible'], 200);
+            } else {
+                return $this->sendResponse(['message' => 'Failed to update item visibility'], 500);
+            }
+        } else {
+            return $this->sendResponse(['message' => 'Unauthorized'], 403);
+        }
+    }
+
+    // public function removeItem(Item $item)
+    // {
+    //     $user = Auth::user();
+
+    //     if ($user->role === 'admin') {
+    //         $item->delete();
+
+    //         return $this->sendResponse(['message' => 'Item deleted successfully'], 200);
+    //     } else {
+    //         return $this->sendResponse(['message' => 'Unauthorized'], 403);
+    //     }
+    // }
 }

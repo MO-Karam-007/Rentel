@@ -55,10 +55,18 @@ export class ItemService {
   }
 
 
-  allItems(token: string) {
+  allItems(token: string, search: string = '', page: number = 1, limit: number = 4) {
+
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+
+    if (search) {
+      params = params.set('search', search);
+    }
     const headers = { 'Authorization': `Bearer ${token}` };
 
-    return this.http.get(`${this.baseUrl}/all-items`, { headers })
+    return this.http.get(`${this.baseUrl}/all-items`, { headers, params })
   }
   deleteItem(id: number, token: string): Observable<any> {
     const headers = { 'Authorization': `Bearer ${token}` };
@@ -66,5 +74,10 @@ export class ItemService {
     return this.http.delete(`${this.baseUrl}/items/${id}`, { headers });
   }
 
+  publishItem(id: number, token: string): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    return this.http.get<any>(`${this.baseUrl}/publish-item/${id}`, { headers });
+  }
 
 }

@@ -80,11 +80,11 @@ export const routes: Routes = [
     component: AdminComponent,
     children: [
       { path: 'admin-controls', component: DashboardComponent, title: 'Dashboard' },
-      { path: 'admin-users', component: UserCardComponent, title: 'users' },
-      { path: 'admin-categories', component: CategoriesCardComponent, title: 'users' },
-      { path: 'admin-items', component: ItemsCardComponent, title: 'users' },
-      { path: 'admin-posts', component: PostsCardComponent, title: 'users' },
-      { path: 'admin-rentals', component: RentalsCardComponent, title: 'users' },
+      { path: 'admin-users', component: UserCardComponent, title: 'Users' },
+      { path: 'admin-categories', component: CategoriesCardComponent, title: 'Categories' },
+      { path: 'admin-items', component: ItemsCardComponent, title: 'Items' },
+      { path: 'admin-posts', component: PostsCardComponent, title: 'Posts' },
+      { path: 'admin-rentals', component: RentalsCardComponent, title: 'Rentals' },
     ],
   },
 

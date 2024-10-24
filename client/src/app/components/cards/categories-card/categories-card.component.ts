@@ -2,13 +2,14 @@ import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from '../../../services/categories.service';
 import { FormsModule } from '@angular/forms';
 import { CommonModule, NgClass } from '@angular/common';
+import { LoadingComponent } from '../../loading/loading.component';
 
 
 
 @Component({
   selector: 'app-categories-card',
   standalone: true,
-  imports: [FormsModule, NgClass ,CommonModule],
+  imports: [FormsModule, NgClass, CommonModule, LoadingComponent],
   templateUrl: './categories-card.component.html',
   styleUrl: './categories-card.component.scss'
 })
@@ -65,9 +66,6 @@ export class CategoriesCardComponent implements OnInit {
     this.categoryName = category;
     this.action = false
     this.id = id
-
-
-
 
   }
 }

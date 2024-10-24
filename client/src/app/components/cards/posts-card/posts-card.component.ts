@@ -1,30 +1,52 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../../../services/auth.service';
 import { RequestsService } from '../../../services/requests.service';
+import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
+
+import { PaginationComponent } from '../../pagination/pagination.component';
+import { LoadingComponent } from '../../loading/loading.component';
 
 @Component({
   selector: 'app-posts-card',
   standalone: true,
-  imports: [],
+  imports: [FormsModule, PaginationComponent, LoadingComponent],
   templateUrl: './posts-card.component.html',
   styleUrl: './posts-card.component.scss'
 })
 export class PostsCardComponent implements OnInit {
-
+  searchQuery: string = '';
+  totalItems: number = 0;
+  itemsPerPage: number = 4;
+  currentPage: number = 1;
   postsList!: any[];
-  constructor(private requestsService: RequestsService) {
+  constructor(private requestsService: RequestsService,
+    private toastrService: ToastrService) {
   }
+
   ngOnInit(): void {
-    this.posts()
+    this.posts(this.searchQuery)
   }
 
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.posts(this.searchQuery);
+  }
 
-  posts() {
+  search() {
+    this.currentPage = 1;
+    this.posts(this.searchQuery);
+  }
 
-    this.requestsService.getRequests().subscribe(
+  posts(query: string) {
+    const token = this.requestsService.getToken()
+
+
+    this.requestsService.getRequests(query, this.currentPage, this.itemsPerPage).subscribe(
       (data) => {
-        // console.log("77777777777777777", data.data);
-        this.postsList = data.data
+        this.postsList = data.data.data
+        this.totalItems = data['data']['total']; // Set the total items count
+
       },
       (error) => {
         console.error('Error fetching notification count:', error);
@@ -33,18 +55,29 @@ export class PostsCardComponent implements OnInit {
   }
 
   removePost(id: number) {
-    // const token = localStorage.getItem('token') || '';
-    const token = this.requestsService.getToken();
+    const isConfirmed = window.confirm("Are you sure you want to delete this post?");
 
-    this.requestsService.deleteRequest(id, token).subscribe(
-      () => {
-        console.log(`Post with ID ${id} deleted successfully.`);
-        this.posts(); // Refresh the list after deletion
-      },
-      (error) => {
-        console.error('Error deleting post:', error);
-      }
-    )
+    if (isConfirmed) {
+
+      const token = this.requestsService.getToken();
+
+      this.requestsService.deleteRequest(id, token).subscribe(
+
+        () => {
+          this.toastrService.success("Post deleted successfully");
+
+          this.posts(this.searchQuery); // Refresh the list after deletion
+        },
+        (error) => {
+          console.error('Error deleting post:', error);
+        }
+      )
+
+    }
+    else {
+      this.toastrService.error("Please confirm to delete the post");
+    }
+
 
   }
 }

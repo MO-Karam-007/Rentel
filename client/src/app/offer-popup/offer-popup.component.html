@@ -1,40 +1,46 @@
 <div class="offer-popup-container">
-    <!-- Loading Spinner -->
-    <div *ngIf="isLoading" class="loading-spinner">
-      <mat-spinner></mat-spinner> <!-- Material Spinner -->
-    </div>
-  
-    <!-- Table of Items (Hidden when loading) -->
-    <table *ngIf="!isLoading" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead class="bg-gray-100 text-xs text-gray-900 uppercase dark:bg-gray-700 dark:text-gray-400">
-        <tr>
-          <th scope="col" class="px-6 py-3">Ref Number</th>
-          <th scope="col" class="px-6 py-3">Item Name</th>
-          <th scope="col" class="px-6 py-3">Price</th>
-          <th scope="col" class="px-6 py-3">Start Date</th>
-          <th scope="col" class="px-6 py-3">Status</th>
-          <th scope="col" class="px-6 py-3 text-center">Actions</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let request of items" class="border-b hover:bg-gray-100 dark:hover:bg-gray-800">
-          <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">{{ request.id }}</td>
-          <td class="px-6 py-4">{{ request.name }}</td>
-          <td class="px-6 py-4">{{ request.price | currency }}</td>
-          <td class="px-6 py-4">{{ request.startDate | date: 'yyyy-MM-dd HH:mm' }}</td>
-          <td class="px-6 py-4">
-            <span class="px-3 py-1 text-xs rounded-full text-white" [ngClass]="{
+  <!-- Loading Spinner -->
+  <div *ngIf="isLoading" class="loading-spinner">
+    <mat-spinner></mat-spinner> <!-- Material Spinner -->
+  </div>
+
+  <!-- Table of Items (Hidden when loading) -->
+  <table *ngIf="!isLoading"
+    class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+    <thead
+      class="bg-gray-100 text-xs text-gray-900 uppercase dark:bg-gray-700 dark:text-gray-400">
+      <tr>
+        <th scope="col" class="px-6 py-3">Ref Number</th>
+        <th scope="col" class="px-6 py-3">Item Name</th>
+        <th scope="col" class="px-6 py-3">Price</th>
+        <th scope="col" class="px-6 py-3">Start Date</th>
+        <th scope="col" class="px-6 py-3">Status</th>
+        <th scope="col" class="px-6 py-3 text-center">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let request of items"
+        class="border-b hover:bg-gray-100 dark:hover:bg-gray-800">
+        <td class="px-6 py-4 font-medium text-gray-900 dark:text-white">#0{{
+          request.id }}</td>
+        <td class="px-6 py-4">{{ request.name }}</td>
+        <td class="px-6 py-4">{{ request.price | currency }}</td>
+        <td class="px-6 py-4">{{ request.startDate | date: 'yyyy-MM-dd HH:mm'
+          }}</td>
+        <td class="px-6 py-4">
+          <span class="px-3 py-1 text-xs rounded-full text-white" [ngClass]="{
               'bg-green-500': request.current_state === 'available',
               'bg-red-500': request.current_state !== 'available'
             }">{{ request.current_state }}</span>
-          </td>
-          <td class="px-6 py-4 text-center">
-            <button class="px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded-full shadow-md transition-all duration-300" (click)="offer(request.id)">
-              Send
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-  
+        </td>
+        <td class="px-6 py-4 text-center">
+          <button
+            class="px-4 py-2 text-white bg-green-500 hover:bg-green-600 rounded-full shadow-md transition-all duration-300"
+            (click)="offer(request.id)">
+            Send
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

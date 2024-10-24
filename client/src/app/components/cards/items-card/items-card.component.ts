@@ -18,6 +18,10 @@ export class ItemsCardComponent implements OnInit {
     this.items()
   }
 
+  removePost(id) {
+    console.log("remove");
+
+  }
 
   items() {
     // const token = localStorage.getItem('token') || '';

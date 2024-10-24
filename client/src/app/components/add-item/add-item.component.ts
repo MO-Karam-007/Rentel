@@ -173,7 +173,8 @@ export class AddItemComponent implements OnInit {
 
 
   onSubmit() {
-    const token = localStorage.getItem('token') || '';
+    // const token = localStorage.getItem('token') || '';
+    const token = this.itemService.getToken();
     console.log('Form Data: ', this.itemForm.value);
 
 

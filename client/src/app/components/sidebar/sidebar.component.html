@@ -1,3 +1,4 @@
+
 <aside
   class="group/sidebar bg-gray-100 flex rounded-xl flex-col lg:w-[300px] w-[250px] m-0 z-40 inset-y-0 left-0 sidenav sticky h-full loopple-fixed-start"
   id="sidenav-main"
@@ -59,6 +60,23 @@
                     <a
                         class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Transactions</a>
                 </span> -->
+            </button>
+            @if(isAdmin){
+            <button
+                class="hover:bg-white hover:rounded-l-xl"
+                [routerLink]="['/admin-users']">
+
+                <span
+                    class="select-none flex items-center px-4 py-[.775rem] cursor-pointer  text-stone-500my mr-4-[.4rem] rounded-[.95rem]">
+                    <i
+                        class="fa-solid fa-bars-progress text-stone-500 mr-4"></i>
+                    <a
+                        class="flex items-center flex-grow text-[1.15rem] dark:text-neutral-400/75 text-stone-500 hover:text-dark">Systen
+                        Mangment</a>
+                </span>
+            </button>
+
+            }
       </button>
 
       <button

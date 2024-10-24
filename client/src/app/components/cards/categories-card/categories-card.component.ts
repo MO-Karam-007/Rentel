@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { CategoriesService } from '../../../services/categories.service';
 import { FormsModule } from '@angular/forms';
-import { NgClass } from '@angular/common';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgClass } from '@angular/common';
 
 
 
@@ -34,7 +33,9 @@ export class CategoriesCardComponent implements OnInit {
   }
 
   addCategory() {
-    const token = localStorage.getItem('token') || '';
+    // const token = localStorage.getItem('token') || '';
+    const token = this.categoriesService.getToken();
+
 
     if (this.action === true) {
       this.categoriesService.addCategory(this.categoryName, token)
@@ -62,7 +63,6 @@ export class CategoriesCardComponent implements OnInit {
 
   update(id: number, category: string) {
     this.categoryName = category;
-    const token = localStorage.getItem('token') || ''
     this.action = false
     this.id = id
 

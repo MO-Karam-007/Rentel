@@ -12,6 +12,15 @@ export class RentalService {
 
   constructor(private http: HttpClient) { }
 
+  getToken(): string {
+    return localStorage.getItem('token') || '';  // Retrieve token from localStorage
+  }
+
+  // Add other methods for interacting with localStorage, like setToken, removeToken, etc.
+  setToken(token: string): void {
+    localStorage.setItem('token', token);  // Set token in localStorage
+  }
+
   rentItem(data: any, token: string) {
     const headers = { 'Authorization': `Bearer ${token}` };
 
@@ -26,7 +35,7 @@ export class RentalService {
 
   // Get rentals for the item owner
   getItemOwnerRentals(token: string): Observable<any> {
-    const headers =  { 'Authorization': `Bearer ${token}` };
+    const headers = { 'Authorization': `Bearer ${token}` };
     return this.http.get(`${this.baseUrl}/itemrentel-req`, { headers });
   }
 

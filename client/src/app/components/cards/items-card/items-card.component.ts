@@ -20,7 +20,8 @@ export class ItemsCardComponent implements OnInit {
 
 
   items() {
-    const token = localStorage.getItem('token') || '';
+    // const token = localStorage.getItem('token') || '';
+    const token = this.itemService.getToken();
 
     this.itemService.allItems(token).subscribe(
       (data: any[]) => {

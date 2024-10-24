@@ -20,6 +20,15 @@ export class SupabaseService {
     this.supabase = createClient(this.supaUrl, this.supaKey);
   }
 
+
+  getToken(): string {
+    return localStorage.getItem('token') || '';  // Retrieve token from localStorage
+  }
+
+  // Add other methods for interacting with localStorage, like setToken, removeToken, etc.
+  setToken(token: string): void {
+    localStorage.setItem('token', token);  // Set token in localStorage
+  }
   // lat: number, long: number
   // getNearbyStores() {
 

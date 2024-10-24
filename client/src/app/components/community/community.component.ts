@@ -1,6 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { PostService } from '../../post.service';
-import { HttpClientModule } from '@angular/common/http';
 import { CommonModule } from '@angular/common';
 import { MatDialog } from '@angular/material/dialog';
 import { PostDialogComponent } from '../../post-dialog/post-dialog.component';
@@ -10,7 +9,7 @@ import { AuthService } from '../../services/auth.service'; // Adjust the path ac
 @Component({
   selector: 'app-community',
   standalone: true,
-  imports: [HttpClientModule , CommonModule ,PostDialogComponent,FormsModule ,OfferPopupComponent],
+  imports: [CommonModule, PostDialogComponent, FormsModule, OfferPopupComponent],
   templateUrl: './community.component.html',
   styleUrl: './community.component.scss'
 })
@@ -18,16 +17,18 @@ export class CommunityComponent {
   posts: any[] = [];
   authId: number;
   loading: boolean = true; // Initialize loading to true
-  extractedPosts : any[] = [];;
-  constructor(private postService: PostService ,private dialog: MatDialog ,private authService: AuthService) {
+  extractedPosts: any[] = [];
+  constructor(private postService: PostService, private dialog: MatDialog, private authService: AuthService) {
   }
   ngOnInit(): void {
-    const token = localStorage.getItem('token'); // Assuming token is stored in local storage
+    // const token = localStorage.getItem('token'); // Assuming token is stored in local storage
+    const token = this.postService.getToken();
+
     if (token) {
       this.authService.currentUser(token).subscribe(
         (response) => {
           console.log(response);
-          this.authId = response.data.message.id;; // Assuming the API returns a user object with an id
+          this.authId = response.data.message.id; // Assuming the API returns a user object with an id
           console.log(this.authId)
           this.loadPosts(); // Load posts after retrieving the user's ID
         },
@@ -57,7 +58,7 @@ export class CommunityComponent {
               description: post.description,
               creator: post.creator      // Assuming creator contains relevant info
             }));
-          
+
           this.loading = false; // Set loading to false after posts are fetched
           console.log('Filtered Posts:', this.posts); // Log filtered post data
         } else {
@@ -71,19 +72,21 @@ export class CommunityComponent {
       }
     );
   }
-  
+
   openPostDialog() {
     const dialogRef = this.dialog.open(PostDialogComponent);
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-       this.submitPost(result);
+        this.submitPost(result);
       }
     });
 
   }
   submitPost(postData: { title: string; description: string }) {
-    const token = localStorage.getItem('token');
+    // const token = localStorage.getItem('token');
+    const token = this.postService.getToken();
+
 
     console.log('Post Data:', postData);
     this.postService.createPost(postData).subscribe(
@@ -93,22 +96,22 @@ export class CommunityComponent {
       },
       error => {
 
-        console.error('Error creating post', error ,token);
+        console.error('Error creating post', error, token);
       }
     );
   }
-  
+
   @ViewChild('popup') popup!: OfferPopupComponent;
 
-  
+
   openItemDialog(postId: number): void {
     this.dialog.open(OfferPopupComponent, {
       width: '90vw',
       maxWidth: '100vw',
       height: '80vh',  // 80% of the viewport height
-      maxHeight: '90vh' , // Adjust the dialog size
+      maxHeight: '90vh', // Adjust the dialog size
       data: { postId }
     });
   }
-  
+
 }

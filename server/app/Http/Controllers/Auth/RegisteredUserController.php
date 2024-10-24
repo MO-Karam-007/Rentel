@@ -24,24 +24,42 @@ class RegisteredUserController extends BaseController
 
     public function getUsers(Request $request)
     {
+        // Get the authenticated user's role
         $user = Auth::user()->role;
-        if ($user == 'admin') {
-            $query = User::where('profile_incomplete', false);
-            $users = $query->paginate(10);
 
+        // Only allow access if the user is an admin
+        if ($user == 'admin') {
+            // Start building the query with the condition 'profile_incomplete' is false
+            $query = User::where('profile_incomplete', false);
+
+            // Check if 'email' exists in the request and filter the query
+            if ($request->has('search')) {
+                $search = $request->input('search');
+                $query->where(function ($q) use ($search) {
+                    $q->where('email', 'like', '%' . $search . '%')
+                        ->orWhere('username', 'like', '%' . $search . '%');
+                });
+            }
+            // Paginate the result with 10 users per page
+            $perPage = $request->input('limit', 10); // Results per page, default to 10
+            $users = $query->paginate($perPage);
+
+            // Send the response with the users list
             return $this->sendResponse($users, 201);
         } else {
-            return $this->sendError('User not Authenticated', [], 401);
+            // Return an error if the user is not authenticated as admin
+            return $this->sendError('User not authenticated', [], 401);
         }
     }
 
 
     public function store(Request $request)
     {
-        $request->validate([
+        $validated =  $request->validate([
             'username' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'lowercase', 'email', 'max:255', 'unique:' . User::class],
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'role'  => ['required', 'string']
         ]);
 
         $user = User::create([
@@ -49,6 +67,9 @@ class RegisteredUserController extends BaseController
             'email' => $request->email,
             'password' => Hash::make($request->string('password')),
             'profile_incomplete' => true,
+            'role' =>  $request->role,
+            'active_status' => $validated['role'] == 'admin' ? true : false
+
         ]);
 
         event(new Registered($user));
@@ -98,6 +119,7 @@ class RegisteredUserController extends BaseController
         return $this->sendResponse(['message' => 'User created successfully'], 201);
     }
 
+
     public function currentUser(Request $request)
     {
         $user = Auth::user();
@@ -114,6 +136,7 @@ class RegisteredUserController extends BaseController
             $user = User::find($id);
 
             if ($user) {
+                $user->active_status = false;
                 $user->banned = true;
                 $user->suspended_until = null; // Clear any suspension
                 $user->save();

@@ -22,7 +22,6 @@ export class SignUpComponent {
 
 
   signup(form: any) {
-
     this.credentials.username = form.value.username
     this.credentials.email = form.value.email
     this.credentials.password = form.value.password

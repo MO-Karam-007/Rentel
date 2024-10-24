@@ -11,6 +11,14 @@ export class RequestsService {
 
   }
 
+  getToken(): string {
+    return localStorage.getItem('token') || '';  // Retrieve token from localStorage
+  }
+
+  // Add other methods for interacting with localStorage, like setToken, removeToken, etc.
+  setToken(token: string): void {
+    localStorage.setItem('token', token);  // Set token in localStorage
+  }
   getRequests() {
     return this.http.get<any>(`${this.baseUrl}/posts`);
   }

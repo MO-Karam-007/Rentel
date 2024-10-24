@@ -12,6 +12,15 @@ export class CategoriesService {
   constructor(private http: HttpClient) { }
 
 
+  getToken(): string {
+    return localStorage.getItem('token') || '';  // Retrieve token from localStorage
+  }
+
+  // Add other methods for interacting with localStorage, like setToken, removeToken, etc.
+  setToken(token: string): void {
+    localStorage.setItem('token', token);  // Set token in localStorage
+  }
+
   categories(): Observable<any> {
 
     return this.http.get(`${this.baseUrl}/category`)

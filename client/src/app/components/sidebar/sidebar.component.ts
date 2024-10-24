@@ -13,6 +13,7 @@ import { isPlatformBrowser } from '@angular/common';
 export class SidebarComponent {
   userImage: string = ''
   token!: string;
+  isAdmin: boolean = false;
   private readonly _PLATFORM_ID = inject(PLATFORM_ID)
 
   constructor(private authService: AuthService, private router: Router) {
@@ -44,6 +45,9 @@ export class SidebarComponent {
   getUser() {
     this.authService.currentUser(this.token).subscribe(
       (data) => {
+        if (data.data.message.role == 'admin') {
+          this.isAdmin = true;
+        }
         this.userImage = data.data.message.profile_picture
         // this.userImage = `localhost:8000/storage/` + profile.profile_picture; // Adjust based on your API response
       },
@@ -54,11 +58,9 @@ export class SidebarComponent {
   }
 
   signout() {
+
     localStorage.removeItem('token');
-
     this.router.navigate(['/']);
-
-    // window.location.reload();
   }
 
 }

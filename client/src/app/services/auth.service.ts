@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { env } from '../app.config'
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -13,6 +13,16 @@ export class AuthService {
 
   constructor(private http: HttpClient) { }
 
+
+  getToken(): string {
+    return localStorage.getItem('token') || '';  // Retrieve token from localStorage
+  }
+
+  // Add other methods for interacting with localStorage, like setToken, removeToken, etc.
+  setToken(token: string): void {
+    localStorage.setItem('token', token);  // Set token in localStorage
+  }
+
   register(credentials: any): Observable<any> {
     return this.http.post(`${this.baseUrl}/register`, credentials)
   }
@@ -22,11 +32,19 @@ export class AuthService {
 
     return this.http.get(`${this.baseUrl}/current-user`, { headers })
   }
+  allUsers(token: string, search: string = '', page: number = 1, limit: number = 3): Observable<any> {
 
-  allUsers(token: string): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+
+    if (search) {
+      params = params.set('search', search);
+    }
+
     const headers = { 'Authorization': `Bearer ${token}` };
 
-    return this.http.get(`${this.baseUrl}/all-users`, { headers })
+    return this.http.get(`${this.baseUrl}/all-users`, { params, headers });
   }
 
   getProtectedData() {
@@ -53,4 +71,6 @@ export class AuthService {
     const headers = { 'Authorization': `Bearer ${token}` };
     return this.http.post(`${this.baseUrl}/logout`, {}, { headers })
   }
+
+
 }

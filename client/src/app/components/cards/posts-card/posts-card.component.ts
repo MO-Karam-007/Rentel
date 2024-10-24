@@ -33,7 +33,8 @@ export class PostsCardComponent implements OnInit {
   }
 
   removePost(id: number) {
-    const token = localStorage.getItem('token') || '';
+    // const token = localStorage.getItem('token') || '';
+    const token = this.requestsService.getToken();
 
     this.requestsService.deleteRequest(id, token).subscribe(
       () => {

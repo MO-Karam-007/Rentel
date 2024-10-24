@@ -10,6 +10,14 @@ export class PostService {
 
   constructor(private http: HttpClient) { }
 
+  getToken(): string {
+    return localStorage.getItem('token') || '';
+  }
+
+  setToken(token: string): void {
+    localStorage.setItem('token', token);  // Set token in localStorage
+  }
+
   getPosts(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }
@@ -17,8 +25,8 @@ export class PostService {
     const token = localStorage.getItem('token');
 
     const headers = new HttpHeaders({
-        'Authorization': `Bearer ${token}`,  // Include the token here
-        'Content-Type': 'application/json'
+      'Authorization': `Bearer ${token}`,  // Include the token here
+      'Content-Type': 'application/json'
     });
 
 

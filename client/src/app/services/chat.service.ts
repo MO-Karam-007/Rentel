@@ -17,6 +17,15 @@ export class ChatService {
     });
   }
 
+
+  getToken(): string {
+    return localStorage.getItem('token') || '';  // Retrieve token from localStorage
+  }
+
+  // Add other methods for interacting with localStorage, like setToken, removeToken, etc.
+  setToken(token: string): void {
+    localStorage.setItem('token', token);  // Set token in localStorage
+  }
   public subscribeToChannel(channelName: string, callback: Function) {
     const channel = this.pusher.subscribe(channelName);
     channel.bind('MessageSent', callback);

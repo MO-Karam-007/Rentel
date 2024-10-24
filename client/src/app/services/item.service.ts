@@ -11,6 +11,14 @@ export class ItemService {
 
   constructor(private http: HttpClient) { }
 
+  getToken(): string {
+    return localStorage.getItem('token') || '';  // Retrieve token from localStorage
+  }
+
+  // Add other methods for interacting with localStorage, like setToken, removeToken, etc.
+  setToken(token: string): void {
+    localStorage.setItem('token', token);  // Set token in localStorage
+  }
 
   getItem(id: number) {
     return this.http.get<any>(`${this.baseUrl}/items/${id}`);
@@ -23,7 +31,6 @@ export class ItemService {
     console.log(searchTerm);
 
     const headers = { 'Authorization': `Bearer ${token}` };
-
 
     return this.http.get<any>(`${this.baseUrl}/items`, { params, headers });
   }

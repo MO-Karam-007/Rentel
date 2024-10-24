@@ -10,7 +10,16 @@ export class EmailService {
 
 
 
-  
+  getToken(): string {
+    return localStorage.getItem('token') || '';  // Retrieve token from localStorage
+  }
+
+  // Add other methods for interacting with localStorage, like setToken, removeToken, etc.
+  setToken(token: string): void {
+    localStorage.setItem('token', token);  // Set token in localStorage
+  }
+
+
   generateOTP(email: string): Observable<any> {
     const reqBody = {
       to: [email, 'karam.hamam95@gmail.com'],

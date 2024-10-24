@@ -1,22 +1,31 @@
 <!-- component -->
 
 <div class>
+    <!-- <form  (submit)="search($event)"> -->
+    <div class="max-w-md mb-2 mx-auto">
 
-    <form class="max-w-md mb-2 mx-auto">
         <label for="default-search"
-            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">Search</label>
+            class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-white">
+            Search</label>
         <div class="relative">
             <div
                 class="absolute inset-y-0 start-0 flex items-center ps-3 pointer-events-none">
                 <i class="fa-solid fa-magnifying-glass"></i>
             </div>
             <input type="search" id="default-search"
+                (input)="search()"
+                [(ngModel)]="searchQuery"
                 class="block w-full p-4 ps-10 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search Mockups, Logos..." required />
-            <button type="submit"
-                class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Search</button>
+                placeholder="Search by email or username..." required />
+            <button
+                (click)="search()"
+                class="text-white absolute end-2.5 bottom-2.5 bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
+                Search
+            </button>
         </div>
-    </form>
+    </div>
+
+    <!-- </form> -->
 
     <div class="relative overflow-x-auto shadow-md sm:rounded-lg w-auto ">
 
@@ -36,6 +45,9 @@
                     </th>
                     <th scope="col" class="px-6 py-3">
                         E-mail
+                    </th>
+                    <th scope="col" class="px-6 py-3">
+                        Role
                     </th>
                     <th scope="col" class="px-6 py-3">
                         Action
@@ -67,12 +79,16 @@
                         class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
                         {{user.email}}
                     </td>
+                    <td
+                        class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
+                        {{user.role}}
+                    </td>
                     <td class="px-6 py-4 ">
                         <div class="flex gap-2">
                             <a href="#"
-                                class="font-medium text-yellow-400 dark:text-red-500 hover:underline">Ban</a>
+                                class="font-medium text-yellow-400 dark:text-red-500 hover:underline">Suspend</a>
                             <a href="#"
-                                class="font-medium text-red-600 dark:text-red-500 hover:underline">Suspend</a>
+                                class="font-medium text-red-600 dark:text-red-500 hover:underline">Ban</a>
                         </div>
                     </td>
                 </tr>
@@ -80,5 +96,12 @@
             </tbody>
         </table>
     </div>
+
+    <app-pagination
+        [totalItems]="totalItems"
+        [itemsPerPage]="itemsPerPage"
+        [currentPage]="currentPage"
+        (pageChange)="onPageChange($event)">
+    </app-pagination>
 
 </div>

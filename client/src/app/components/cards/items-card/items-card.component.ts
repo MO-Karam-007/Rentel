@@ -78,14 +78,10 @@ export class ItemsCardComponent implements OnInit {
 
   items(query: string) {
     const token = this.itemService.getToken();
-    console.log("222");
 
 
     this.itemService.allItems(token, query, this.currentPage, this.itemsPerPage).subscribe(
       (data) => {
-        console.log("333");
-
-        console.log(data['data']);
         this.itemsList = data['data']
         this.totalItems = data['total']; //ظ Set the total items count
 

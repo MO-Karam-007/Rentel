@@ -48,10 +48,14 @@ export class ItemService {
     return this.http.post(`${this.baseUrl}/items`, data, { headers })
   }
 
-  myItems(token: string) {
+  myItems(token: string, page: number = 1, limit: number = 4) {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
+
     const headers = { 'Authorization': `Bearer ${token}` };
 
-    return this.http.get(`${this.baseUrl}/my-items`, { headers })
+    return this.http.get(`${this.baseUrl}/my-items`, { headers, params })
   }
 
 

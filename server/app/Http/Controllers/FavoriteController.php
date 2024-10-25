@@ -1,4 +1,5 @@
 <?php
+
 namespace App\Http\Controllers;
 
 use App\Models\Favorite;
@@ -10,13 +11,22 @@ use Illuminate\Routing\Controllers\Middleware;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Gate;
+
 class FavoriteController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        // Display all favorites
-        $favorites = Favorite::all();
-        return response()->json($favorites);
+        $perPage = $request->input('limit', 10);
+
+        $favorites = Favorite::paginate($perPage);
+
+        dd($favorites);
+        // Return the paginated result in a JSON response
+        return response()->json([
+            'success' => true,
+            'data' => $favorites,
+            'message' => 'Favorites retrieved successfully'
+        ]);
     }
 
     public function store(Request $request)
@@ -33,10 +43,21 @@ class FavoriteController extends Controller
     }
 
     // Get the authenticated user's favorite items
-    public function getUserFavorites()
+    public function getUserFavorites(Request $request)
     {
         $user = auth()->user(); // Get the authenticated user
-        return response()->json($user->favoriteItems, 200);
+
+        // Set the perPage limit, defaulting to 10 if not provided
+        $perPage = $request->input('limit', 10);
+
+        // Retrieve and paginate favorite items
+        $favorites = $user->favoriteItems()->paginate($perPage);
+
+        return response()->json([
+            'success' => true,
+            'data' => $favorites,
+            'message' => 'User favorites retrieved successfully'
+        ]);
     }
 
     // Add an item to the authenticated user's favorites
@@ -56,10 +77,10 @@ class FavoriteController extends Controller
     {
         $user = auth()->user(); // Get the authenticated user
         $item = Item::findOrFail($request->item_id); // Get the item by ID
-    
+
         // Detach the item from the user's favorites
         $user->favoriteItems()->detach($item->id);
-    
+
         return response()->json(['message' => 'Item removed from favorites.'], 200);
     }
 }

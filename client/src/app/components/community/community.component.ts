@@ -27,9 +27,7 @@ export class CommunityComponent {
     if (token) {
       this.authService.currentUser(token).subscribe(
         (response) => {
-          console.log(response);
           this.authId = response.data.message.id;
-          console.log(this.authId)
           this.loadPosts();
         },
         (error) => {
@@ -43,7 +41,6 @@ export class CommunityComponent {
     }
   }
   loadPosts() {
-    console.log("HHHHHHHHHHHhhhhh");
 
     this.postService.getPosts().subscribe(
       (response) => {
@@ -63,7 +60,6 @@ export class CommunityComponent {
             }));
 
           this.loading = false; // Set loading to false after posts are fetched
-          console.log('Filtered Posts:', this.posts); // Log filtered post data
         } else {
           console.error('Error:', response.message); // Handle error case
           this.loading = false; // Set loading to false after posts are fetched

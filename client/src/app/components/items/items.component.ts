@@ -13,7 +13,7 @@ import { CommonModule } from '@angular/common';
 @Component({
   selector: 'app-items',
   standalone: true,
-  imports: [NavbarComponent, SearchComponent, RouterLink ,CommonModule],
+  imports: [NavbarComponent, SearchComponent, RouterLink, CommonModule],
   templateUrl: './items.component.html',
   styleUrl: './items.component.scss'
 })
@@ -24,12 +24,11 @@ export class ItemsComponent {
   wishlist: any[] = [];
 
 
-  constructor(private itemService: ItemService, private rentalService: RentalService ,private _snackBar: MatSnackBar ,private wish :WishlistService) {
-    // this.token = localStorage.getItem('token');
-
+  constructor(private itemService: ItemService, private rentalService: RentalService, private _snackBar: MatSnackBar, private wish: WishlistService) {
   }
 
   ngOnInit(): void {
+
     this.getitems();
     this.getWishlist();
   }
@@ -81,7 +80,7 @@ export class ItemsComponent {
       item_id: id,
       end_date: endDate
     };
-  
+
     this.rentalService.rentItem(data, token).subscribe({
       next: (response) => {
         console.log('Rental created successfully', response);
@@ -97,7 +96,7 @@ export class ItemsComponent {
       }
     });
   }
-  
+
   calculateEndDate(): string {
     const today = new Date();
     const futureDate = new Date(today);
@@ -109,7 +108,7 @@ export class ItemsComponent {
     const wishitem = {
       item_id: itemid
     };
-  
+
     this.wish.createWish(wishitem).subscribe({
       next: (response) => {
         console.log('wish done', response);
@@ -127,31 +126,32 @@ export class ItemsComponent {
   }
   deletewish(itemid: number) {
     const wishitem = {
-        item_id: itemid
+      item_id: itemid
     };
 
     this.wish.deleteWish(wishitem).subscribe({
-        next: (response) => {
-            console.log('Wish removed successfully', response);
-            this._snackBar.open('Item removed from wishlist!', 'Close', {
-                duration: 3000,  // Toast duration in milliseconds
-            });
-        },
-        error: (error) => {
-            console.error('Error removing wish', error);
-            this._snackBar.open('Error removing item. Please try again.', 'Close', {
-                duration: 3000,
-            });
-        }
+      next: (response) => {
+        console.log('Wish removed successfully', response);
+        this._snackBar.open('Item removed from wishlist!', 'Close', {
+          duration: 3000,  // Toast duration in milliseconds
+        });
+      },
+      error: (error) => {
+        console.error('Error removing wish', error);
+        this._snackBar.open('Error removing item. Please try again.', 'Close', {
+          duration: 3000,
+        });
+      }
     });
-}
+  }
 
 
   getWishlist(): void {
-    this.wish.getWishList().subscribe(
+    const token = this.wish.getToken();
+    this.wish.getWishList(token).subscribe(
       (data) => {
         //console.log(data);
-        this.wishlist = Array.isArray(data) ? data : [];
+        this.wishlist = data.data.data
         console.log(this.wishlist);
 
       },
@@ -171,8 +171,8 @@ export class ItemsComponent {
   toggleWishlist(itemId: number) {
     if (this.isItemInWishlist(itemId)) {
       // Remove from wishlist
-    this.deletewish(itemId);
-    this.getWishlist();
+      this.deletewish(itemId);
+      this.getWishlist();
 
     } else {
       this.addwish(itemId);

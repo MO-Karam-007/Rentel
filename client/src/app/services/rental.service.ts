@@ -28,9 +28,12 @@ export class RentalService {
 
   }
 
-  getBorrowerRentals(token: string): Observable<any> {
+  getBorrowerRentals(token: string, page: number = 1, limit: number = 5): Observable<any> {
+    let params = new HttpParams()
+      .set('page', page.toString())
+      .set('limit', limit.toString());
     const headers = { 'Authorization': `Bearer ${token}` };
-    return this.http.get(`${this.baseUrl}/myrentels`, { headers });
+    return this.http.get(`${this.baseUrl}/myrentels`, { headers, params });
   }
 
   // Get rentals for the item owner

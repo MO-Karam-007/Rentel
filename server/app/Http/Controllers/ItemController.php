@@ -128,8 +128,11 @@ class ItemController extends BaseController implements HasMiddleware
     {
         $userId = Auth::id();
 
-        $items = Item::with(['category', 'images', 'specifications', 'user'])->where('lender_id', '=', $userId)->get();
-        return $items;
+        $items = Item::with(['category', 'images', 'specifications', 'user'])->where('lender_id', '=', $userId);
+        $perPage = $request->input('limit', 10);
+        $items = $items->paginate($perPage);
+
+        return $this->sendResponse($items, 'Items retrieved successfully');
     }
 
 

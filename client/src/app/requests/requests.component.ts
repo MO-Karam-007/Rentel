@@ -24,7 +24,6 @@ export class RequestsComponent implements OnInit {
   }
 
   constructor(private rentalService: RentalService, private toastrService: ToastrService) {
-    console.log("LOL");
   }
 
 
@@ -38,8 +37,6 @@ export class RequestsComponent implements OnInit {
     const token = this.rentalService.getToken();
     this.rentalService.getItemOwnerRentals(token, this.currentPage, this.itemsPerPage).subscribe(
       (data) => {
-
-        console.log('WORLD ARE YOU HERE', data.data.data);
         this.requests = data.data.data;
         this.totalItems = data['data']['total']; // Set the total items count
 

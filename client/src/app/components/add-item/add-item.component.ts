@@ -175,7 +175,6 @@ export class AddItemComponent implements OnInit {
   onSubmit() {
     // const token = localStorage.getItem('token') || '';
     const token = this.itemService.getToken();
-    console.log('Form Data: ', this.itemForm.value);
 
 
 
@@ -202,10 +201,7 @@ export class AddItemComponent implements OnInit {
     });
 
     if (this.images.controls) {
-      console.log(this.images.controls);
       this.images.controls.forEach((image, index) => {
-        console.log("Image number");
-        console.log(image.value);
         formData.append(`images[${index}]`, image.value);
       });
     }
@@ -248,12 +244,8 @@ export class AddItemComponent implements OnInit {
 //   this.itemService.createItem(formData, token).subscribe(
 //     response => {
 
-//       console.log("Inside the method");
-//       console.log(response);
-//       console.log('Item added successfully:', response);
 //     },
 //     error => {
-//       console.error('Error adding item:', error);
 //     }
 //   );
 // }
@@ -264,7 +256,6 @@ export class AddItemComponent implements OnInit {
 //     const controlErrors = this.myForm.get(key)?.errors;
 //     if (controlErrors) {
 //       Object.keys(controlErrors).forEach(keyError => {
-//         console.log(`Field: ${key}, Error Type: ${keyError}, Error Details: `, controlErrors[keyError]);
 //       });
 //     }
 //   });

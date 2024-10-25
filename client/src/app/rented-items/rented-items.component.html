@@ -1,39 +1,46 @@
 <div *ngIf="isLoading" class="flex justify-center items-center h-full">
     <mat-spinner></mat-spinner>
-  </div>
-  
-  <table *ngIf="!isLoading" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
-          <tr>
-              <th scope="col" class="px-6 py-3">Ref Number</th>
-              <th scope="col" class="px-6 py-3">Item Name</th>
-              <th scope="col" class="px-6 py-3">Price</th>
-              <th scope="col" class="px-6 py-3">Start Date</th>
-              <th scope="col" class="px-6 py-3">Status</th>
-              <th scope="col" class="px-10  py-3">Rate</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let request of rentals">
-              <td class="px-6 py-4">{{ request.id }}</td>
-              <td class="px-6 py-4">{{ request.item.name }}</td>
-              <td class="px-6 py-4">{{ request.rental_price }}</td>
-              <td class="px-6 py-4">{{ request.start_date }}</td>
-              <td class="px-6 py-4" [ngClass]="{ 'text-green-500': request.status === 'approved' }">
-                {{ request.status }}
-            </td>               <td class="px-2 py-4">
-                <button 
-    class="btn btn-primary border border-blue-500 text-black-500 px-6 py-2 
-           hover:bg-blue-600 hover:border-blue-600 hover:text-white transition duration-300 ease-in-out"
-    [disabled]="request.status === 'requested'" 
-    [ngClass]="{'opacity-50 cursor-not-allowed': request.status === 'requested'}"
-    (click)="openReviewDialog(request.item.id)">
-    Make Review
-</button>
+</div>
 
+<div class>
+    <table *ngIf="!isLoading"
+        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">Ref Number</th>
+                <th scope="col" class="px-6 py-3">Item Name</th>
+                <th scope="col" class="px-6 py-3">Price</th>
+                <th scope="col" class="px-6 py-3">Start Date</th>
+                <th scope="col" class="px-6 py-3">Status</th>
+                <th scope="col" class="px-10  py-3">Rate</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let request of rentals">
+                <td class="px-6 py-4">{{ request.id }}</td>
+                <td class="px-6 py-4">{{ request.item.name }}</td>
+                <td class="px-6 py-4">{{ request.rental_price }}</td>
+                <td class="px-6 py-4">{{ request.start_date }}</td>
+                <td class="px-6 py-4"
+                    [ngClass]="{ 'text-green-500': request.status === 'approved' }">
+                    {{ request.status }}
+                </td> <td class="px-2 py-4">
+                    <button
+                        class="btn btn-primary border border-blue-500 text-black-500 px-6 py-2 hover:bg-blue-600 hover:border-blue-600 hover:text-white transition duration-300 ease-in-out"
+                        [disabled]="request.status === 'requested'"
+                        [ngClass]="{'opacity-50 cursor-not-allowed': request.status === 'requested'}"
+                        (click)="openReviewDialog(request.item.id)">
+                        Make Review
+                    </button>
 
-              </td>
-          </tr>
-      </tbody>
-  </table>
-  
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-pagination
+        [totalItems]="totalItems"
+        [itemsPerPage]="itemsPerPage"
+        [currentPage]="currentPage"
+        (pageChange)="onPageChange($event)">
+    </app-pagination>
+</div>

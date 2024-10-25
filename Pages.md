@@ -114,7 +114,6 @@ images: this.imageForm.value.additionalImages,
 specifications: this.specForm.value.specifications
 };
 
-      console.log('Form Data: ', formData);
       // Send formData to your service or API
     }
 

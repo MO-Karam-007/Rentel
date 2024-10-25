@@ -62,6 +62,19 @@ class RentalController extends BaseController implements HasMiddleware
         }
     }
 
+
+    public function getItemOwnerRentals(Request $request)
+    {
+        $userId = Auth::id();
+        $rentals = Rental::where('item_owner_id', $userId)
+            ->with('item', 'borrower');
+
+        $perPage = $request->input('limit', 10);
+        $rentals = $rentals->paginate($perPage);
+
+        return $this->sendResponse($rentals, 'Rentals retrieved successfully');
+    }
+
     public function store(Request $request)
     {
         $user = Auth::user();
@@ -177,15 +190,5 @@ class RentalController extends BaseController implements HasMiddleware
         $rentals = Rental::with('item')->where('borrower_id', '=', $userId)->get();
         return  $rentals;
         //  return $this->sendResponse($rentals, 'Borrower rentals retrieved successfully');
-    }
-
-
-
-    public function getItemOwnerRentals()
-    {
-        $userId = Auth::id();
-        $rentals = Rental::where('item_owner_id', $userId)->with('item', 'borrower')->get();
-        return  $rentals;
-        //  return $this->sendResponse($rentals, 'Item owner rentals retrieved successfully');
     }
 }

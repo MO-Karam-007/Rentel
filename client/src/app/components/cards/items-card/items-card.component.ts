@@ -23,7 +23,6 @@ export class ItemsCardComponent implements OnInit {
   constructor(private itemService: ItemService, private toastrService: ToastrService) {
   }
   ngOnInit(): void {
-    console.log("111");
     this.items(this.searchQuery)
   }
 

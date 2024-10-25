@@ -91,8 +91,7 @@ export class CommunityComponent {
     const token = this.postService.getToken();
 
 
-    console.log('Post Data:', postData);
-    this.postService.createPost(postData).subscribe(
+    this.postService.createPost(postData, token).subscribe(
       response => {
         console.log('Post created successfully', response);
         this.loadPosts(); // Reload posts only after a successful creation

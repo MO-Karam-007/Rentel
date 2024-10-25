@@ -19,8 +19,7 @@ export class NotificationService {
     localStorage.setItem('token', token);  // Set token in localStorage
   }
   // Method to fetch notifications
-  getNotifications(): Observable<any> {
-    const token = localStorage.getItem('token') || '';
+  getNotifications(token: string): Observable<any> {
 
     const headers = {
       'Content-Type': 'application/json',
@@ -31,8 +30,8 @@ export class NotificationService {
 
 
 
-  getNotificationCount(): Observable<{ count: number }> {
-    const token = localStorage.getItem('token') || '';
+  getNotificationCount(token: string): Observable<{ count: number }> {
+
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`  // Replace with actual token
@@ -42,8 +41,8 @@ export class NotificationService {
     // return this.http.get<number>(`${this.baseUrl}/notifications/count`);
   }
 
-  markNotificationAsRead(id: number): Observable<any> {
-    const token = localStorage.getItem('token') || '';
+  markNotificationAsRead(id: number,token:string): Observable<any> {
+
     const headers = {
       'Content-Type': 'application/json',
       'Authorization': `Bearer ${token}`  // Correctly formatted token

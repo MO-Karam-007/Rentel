@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { NotificationService } from '../services/notification.service';
 import { CommonModule } from '@angular/common';
+import { tap } from 'rxjs';
 import { DomSanitizer } from '@angular/platform-browser';
 @Component({
   selector: 'app-notifications',
@@ -13,7 +14,7 @@ export class NotificationsComponent {
   notifications: any[] = [];  // Holds the notifications
   loading: boolean = true;  // Initially true to show loading spinner
   sanitizedMessage: any; // To hold sanitized HTML
-  constructor(private notificationService: NotificationService ,private sanitizer: DomSanitizer) {}
+  constructor(private notificationService: NotificationService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this.fetchNotifications();
@@ -21,7 +22,8 @@ export class NotificationsComponent {
 
   // Fetch notifications from the API
   fetchNotifications() {
-    this.notificationService.getNotifications().subscribe(
+    const token = this.notificationService.getToken();
+    this.notificationService.getNotifications(token).subscribe(
       (data) => {
         this.notifications = data;  // Assign response to notifications array
         console.log('Notifications:', this.notifications);
@@ -37,7 +39,8 @@ export class NotificationsComponent {
     return this.sanitizer.bypassSecurityTrustHtml(message);
   }
   markAsRead(notificationId: number) {
-    this.notificationService.markNotificationAsRead(notificationId).subscribe(
+    const token = this.notificationService.getToken();
+    this.notificationService.markNotificationAsRead(notificationId, token).subscribe(
       () => {
         // Find the notification in the array and mark it as read
         const notification = this.notifications.find(n => n.id === notificationId);

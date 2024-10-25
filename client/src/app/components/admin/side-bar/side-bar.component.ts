@@ -39,24 +39,19 @@ export class SideBarComponent implements OnInit {
   ngOnInit(): void { }
 
 
-  showUsers(){
-    
+  showUsers() {
+
   }
 
   deletePost(id) {
-    console.log("Delete POst");
   }
   banUser(id) {
-    console.log("Ban");
 
   }
   createCategory() {
-    console.log("categorty");
   }
   deleteCategory(id) {
-    console.log("categorty");
   }
   deleteItem(id) {
-    console.log("object");
   }
 }

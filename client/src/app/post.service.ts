@@ -21,8 +21,7 @@ export class PostService {
   getPosts(): Observable<any> {
     return this.http.get<any>(this.apiUrl);
   }
-  createPost(postData: { title: string; description: string }): Observable<any> {
-    const token = localStorage.getItem('token');
+  createPost(postData: { title: string; description: string }, token: string): Observable<any> {
 
     const headers = new HttpHeaders({
       'Authorization': `Bearer ${token}`,  // Include the token here

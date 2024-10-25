@@ -3,11 +3,11 @@
         <div class="head-title">
             <div class="left">
                 <h1>Dashboard</h1>
-                <ul class="breadcrumb">
+                <!-- <ul class="breadcrumb">
                     <li><a href="#">Dashboard</a></li>
                     <li><i class="fa-solid fa-chevron-right"></i></li>
                     <li><a class="active" href="#">Home</a></li>
-                </ul>
+                </ul> -->
             </div>
         </div>
 
@@ -29,11 +29,14 @@
         <div class="table-data">
             <div class="order">
                 <div class="head">
-                    <h3>{{ selectedTab === 'requests' ? 'Requests' : selectedTab === 'rented' ? 'Rented Items' : 'Your Items' }}</h3>
+                    <h3>{{ selectedTab === 'requests' ? 'Requests' : selectedTab
+                        === 'rented' ? 'Rented Items' : 'Your Items' }}</h3>
                     <ng-container [ngSwitch]="selectedTab">
+                        <app-your-items
+                            *ngSwitchCase="'your-items'"></app-your-items>
                         <app-requests *ngSwitchCase="'requests'"></app-requests>
-                        <app-rented-items *ngSwitchCase="'rented'"></app-rented-items>
-                        <app-your-items *ngSwitchCase="'your-items'"></app-your-items>
+                        <app-rented-items
+                            *ngSwitchCase="'rented'"></app-rented-items>
                     </ng-container>
                 </div>
             </div>

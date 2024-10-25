@@ -3,14 +3,16 @@
         class="px-3 py-2 bg-gray-200 text-gray-500 rounded-lg hover:bg-gray-300"
         [disabled]="currentPage === 1"
         (click)="changePage(1)">
-        First
+        <i class="fa-solid fa-angles-left"></i>
+
     </button>
 
     <button
         class="px-3 py-2 bg-gray-200 text-gray-500 rounded-lg hover:bg-gray-300"
         [disabled]="currentPage === 1"
         (click)="prevPage()">
-        Previous
+        <i class="fa-solid fa-chevron-left"></i>
+
     </button>
 
     <span *ngFor="let page of pages"
@@ -24,13 +26,13 @@
         class="px-3 py-2 bg-gray-200 text-gray-500 rounded-lg hover:bg-gray-300"
         [disabled]="currentPage === totalPages"
         (click)="nextPage()">
-        Next
+        <i class="fa-solid fa-chevron-right"></i>
     </button>
 
     <button
         class="px-3 py-2 bg-gray-200 text-gray-500 rounded-lg hover:bg-gray-300"
         [disabled]="currentPage === totalPages"
         (click)="changePage(totalPages)">
-        Last
+        <i class="fa-solid fa-angles-right"></i>
     </button>
 </div>

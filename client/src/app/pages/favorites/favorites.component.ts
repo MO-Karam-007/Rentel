@@ -3,11 +3,12 @@ import { AuthService } from '../../services/auth.service';
 import { RentalService } from '../../services/rental.service';
 import { WishlistService } from '../../wishlist.service';
 import { CommonModule } from '@angular/common';
+import { PaginationComponent } from '../../components/pagination/pagination.component';
 
 @Component({
   selector: 'app-favorites',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, PaginationComponent],
   templateUrl: './favorites.component.html',
   styleUrl: './favorites.component.scss'
 })
@@ -15,28 +16,33 @@ export class FavoritesComponent {
   wishlist: any[] = [];
   isLoading: boolean = true; // Flag for loading state
   totalItems: number = 0;  // Total count for displaying in the table footer
-  constructor(private authService: AuthService ,private wishervice: WishlistService ) {}
+  itemsPerPage: number = 10;
+  currentPage: number = 1;
+  constructor(private authService: AuthService, private wishervice: WishlistService) { }
   ngOnInit(): void {
-   
-    this.getWishlist
-    ();  // Call getUser() only if the token exists
-    
-}
 
+    this.getWishlist();
 
-getWishlist(): void {
-  this.wishervice.getWishList().subscribe(
-    (data) => {
-      console.log(data);
-      this.wishlist = Array.isArray(data) ? data : [];
-      this.totalItems = this.wishlist.length;  // Update total count
-      this.isLoading = false;  // Set loading to false when data is received
-    },
-    (error) => {
-      console.error('Error fetching wishlist items', error);
-      this.isLoading = false;  // Ensure loading is false on error as well
-    }
-  );
-}
+  }
+
+  onPageChange(page: number) {
+    this.currentPage = page;
+    this.getWishlist();
+  }
+
+  getWishlist(): void {
+    const token = this.wishervice.getToken();
+    this.wishervice.getWishList(token, this.currentPage, this.itemsPerPage).subscribe(
+      (data) => {
+        this.wishlist = data.data.data
+        this.totalItems = this.wishlist.length;  // Update total count
+        this.isLoading = false;  // Set loading to false when data is received
+      },
+      (error) => {
+        console.error('Error fetching wishlist items', error);
+        this.isLoading = false;  // Ensure loading is false on error as well
+      }
+    );
+  }
 
 }

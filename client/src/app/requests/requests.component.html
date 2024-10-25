@@ -1,38 +1,62 @@
 <div *ngIf="isLoading" class="flex justify-center items-center h-full">
     <mat-spinner></mat-spinner>
-  </div>
-  
-  <table *ngIf="!isLoading" class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-      <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
-          <tr>
-              <th scope="col" class="px-6 py-3">Ref Number</th>
-              <th scope="col" class="px-6 py-3">Item Name</th>
-              <th scope="col" class="px-6 py-3">Price</th>
-              <th scope="col" class="px-6 py-3">Start Date</th>
-              <th scope="col" class="px-6 py-3">Status</th>
-              <th scope="col" class="px-6 py-3">Actions</th>
-          </tr>
-      </thead>
-      <tbody>
-          <tr *ngFor="let request of requests">
-              <td class="px-6 py-4">{{ request.id }}</td>
-              <td class="px-6 py-4">{{ request.item.name }}</td>
-              <td class="px-6 py-4">{{ request.rental_price }}</td>
-              <td class="px-6 py-4">{{ request.start_date }}</td>
-              <td class="px-6 py-4" [ngClass]="{ 'text-green-500': request.status === 'approved' }">
-                {{ request.status }}
-            </td>     
-                     <td class="px-6 py-4">
-                        <button class="border border-green-500 text-green-500 hover:text-red-700 hover:border-red-700
+</div>
+<div class>
+    <table *ngIf="!isLoading"
+        class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
+        <thead class="text-xs text-gray-900 uppercase dark:text-gray-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">Ref Number</th>
+                <th scope="col" class="px-6 py-3">Item Name</th>
+                <th scope="col" class="px-6 py-3">Price</th>
+                <th scope="col" class="px-6 py-3">Requester</th>
+                <th scope="col" class="px-6 py-3">Status</th>
+                <th scope="col" class="px-6 py-3 flex text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let request of requests">
+                <td class="px-6 py-4">{{ request.id }}</td>
+                <td class="px-6 py-4">{{ request.item.name }}</td>
+                <td class="px-6 py-4">{{ request.rental_price }}</td>
+                <td class="px-6 py-4">
+                    <!-- Should rediret to user profile -->
+                    {{ request.borrower.email }}</td>
+                <td class="px-6 py-4"
+                    [ngClass]="{ 'text-green-500': request.status === 'approved' }">
+                    {{ request.status }}
+                </td>
+                <td class="px-6 py-4">
+                    <div class="flex w-100 justify-around gap-3">
+
+                        <button
+                            class="border border-gray-500 text-gray-500 hover:text-white hover:bg-green-700
                         rounded px-4 py-2 transition duration-300 ease-in-out"
-                (click)="approveRental(request.id)"
-                [disabled]="request.status === 'approved'"
-                [ngClass]="{ 'opacity-50 cursor-not-allowed': request.status === 'approved' }">
-            Accept
-        </button>
-        
-            </td>
-          </tr>
-      </tbody>
-  </table>
-  
+                            (click)="approveRental(request.id)"
+                            [disabled]="request.status === 'approved'"
+                            [ngClass]="{ 'opacity-50 cursor-not-allowed': request.status === 'approved' }">
+                            <i class="fa-solid fa-check"></i>
+                        </button>
+
+                        <button
+                            class="border border-gray-500 text-gray-500 hover:text-white hover:bg-red-700
+                    rounded px-4 py-2 transition duration-300 ease-in-out"
+                            (click)="approveRental(request.id)"
+                            [disabled]="request.status === 'approved'"
+                            [ngClass]="{ 'opacity-50 cursor-not-allowed': request.status === 'approved' }">
+                            <i class="fa-solid fa-x"></i> </button>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <app-pagination
+        [totalItems]="totalItems"
+        [itemsPerPage]="itemsPerPage"
+        [currentPage]="currentPage"
+        (pageChange)="onPageChange($event)">
+    </app-pagination>
+
+</div>

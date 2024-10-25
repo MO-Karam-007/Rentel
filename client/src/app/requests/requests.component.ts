@@ -51,19 +51,19 @@ export class RequestsComponent implements OnInit {
 
 
   approveRental(id: number) {
-    //   const token = localStorage.getItem('token') || '';
-    //   this.rentalService.approveRental(id, token)
-    //     .subscribe(
-    //       response => {
-    //         console.log('Rental approved successfully', response);
-    //         // Handle success response (e.g., display a success message, update UI)
-    //         this.retriveReentalReqs();
+    const token = localStorage.getItem('token') || '';
+    this.rentalService.approveRental(id, token)
+      .subscribe(
+        response => {
+          console.log('Rental approved successfully', response);
+          // Handle success response (e.g., display a success message, update UI)
+          this.retriveReentalReqs();
 
-    //       },
-    //       error => {
-    //         console.error('Error approving rental', error);
-    //         // Handle error response (e.g., show an error message)
-    //       }
-    //     );
+        },
+        error => {
+          console.error('Error approving rental', error);
+          // Handle error response (e.g., show an error message)
+        }
+      );
   }
 }

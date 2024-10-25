@@ -57,6 +57,11 @@ export class ItemService {
 
     return this.http.get(`${this.baseUrl}/my-items`, { headers, params })
   }
+  myItemsloc(token: string) {
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    return this.http.get(`${this.baseUrl}/items-pins`, { headers })
+  }
 
 
   allItems(token: string, search: string = '', page: number = 1, limit: number = 4) {

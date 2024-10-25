@@ -4,12 +4,13 @@ import { FormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { Output, EventEmitter } from '@angular/core';
 import { ItemService } from '../../services/item.service';
+import { DecimalPipe } from '@angular/common';
 
 
 @Component({
   selector: 'app-search',
   standalone: true,
-  imports: [FormsModule, RouterLink],
+  imports: [FormsModule, RouterLink, DecimalPipe],
   templateUrl: './search.component.html',
   styleUrl: './search.component.scss'
 })

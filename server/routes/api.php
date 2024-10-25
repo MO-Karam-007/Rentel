@@ -88,6 +88,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/complete-data', [RegisteredUserController::class, 'completeProfile']);
     Route::get('/current-user', [RegisteredUserController::class, 'currentUser']);
     Route::get('/my-items', [ItemController::class, 'myItems']);
+    Route::get('/items-pins', [ItemController::class, 'myItemslocaitons']);
     Route::get('/all-items', [ItemController::class, 'allItems']);
     Route::get('/publish-item/{id}', [ItemController::class, 'publishItem']);
     Route::get('/all-users', [RegisteredUserController::class, 'getUsers']);

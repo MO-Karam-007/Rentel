@@ -136,6 +136,17 @@ class ItemController extends BaseController implements HasMiddleware
     }
 
 
+    public function myItemslocaitons(Request $request)
+    {
+        $userId = Auth::id();
+
+        $items = Item::select('name', 'item_image', 'longitude', 'latitude')
+            ->where('lender_id', '=', $userId)->get();
+
+        return $this->sendResponse($items, 'Items retrieved successfully');
+    }
+
+
 
 
 

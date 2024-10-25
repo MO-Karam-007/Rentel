@@ -45,9 +45,9 @@ export class LoginComponent {
         if (res.data.profileCompletion) {
           this.router.navigate(['/complete-data']);
         }
-        //  else if (res.data.role === 'admin') {
-        // this.router.navigate(['/admin-controls']);
-        // }
+        else if (res.data.role === 'admin') {
+          this.router.navigate(['/admin-users']);
+        }
         else {
           this.router.navigate(['/']);
         }

@@ -31,7 +31,7 @@ export class RequestsService {
     return this.http.get<any>(`${this.baseUrl}/posts`, { params });
   }
   deleteRequest(id: number, token: string) {
-    
+
     const headers = { 'Authorization': `Bearer ${token}` };
 
     return this.http.delete<any>(`${this.baseUrl}/posts/${id}`, { headers })

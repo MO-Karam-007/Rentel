@@ -70,7 +70,8 @@
                     <i class="fa-regular fa-calendar"></i>
                     <span class="ml-2">Start Date</span>
                 </span>
-                <input type="datetime-local"
+                <input
+                    type="date"
                     [min]="min" #start id="start-date"
                     name="start-date"
                     formControlName="startDate"
@@ -85,7 +86,7 @@
                     <i class="fa-regular fa-calendar"></i>
                     <span class="ml-2">End Date</span>
                 </span>
-                <input type="datetime-local"
+                <input type="date"
                     id="end-date"
                     name="end-date"
                     formControlName="endDate"
@@ -132,7 +133,8 @@
                                 formControlName="price"
                                 required />
 
-                            <p class="absolute top-2 right-4">/ 1 day</p>
+                            <p class="absolute top-2 right-4 text-gray-600 ">/ 1
+                                day</p>
                         </div>
                     </div>
                 </div>

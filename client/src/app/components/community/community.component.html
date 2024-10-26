@@ -1,161 +1,171 @@
-<div class="flex h-screen pb-8">
+<div class=" flex h-screen pb-8">
   <!-- Left Sidebar (1/4 width, fixed) -->
-  <div class="w-1/4 right-sidebar p-2 space-y-4">
-    <div class="bg-white p-4">
-      <h2 class="text-2xl font-semibold mb-4">Popular Rentals</h2>
-      <ul>
-        <!-- Corrected the loop syntax -->
-        @for (item of [1,2,3,4]; track $index) {
-        <li class="mb-3">
-          <a href="#" class="text-blue-600 hover:underline"
-            >Luxurious Beachfront Villa</a
-          >
-          <p class="text-gray-600">3 beds | 2 baths | $250/night</p>
-        </li>
-        }
-      </ul>
+  <div class=" w-1/4 right-sidebar p-2 space-y-4">
+      <div class="bg-white p-4">
+          <h2 class="text-2xl font-semibold mb-4">Renting Tips</h2>
+          <ul>
+              <li class="mb-3">
+                <p class="text-gray-700">
+                  1. Book early to get the best deals and avoid last-minute price hikes.
+                </p>            
+                </li>
+                <li class="mb-3">
+                  <p class="text-gray-700">
+                    2. Check cancellation policies to avoid unexpected fees.
+                  </p>            
+                  </li>
+                  <li class="mb-3">
+                    <p class="text-gray-700">
+                      3. Always verify amenities to ensure the property meets your needs.
+                    </p>          
+                    </li>
+                    <li class="mb-3">
+                      <p class="text-gray-700">
+                        4. Look for verified reviews to get insights from past renters.
+                      </p>          
+                      </li>
+              
+          </ul>
+      </div>
+      <section class="mt-6">
+          <h2 class="text-base font-medium text-gray-900">Trending
+              Hashtags</h2>
+          <div class="mt-4">
+              <div class="flex flex-wrap">
+                  <a href="#"
+                      class="mr-2 mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-800">#ApartmentsForRent</a>
+                  <a href="#"
+                      class="mr-2 mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-800">#CarsForRents</a>
+                  <a href="#"
+                      class="mr-2 mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-800">#BooksForRent</a>
+                  
+              </div>
+          </div>
+      </section>
     </div>
 
-    <section class="mt-6">
-      <h2 class="text-base font-medium text-gray-900">Trending Hashtags</h2>
-      <div class="mt-4">
-        <div class="flex flex-wrap">
-          <a
-            href="#"
-            class="mr-2 mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-800"
-            >#ApartmentsForRent</a
-          >
-          <a
-            href="#"
-            class="mr-2 mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-800"
-            >#LuxuryRentals</a
-          >
-          <a
-            href="#"
-            class="mr-2 mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-800"
-            >#AffordableHousing</a
-          >
-          <a
-            href="#"
-            class="mr-2 mb-2 inline-block rounded-full bg-blue-100 px-3 py-1 text-sm font-semibold text-blue-800"
-            >#PetFriendlyRentals</a
-          >
+         <!-- Main Content (1/2 width, scrollable) -->
+    <div class="w-1/2 h-full  pb-8">
+      <div class="p-4">
+          <!-- Icons Library -->
+          <div
+          class="w-full flex flex-col gap-5 p-2 border shadow-lg rounded-xl mx-2 bg-white dark:border-gray-400 dark:bg-gray-800">
+          <div
+              class="flex items-center justify-center gap-2">
+              <img
+             
+              [src]="'http://localhost:8000/storage/' + userImage"
+              alt="Profile image"
+              class="w-[3.5rem] h-[3.5rem] rounded-xl"  />
+              
+              <textarea rows="1"
+                  class="w-full resize-none truncate border border-gray-400 rounded-xl p-[12px] text-left xs:text-sm sm:text-lg  dark:bg-gray-700 dark:text-white dark:border-gray-500"
+                  placeholder="Start a post"></textarea>
+
+                </div>
+                <!-- 
+                <div class="flex sm:px-4 mt-2 justify-between">
+                    <div
+                        class="flex items-center gap-2 p-2 rounded-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <span
+                            class="material-symbols-outlined text-blue-400">panorama</span>
+                        <h3
+                            class="text-sm font-semibold text-gray-600 dark:text-gray-300">Media</h3>
+                    </div>
+                    <div
+                        class="flex items-center gap-2 p-2 rounded-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <span
+                            class="material-symbols-outlined text-yellow-700">calendar_month</span>
+                        <h3
+                            class="text-sm font-semibold text-gray-600 dark:text-gray-300">Event</h3>
+                    </div>
+                    <div
+                        class="flex items-center gap-2 sm:p-2 xs:p-1 rounded-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
+                        <span
+                            class="material-symbols-outlined text-orange-400">newsmode</span>
+                        <h3
+                            class="text-sm sm:font-semibold xs:truncate text-gray-600 dark:text-gray-300">Write
+                            article</h3>
+                    </div>
+                </div> -->
+                <button
+                    class="float-right ml-auto  px-5 md:px-10 md:mx-10 py-1 md:py-2 rounded-[10px] hover:bg-gray-100 hover:bg-gray-100 text-gray-900 font-semibold shadow "
+                    (click)="openPostDialog()">Post</button>
+            </div>
+
+
+            <!-- Main content area -->
+            <!-- <h1 class="text-2xl font-bold mb-4">My Posts</h1> -->
+            <!-- Posts section (scrollable if there are many posts) -->
+            <div
+                class="disable-scrolling space-y-5 max-h-[500px] overflow-y-auto ext-4xl font-bold mb-4  rounded p-5 ">
+                <!-- Example Post Card -->
+                <!-- Example Post Cards -->
+                <div
+                    class="flex flex-col gap-3 p-4   mb-10">
+                    <!-- Loading Indicator -->
+                    <div *ngIf="loading"
+                        class="flex justify-center items-center h-64">
+                        <div class="loader"></div> <!-- Loader div -->
+                    </div>
+                   <!-- Posts Section -->
+<div *ngIf="!loading">
+  <div *ngIf="posts.length > 0; else noPosts">
+    <div *ngFor="let post of posts" class="flex flex-col gap-3 p-4 border mb-10">
+      <div test-id="card-header" class="flex justify-between items-center">
+        <div class="flex justify-center items-center gap-3">
+          <div class="flex-shrink-0">
+            <img
+              class="w-[3.5rem] h-[3.5rem] rounded-xl"
+              src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+              alt="User profile">
+          </div>
+          <div class="min-w-0 flex-1">
+            <p class="font-bold text-gray-900">
+              <a href="#">{{ post.creator?.username }}</a>
+            </p>
+            <p class="text-gray-500">
+              <a href="#">&#64;{{ post.creator?.name?.toLowerCase().replace(' ', '') }}</a>
+            </p>
+          </div>
+        </div>
+        <div class="flex-shrink-0">
+          <button type="button"
+            class="inline-flex items-center rounded-xl bg-gray-600 px-2 py-1.5 text-sm font-sm text-white hover:bg-gray-400">
+            <i class="fa-solid fa-plus mr-2"></i>
+            <span>Follow</span>
+          </button>
         </div>
       </div>
-    </section>
+      <div test-id="card-body">
+        <h2 class="text-xl font-semibold">{{ post.title }}</h2>
+        <p class="text-gray-600 mt-2">{{ post.description }}</p>
+      </div>
+      <hr class="h-1">
+      <div class="flex justify-between text-sm gap-5" test-id="card-actions">
+        <div>
+          <!-- <p class="inline-flex items-center rounded-xl bg-red-600 px-1.5 py-1 text-[0.6rem] font-sm text-white ml-2">
+            <span>Category</span>
+          </p> -->
+        </div>
+        <div>
+          <button
+            class="border-2 px-3 py-1 mr-2 rounded-[10px] hover:bg-gray-400 hover:bg-gray-100 text-gray-900 font-semibold shadow"
+            (click)="openItemDialog(post.id)">Offer</button>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Main Content (1/2 width, scrollable) -->
-  <div class="w-1/2 h-full pb-8">
-    <div class="p-4">
-      <!-- Post Creation Section -->
-      <div
-        class="w-full flex flex-col gap-5 p-2 border shadow-lg rounded-xl mx-2 bg-white dark:border-gray-400 dark:bg-gray-800"
-      >
-        <div class="flex items-center justify-center gap-2">
-          <textarea
-            rows="1"
-            class="w-full resize-none border border-gray-400 rounded-xl p-4 text-left dark:bg-gray-700 dark:text-white dark:border-gray-500"
-            placeholder="Start a post, try writing with AI"
-          ></textarea>
-        </div>
-        <button
-          class="float-right ml-auto px-5 py-2 rounded-lg hover:bg-gray-100 text-gray-900 font-semibold shadow"
-          (click)="openPostDialog()"
-        >
-          Post
-        </button>
-      </div>
+  <!-- No Posts Message -->
+  <ng-template #noPosts>
+    <p class="text-gray-400 text-center">No posts available now.</p>
+  </ng-template>
+</div>
 
-      <!-- Posts Section -->
-      <div
-        class="disable-scrolling space-y-5 max-h-[500px] overflow-y-auto font-bold mb-4 rounded p-5"
-      >
-        <div class="flex flex-col gap-3 p-4 mb-10">
-          <!-- Loading Indicator -->
-          <div *ngIf="loading" class="flex justify-center items-center h-64">
-            <div class="loader"></div>
-          </div>
 
-          <!-- Post Cards -->
-          <div *ngIf="!loading">
-            <div
-              *ngFor="let post of posts"
-              class="flex flex-col gap-3 p-4 border mb-10"
-            >
-              <div
-                test-id="card-header"
-                class="flex justify-between items-center"
-              >
-                <div class="flex items-center gap-3">
-                  <div class="min-w-0 flex-1">
-                    <p class="font-bold text-gray-900">
-                      <a href="#">{{ post.creator?.username }}</a>
-                    </p>
-                    <p class="text-gray-500">
-                      <a href="#"
-                        >&#64;{{
-                          post.creator?.name?.toLowerCase().replace(" ", "")
-                        }}</a
-                      >
-                    </p>
-                  </div>
-                </div>
 
-                <!-- Follow Button Removed to match UI adjustments -->
-              </div>
 
-              <div test-id="card-body">
-                <h2 class="text-xl font-semibold">{{ post.title }}</h2>
-                <p class="text-gray-600 mt-2">{{ post.description }}</p>
-              </div>
-
-              <hr class="h-1" />
-
-              <div
-                class="flex justify-between text-sm gap-5"
-                test-id="card-actions"
-              >
-                <div>
-                  <p
-                    class="inline-flex items-center rounded-xl bg-red-600 px-1.5 py-1 text-xs text-white ml-2"
-                  >
-                    Category
-                  </p>
-                </div>
-                <div>
-                  <button
-                    class="border-2 px-3 py-1 mr-2 rounded-lg hover:bg-gray-400 text-gray-900 font-semibold shadow"
-                    (click)="openItemDialog(post.id)"
-                  >
-                    Offer
-                  </button>
                 </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        <!-- Remove Avatar Image from Dashboard -->
-        <!-- Properly Implement Logout Page Link -->
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Date Handling -->
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const startDate = document.querySelector("#startDate");
-    const endDate = document.querySelector("#endDate");
-
-    // Set minimum start date to today
-    const today = new Date().toISOString().split("T")[0];
-    startDate.setAttribute("min", today);
-
-    // Ensure end date is always greater than start date
-    startDate.addEventListener("change", function () {
-      endDate.setAttribute("min", this.value);
-    });
-  });
-</script>

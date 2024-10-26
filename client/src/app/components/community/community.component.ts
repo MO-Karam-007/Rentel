@@ -15,6 +15,8 @@ import { AuthService } from '../../services/auth.service'; // Adjust the path ac
 })
 export class CommunityComponent {
   posts: any[] = [];
+  userImage: string = ''
+
   authId: number;
   loading: boolean = true; // Initialize loading to true
   extractedPosts: any[] = [];
@@ -23,6 +25,8 @@ export class CommunityComponent {
   ngOnInit(): void {
     // const token = localStorage.getItem('token'); // Assuming token is stored in local storage
     const token = this.postService.getToken();
+    this.getUser();  // Call getUser() only if the token exists
+
 
     if (token) {
       this.authService.currentUser(token).subscribe(
@@ -110,6 +114,23 @@ export class CommunityComponent {
       maxHeight: '90vh', // Adjust the dialog size
       data: { postId }
     });
+  }
+
+  getUser() {
+    const token = localStorage.getItem('token') || '';
+    this.authService.currentUser(token).subscribe(
+      (data) => {
+        console.log(data)
+        this.userImage = data.data.message.profile_picture
+        console.log(this.userImage)
+
+
+      },
+      (error) => {
+        console.error('Error fetching user data', error);
+
+      }
+    );
   }
 
 }

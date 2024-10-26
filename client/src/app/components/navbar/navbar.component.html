@@ -5,10 +5,10 @@
         routerLinkActive="router-link-active">Rental</h2>
     <ul class="hidden bg-inherit md:flex">
 
-        <a class="mr-4" [routerLink]="['/items']">Nearby Rentals</a>
+        <a class="mr-4" [routerLink]="['/items']">Nearby Items</a>
         @if (token) {
 
-        <a class="mr-4" [routerLink]="['/add-item']">Add Rentally</a>
+        <a class="mr-4" [routerLink]="['/add-item']">Add Item</a>
         }
         <a [routerLink]="['/posts']">Ask Others</a>
 

@@ -5,7 +5,6 @@ import { ItemService } from '../services/item.service';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { HttpClient } from '@angular/common/http';  // Import HttpClient
 import { ToastrService } from 'ngx-toastr';  // Import ToastrService
-
 @Component({
   selector: 'app-offer-popup',
   standalone: true,
@@ -37,19 +36,20 @@ export class OfferPopupComponent {
       console.error('No creatorId provided!');
       this.postId = 0; // Handle this case as needed
     }  }
-
   close(): void {
     this.dialogRef.close();
   }
-
  
   getitems() {
     const token = localStorage.getItem('token') || '';
     this.isLoading = true; // Set loading to true at the start
     this.itemService.myItems(token).subscribe(
       (data) => {
-        console.log(data);
-        this.items = Array.isArray(data) ? data : [];
+        this.items = data['data'].data;
+
+        //this.items = Array.isArray(data) ? data : [];
+        console.log(this.items);
+
         this.isLoading = false; // Set loading to false after data is fetched
       },
       (error) => {
@@ -58,18 +58,14 @@ export class OfferPopupComponent {
       }
     );
   }
-
  offer( id :number){
   const token = localStorage.getItem('token') || '';
-
   const url = `http://localhost:8000/api/posts/${this.postId}/offer/${id}`;
-
   // Add headers if needed (including the Authorization header)
   const headers = {
     'Content-Type': 'application/json',
     'Authorization': `Bearer ${token}` // Replace with actual token
   };
-
   // Make the HTTP POST request
   this.http.post(url, {}, { headers }).subscribe(
     (response) => {
@@ -84,7 +80,4 @@ export class OfferPopupComponent {
     }
   );
 }
-
  }
-
-

@@ -3,11 +3,13 @@ import { AuthService } from '../../../services/auth.service';
 import { FormsModule } from '@angular/forms';
 import { PaginationComponent } from '../../pagination/pagination.component';
 import { LoadingComponent } from "../../loading/loading.component";
+import { ToastrService } from 'ngx-toastr';
+import { CommonModule, NgClass } from '@angular/common';
 
 @Component({
   selector: 'app-user-card',
   standalone: true,
-  imports: [FormsModule, PaginationComponent, LoadingComponent],
+  imports: [FormsModule, PaginationComponent, LoadingComponent, NgClass, CommonModule],
   templateUrl: './user-card.component.html',
   styleUrl: './user-card.component.scss'
 })
@@ -17,10 +19,20 @@ export class UserCardComponent implements OnInit {
   totalItems: number = 0;
   itemsPerPage: number = 4;
   currentPage: number = 1;
+  isImageModalOpen = false;
+  selectedImage: string | null = null;
 
+  openImageModal(imagePath: string) {
+    this.selectedImage = imagePath;
+    this.isImageModalOpen = true;
+  }
 
+  closeImageModal() {
+    this.isImageModalOpen = false;
+    this.selectedImage = null;
+  }
 
-  constructor(private authService: AuthService) {
+  constructor(private authService: AuthService, private toastrService: ToastrService) {
   }
   ngOnInit(): void {
     this.users(this.searchQuery)
@@ -50,5 +62,48 @@ export class UserCardComponent implements OnInit {
       }
     );
   }
+
+  toggleBan(user: any) {
+    const token = this.authService.getToken();
+
+    if (user.banned) {
+      this.authService.unbanUser(token, user.id).subscribe(
+        (response) => {
+          user.banned = response.banned;
+          this.toastrService.success('User unbanned successfully');
+        },
+        (error) => {
+          console.error(error);
+          this.toastrService.error(error.message);
+        }
+      );
+    } else {
+      // If user is not banned, call banUser
+      this.authService.banUser(token, user.id).subscribe(
+        (response) => {
+          user.banned = response.banned;
+          this.toastrService.success('User banned successfully');
+
+        },
+        (error) => {
+          console.error(error);
+          this.toastrService.error(error.message);
+        }
+      );
+    }
+  }
+
+  // ban(id: number) {
+  //   const token = this.authService.getToken();
+  //   this.authService.banUser(token, id).subscribe(
+  //     (data) => {
+  //       this.toastrService.success('User banned successfully')
+  //     },
+  //     (error) => {
+  //       console.error(error);
+  //       this.toastrService.error(error.message);
+  //     }
+  //   );
+  // }
 
 }

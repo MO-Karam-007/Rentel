@@ -45,6 +45,7 @@ export class LoginComponent {
         console.log("FFFFFFFFFFFFf");
         if (res.data.ban === true) {
           this.router.navigate(['/ban'])
+          localStorage.removeItem('token')
           return;
         }
 

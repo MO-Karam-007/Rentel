@@ -30,7 +30,7 @@ class RegisteredUserController extends BaseController
         // Only allow access if the user is an admin
         if ($user == 'admin') {
             // Start building the query with the condition 'profile_incomplete' is false
-            $query = User::where('profile_incomplete', false);
+            $query = User::where('role', 'user');
 
             // Check if 'email' exists in the request and filter the query
             if ($request->has('search')) {

@@ -1,68 +1,59 @@
-<section class="mx-auto w-11/12 lg:w-10/12">
+<section class="container mx-auto px-4 lg:px-8 py-12 w-full">
   <!-- Main Content Wrapper -->
-  <div class="flex flex-col lg:flex-row my-12 gap-8">
+  <div class="flex flex-col lg:flex-row gap-8 mb-12">
     <!-- Product Image -->
-    <div class="w-full lg:w-8/12">
-      <img class="w-full h-[550px] object-cover rounded-lg shadow-md"
-        [src]="'http://localhost:8000/storage/'+item.item_image"
+    <div class="w-full lg:w-7/12">
+      <img
+        [src]="'http://localhost:8000/storage/' + item.item_image"
+        class="w-full h-[500px] lg:h-[550px] object-cover rounded-lg shadow-md"
         alt="Product Image" />
     </div>
 
     <!-- Product & User Information -->
-    <div class="w-full lg:w-5/12 bg-white p-8 rounded-lg shadow-lg space-y-6">
+    <div
+      class="w-full lg:w-5/12 bg-white p-6 lg:p-8 rounded-lg shadow-lg space-y-6">
       <!-- User Information -->
-      <div class="flex items-center">
-        <img [src]="'http://localhost:8000/storage/'+item.user.profile_picture"
-          alt="User Image" class="w-16 h-16 rounded-full mr-4 shadow-sm">
+      <div class="flex items-center space-x-4 mb-6">
+        <img
+          [src]="'http://localhost:8000/storage/' + item.user.profile_picture"
+          alt="User Image"
+          class="w-14 h-14 rounded-full shadow-sm">
         <div>
-          <p class="font-semibold text-lg">{{item.user.first_name}}
-            {{item.user.last_name}}</p>
-          <p class="text-gray-500 text-sm">{{item.user.email}}</p>
+          <p class="font-semibold text-lg">{{ item.user.first_name }} {{
+            item.user.last_name }}</p>
+          <p class="text-gray-500 text-sm">{{ item.user.email }}</p>
         </div>
       </div>
 
       <!-- Product Info -->
       <div class="space-y-4">
-        <h2 class="text-3xl font-semibold">{{item.name}}</h2>
-        <p class="text-gray-600">{{item.description}}</p>
-        <p class="text-2xl text-green-600 font-bold">${{item.price}}</p>
+        <h2 class="text-2xl font-semibold text-gray-900">{{ item.name }}</h2>
+        <p class="text-gray-600">{{ item.description }}</p>
+        <p class="text-xl font-bold text-green-600">${{ item.price }}</p>
 
-        <!-- Category, Date, and Location Info -->
-        <div class="text-sm text-gray-500 space-y-2">
-          <p><strong>Category:</strong> {{item.category.category}}</p>
-          <p><strong>Available Until:</strong> {{item.endDate}}</p>
-          <p><strong>Location:</strong> Latitude: 29.9892736, Longitude:
-            31.2180736</p>
+        <!-- Additional Info -->
+        <div class="text-sm text-gray-500 space-y-1">
+          <p><strong>Category:</strong> {{ item.category.category }}</p>
+          <p><strong>Available Until:</strong> {{ item.endDate }}</p>
         </div>
 
-        <button
-          class="mt-6 w-full lg:w-auto bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-lg transition"  (click)="renting(item.id)">Rent
-          Now</button>
+        <h3 class="text-xl font-semibold text-gray-900">
+          Specifications</h3>
+        <ul class="text-gray-700 divide-y divide-gray-200">
+          <li *ngFor="let spec of item.specifications; let i = index"
+            class="flex justify-between py-3">
+            <span class="font-semibold">{{ i + 1 }}. {{ spec.spec_name }}</span>
+            <span>{{ spec.spec_value }}</span>
+          </li>
+        </ul>
+
       </div>
-    </div>  
+    </div>
   </div>
 
-  <!-- Review and Specification Section -->
-  <div class="flex flex-col lg:flex-row gap-8 my-12">
-    <!-- Specifications Section -->
-    <div class="w-full lg:w-1/2 bg-white rounded-lg shadow-md p-6 space-y-4">
-      <h3 class="text-2xl font-semibold">{{item.name}} Specifications</h3>
-      <ul class="text-gray-700 space-y-3">
-        @for (item of item.specifications; track $index) {
-        <li class="flex justify-between border-b pb-2">
-          <span class="font-semibold">{{ $index + 1 }}. {{ item.spec_name
-            }}</span>
-          <span>{{ item.spec_value }}</span>
-        </li>
-        }
-      </ul>
-    </div>
-
-    <!-- Review Section -->
-    <div class="w-full lg:w-1/2 bg-white shadow-md rounded-lg p-6">
-      <h3 class="text-2xl font-semibold mb-4">User Reviews</h3>
-      <!-- The review component -->
-      <app-review  [itemId]="productId"></app-review>
-    </div>
+  <div class="w-full lg:w-100 bg-white rounded-lg shadow-md p-6 lg:p-8">
+    <h3 class="text-xl font-semibold text-gray-900 mb-4">User Reviews</h3>
+    <!-- The review component -->
+    <app-review [itemId]="item.id"></app-review>
   </div>
 </section>

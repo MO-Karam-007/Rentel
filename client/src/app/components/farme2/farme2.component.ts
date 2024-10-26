@@ -1,4 +1,4 @@
-import { CurrencyPipe } from '@angular/common';
+import { CommonModule, CurrencyPipe } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ReviewComponent } from '../../review/review.component';
 import { ActivatedRoute } from '@angular/router';
@@ -12,7 +12,7 @@ import { WishlistService } from '../../wishlist.service';
 @Component({
   selector: 'app-farme2',
   standalone: true,
-  imports: [CurrencyPipe, ReviewComponent],
+  imports: [CurrencyPipe, ReviewComponent, CommonModule],
   templateUrl: './farme2.component.html',
   styleUrl: './farme2.component.scss',
   // schemas: [CUSTOM_ELEMENTS_SCHEMA]

@@ -64,13 +64,15 @@
                         <img
                             [src]="'http://localhost:8000/storage/'+user.profile_picture"
                             class="w-16 md:w-32 max-w-full max-h-full"
+                            (click)="openImageModal(user.profile_picture)"
                             alt="Apple iMac">
                     </td>
                     <td class="p-4">
                         <img
-                            [src]="'http://localhost:8000/storage/'+user.identification_scan"
-                            class="w-16 md:w-32 max-w-full max-h-full"
-                            alt="Apple iMac">
+                            [src]="'http://localhost:8000/storage/' + user.identification_scan"
+                            class="w-16 md:w-32 max-w-full max-h-full cursor-pointer"
+                            alt="Apple iMac"
+                            (click)="openImageModal(user.identification_scan)">
                     </td>
                     <td
                         class="px-6 py-4 font-semibold text-gray-900 dark:text-white">
@@ -85,10 +87,13 @@
                         {{user.role}}
                     </td>
                     <td class="px-6 py-4 ">
-                        <div class="flex gap-2">
-
-                            <a href="#"
-                                class="font-medium text-red-600 dark:text-red-500 hover:underline">Ban</a>
+                        <div class="flex gap-2 cursor-pointer">
+                            <a
+                                (click)="toggleBan(user)"
+                                class="font-medium"
+                                [ngClass]="user.banned ? 'text-green-600 dark:text-green-500' : 'text-red-600 dark:text-red-500'"
+                                [innerText]="user.banned ? 'Unban' : 'Ban'"
+                                hover:underline></a>
                         </div>
                     </td>
                 </tr>
@@ -111,4 +116,16 @@
         (pageChange)="onPageChange($event)">
     </app-pagination>
 
+    <div *ngIf="isImageModalOpen"
+        class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+        <div class="bg-white p-4 rounded-lg max-w-full max-h-full relative">
+            <span
+                class="absolute top-2 right-2 cursor-pointer text-2xl text-gray-500"
+                (click)="closeImageModal()">&times;</span>
+            <img
+                [src]="'http://localhost:8000/storage/' + selectedImage"
+                class="max-w-full max-h-full"
+                alt="Enlarged Image">
+        </div>
+    </div>
 </div>

@@ -38,9 +38,15 @@ export class LoginComponent {
         // console.log(res.data.profileCompletion);
         localStorage.setItem('token', res.data.token);
 
+        console.log("FFFFFFFFFFFFf");
 
-
-
+        console.log(res.data);
+        console.log(res.data.ban == true);
+        console.log("FFFFFFFFFFFFf");
+        if (res.data.ban === true) {
+          this.router.navigate(['/ban'])
+          return;
+        }
 
         if (res.data.profileCompletion) {
           this.router.navigate(['/complete-data']);

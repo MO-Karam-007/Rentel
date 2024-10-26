@@ -22,8 +22,6 @@ class AuthenticatedSessionController extends BaseController
 
     public function store(LoginRequest $request)
     {
-        // Token-based authentication
-        // Session-based authentication
 
         $user = User::where('email', $request->email)->first();
 
@@ -36,13 +34,13 @@ class AuthenticatedSessionController extends BaseController
 
         $token = $user->createToken('api-token')->plainTextToken;
 
-        // $request->session()->regenerate();
-        // dd("4");
 
         return $this->sendResponse([
             'token' => $token,
             'profileCompletion' => $user->profile_incomplete,
-            "role" => $user->role
+            "role" => $user->role,
+            "active_status" => $user->active_status,
+            "ban" => $user->banned
         ], 201);
         // return $this->sendResponse(['token' => $token], 'User logged in successfully');
     }

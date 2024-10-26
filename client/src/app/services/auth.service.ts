@@ -73,4 +73,16 @@ export class AuthService {
   }
 
 
+
+  banUser(token: string, id: number): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    return this.http.get(`${this.baseUrl}/ban/${id}`, { headers })
+  }
+
+  unbanUser(token: string, id: number): Observable<any> {
+    const headers = { 'Authorization': `Bearer ${token}` };
+
+    return this.http.get(`${this.baseUrl}/unban/${id}`, { headers })
+  }
 }

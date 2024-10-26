@@ -138,7 +138,6 @@ class RegisteredUserController extends BaseController
             if ($user) {
                 $user->active_status = false;
                 $user->banned = true;
-                $user->suspended_until = null; // Clear any suspension
                 $user->save();
 
                 return response()->json(['message' => 'User has been permanently banned.']);
@@ -168,14 +167,19 @@ class RegisteredUserController extends BaseController
 
     public function unbanOrUnsuspendUser($id)
     {
-        $user = User::find($id);
+        $user = Auth::user()->role;
+        if ($user === 'admin') {
+            $user = User::find($id);
 
-        if ($user) {
-            $user->banned = false;
-            $user->suspended_until = null; // Remove any suspension
-            $user->save();
+            if ($user) {
+                $user->banned = false;
+                $user->active_status = true; // Remove any suspension
+                $user->save();
 
-            return response()->json(['message' => 'User has been unbanned or unsuspended.']);
+                return response()->json(['message' => 'User has been unbanned or unsuspended.']);
+            }
+        } else {
+            return $this->sendError('User not authenticated', [], 401);
         }
 
         return response()->json(['message' => 'User not found.'], 404);

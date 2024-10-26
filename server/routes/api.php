@@ -115,6 +115,8 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/itemrentel-req', [RentalController::class, 'getItemOwnerRentals']);
     Route::post('/rentals/{rental}/approve', [RentalController::class, 'approveRental']);
     Route::post('/posts/{post}/offer/{itemId}', [PostController::class, 'offer']);
+    Route::get('/ban/{ban}', [RegisteredUserController::class, 'banUser']);
+    Route::get('/unban/{ban}', [RegisteredUserController::class, 'unbanOrUnsuspendUser']);
 });
 
 //Route::post('/posts/{post}/offer', [PostController::class, 'offer'])->middleware('auth:sanctum');

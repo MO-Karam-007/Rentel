@@ -28,6 +28,7 @@ import { PostsCardComponent } from './components/cards/posts-card/posts-card.com
 import { RentalsCardComponent } from './components/cards/rentals-card/rentals-card.component';
 import { ItemsCardComponent } from './components/cards/items-card/items-card.component';
 import { SignoutPageComponent } from './pages/signout-page/signout-page.component';
+import { BanComponent } from './components/ban/ban.component';
 
 export const routes: Routes = [
   {
@@ -101,4 +102,5 @@ export const routes: Routes = [
   },
 
   { path: 'services', component: ServicesProviderComponent, title: 'services' },
+  { path: 'ban', component: BanComponent, title: 'Banned User Notice' },
 ];

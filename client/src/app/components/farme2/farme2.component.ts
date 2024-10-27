@@ -66,7 +66,7 @@ export class Farme2Component implements OnInit {
         });
       },
       error: (error) => {
-        console.error('Error creating rental', error);
+        console.error('Error creating rental', id, error);
         this._snackBar.open('Error creating rental. Please try again.', 'Close', {
           duration: 3000,
         });

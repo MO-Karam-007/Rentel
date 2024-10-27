@@ -46,7 +46,7 @@
   </div>
 
   <!-- Main Content (1/2 width, scrollable) -->
-  <div class="w-1/2 h-full  pb-8">
+  <div class="w-1/2 h-screen  pb-8">
     <div class="p-4">
       <!-- Icons Library -->
       <div
@@ -58,31 +58,7 @@
             alt="Profile image"
             class="w-1/4 h-[3.5rem] rounded-xl" />
 
-          <!-- 
-                <div class="flex sm:px-4 mt-2 justify-between">
-                    <div
-                        class="flex items-center gap-2 p-2 rounded-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <span
-                            class="material-symbols-outlined text-blue-400">panorama</span>
-                        <h3
-                            class="text-sm font-semibold text-gray-600 dark:text-gray-300">Media</h3>
-                    </div>
-                    <div
-                        class="flex items-center gap-2 p-2 rounded-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <span
-                            class="material-symbols-outlined text-yellow-700">calendar_month</span>
-                        <h3
-                            class="text-sm font-semibold text-gray-600 dark:text-gray-300">Event</h3>
-                    </div>
-                    <div
-                        class="flex items-center gap-2 sm:p-2 xs:p-1 rounded-sm cursor-pointer hover:bg-gray-100 dark:hover:bg-gray-700">
-                        <span
-                            class="material-symbols-outlined text-orange-400">newsmode</span>
-                        <h3
-                            class="text-sm sm:font-semibold xs:truncate text-gray-600 dark:text-gray-300">Write
-                            article</h3>
-                    </div>
-                </div> -->
+          
           <button
             class="float-right ml-auto  px-5 md:px-10 md:mx-10 py-1 md:py-2 rounded-[10px] hover:bg-gray-100 hover:bg-gray-100 text-gray-900 font-semibold shadow w-3/4"
             (click)="openPostDialog()">Create a new request</button>
@@ -92,7 +68,7 @@
         <!-- <h1 class="text-2xl font-bold mb-4">My Posts</h1> -->
         <!-- Posts section (scrollable if there are many posts) -->
         <div
-          class="disable-scrolling space-y-5 max-h-[500px] overflow-y-auto ext-4xl font-bold mb-4  rounded p-5 ">
+          class="disable-scrolling space-y-5 max-h-[750px] overflow-y-auto ext-4xl font-bold mb-4  rounded p-5 ">
           <!-- Example Post Card -->
           <!-- Example Post Cards -->
           <div
@@ -113,16 +89,16 @@
                       <div class="flex-shrink-0">
                         <img
                           class="w-[3.5rem] h-[3.5rem] rounded-xl"
-                          src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?ixlib=rb-1.2.1&amp;ixid=eyJhcHBfaWQiOjEyMDd9&amp;auto=format&amp;fit=facearea&amp;facepad=2&amp;w=256&amp;h=256&amp;q=80"
+                          [src]="'http://localhost:8000/storage/' + post.creator?.profile_picture"
                           alt="User profile">
                       </div>
                       <div class="min-w-0 flex-1">
                         <p class="font-bold text-gray-900">
-                          <a href="#">{{ post.creator?.username }}</a>
+                          <a href="#">{{ post.creator?.first_name }}</a>
                         </p>
                         <p class="text-gray-500">
                           <a href="#">&#64;{{
-                            post.creator?.name?.toLowerCase().replace(' ', '')
+                            post.creator?.username
                             }}</a>
                         </p>
                       </div>

@@ -1,83 +1,59 @@
 <div class="relative">
-    <img src="assets/items.jpg" class="items-cover object-bottom"
-        alt="Car Rental">
-    <div
-        class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center">
+    <img src="assets/items.jpg" class="items-cover object-bottom" alt="Car Rental">
+    <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center">
         <!-- Dark overlay -->
-        <h1 class="text-4xl font-bold text-white shadow-lg">Connect, Rent, and
-            Earn Effortlessly</h1>
-        <!-- Replace with your text -->
+        <h1 class="text-4xl font-bold text-white shadow-lg">Connect, Rent, and Earn Effortlessly</h1>
     </div>
-    <!-- <h2
-        class="text-center text-3xl font-semibold  absolute inset-0 flex items-center justify-center text-white">
-        Connect, Rent, and Earn Effortlessly
-    </h2> -->
 </div>
-<app-search (searchParamsChanged)="onSearchParamsChange($event)"></app-search>
-<section class=" flex justify-center">
-    <!-- <div class="container"> -->
-    <div
-        class="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-[8%] mb-4 w-5/6">
-        <!-- Car Card -->
-        @for (item of cars; track $index) {
 
-        <div class="card bg-gray-100 shadow-md rounded-md ">
+<app-search (searchParamsChanged)="onSearchParamsChange($event)"></app-search>
+
+<section class="flex justify-center">
+    <div *ngIf="isLoading" class="flex justify-center items-center mt-16">
+        <!-- Circular Loading Spinner -->
+        <div class="animate-spin rounded-full h-40 w-40 border-t-4 border-blue-600"></div>
+    </div>
+
+    <div *ngIf="!isLoading" class="grid xs:grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6 mt-16 mb-4 w-5/6">
+        <!-- Car Card -->
+        <div *ngFor="let item of cars" class="card bg-gray-100 shadow-md rounded-md">
             <div class="relative">
-                <img
-                    class="w-full h-48 object-cover rounded-t-md cursor-pointer "
-                    [routerLink]="['/item',item.id]"
-                    [src]="'http://localhost:8000/storage/' + item.item_image"
-                    alt="Item Image">
-                    <div class="absolute bottom-0 right-0 p-2">
-                        <button
-                            (click)="toggleWishlist(item.id)"
-                            class="px-3 py-2 rounded-full border bg-gray-200 text-gray-700 border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-105 focus:outline-none"
-                        >
-                            <i
-                                class="fa-heart text-2xl" 
-                                [ngClass]="{
-                                  'fa-solid text-red-500': isItemInWishlist(item.id), 
-                                  'fa-regular text-gray-500': !isItemInWishlist(item.id)
-                                }"
-                            ></i>
-                        </button>
-                    </div>
-                    
-                    
-                    
-                    
+                <img class="w-full h-48 object-cover rounded-t-md cursor-pointer" 
+                     [routerLink]="['/item', item.id]" 
+                     [src]="'http://localhost:8000/storage/' + item.item_image" 
+                     alt="Item Image">
+                <div class="absolute bottom-0 right-0 p-2">
+                    <button (click)="toggleWishlist(item.id)" 
+                            class="px-3 py-2 rounded-full border bg-gray-200 text-gray-700 border-gray-300 transition-all duration-300 ease-in-out hover:shadow-lg hover:scale-105 focus:outline-none">
+                        <i class="fa-heart text-2xl" 
+                           [ngClass]="{
+                             'fa-solid text-red-500': isItemInWishlist(item.id), 
+                             'fa-regular text-gray-500': !isItemInWishlist(item.id)
+                           }"></i>
+                    </button>
+                </div>
             </div>
             <div class="p-4">
+                <span class="text-lg font-bold cursor-pointer">{{item.name}}</span>
                 <div class="flex items-center" [routerLink]="['/profile']">
-                    <img class="w-10 h-10 rounded-full mr-2 cursor-pointer"
-                        [src]="'http://localhost:8000/storage/'+item.user.profile_picture"
-                        alt="User Picture">
-                    <div class="flex flex-col ">
-                        <span
-                            class="text-lg font-bold cursor-pointer">{{item.user.first_name
-                            + ' ' + item.user.last_name}}</span>
-                        <span class="text-gray-500 cursor-pointer"> {{
-                            item.user.email }}</span>
+                    <img class="w-10 h-10 rounded-full mr-2 cursor-pointer" 
+                         [src]="'http://localhost:8000/storage/' + item.user.profile_picture" 
+                         alt="User Picture">
+                    <div class="flex flex-col">
+                        <span class="text-lg cursor-pointer">{{item.user.first_name + ' ' + item.user.last_name}}</span>
+                        <span class="text-gray-500 cursor-pointer">{{item.user.email}}</span>
                     </div>
                 </div>
-                <span
-                    class="text-lg font-bold cursor-pointer">{{item.name}}</span>
-                <p
-                    class="text-gray-700 mt-2 line-clamp-3">{{item.description}}</p>
-                <p class="text-gray-500 mt-2 ">
-                    <i class="fa-solid fa-map-location-dot"></i>
-                    {{item.distance}} Km</p>
+                <p class="text-gray-700 mt-2 line-clamp-3">{{item.description}}</p>
+                <p class="text-gray-500 mt-2">
+                    <i class="fa-solid fa-map-location-dot"></i> {{item.distance}} Km
+                </p>
                 <div class="flex justify-between items-center mt-4">
-                    <span
-                        class="text-sm font-bold text-green-500">&#36;{{item.price}}/day</span>
-                    <button
-                        (click)="renting(item.id)"
-                        class="text-sm font-bold bg-black text-white px-2 py-1 rounded-md hover:bg-blue-600" (click)="renting(item.id)">Rent
-                        Now</button>
+                    <span class="text-sm font-bold text-green-500">&#36;{{item.price}}/day</span>
+                    <button (click)="renting(item.id)" 
+                            class="text-sm font-bold bg-black text-white px-2 py-1 rounded-md hover:bg-blue-600">Rent Now</button>
                 </div>
             </div>
         </div>
-        }
     </div>
-    <!-- Repeat for other cars -->
 </section>

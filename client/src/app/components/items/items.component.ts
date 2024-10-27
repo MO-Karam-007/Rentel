@@ -22,6 +22,8 @@ export class ItemsComponent {
   token: string;
   items: any[];
   wishlist: any[] = [];
+  isLoading = true; // Start with loading set to true
+
 
 
   constructor(private itemService: ItemService, private rentalService: RentalService, private _snackBar: MatSnackBar, private wish: WishlistService) {
@@ -46,10 +48,12 @@ export class ItemsComponent {
         this.cars = data.data; // Store the full list of items
         console.log('Items fetched:', this.cars);
 
+        this.isLoading = false; 
 
       },
       (error) => {
         console.error('Error fetching items', error);
+        this.isLoading = false; 
       }
     );
   }

@@ -62,12 +62,15 @@ class RegisteredUserController extends BaseController
             'role'  => ['required', 'string']
         ]);
 
+        $validated['role'] = $validated['role'] ?? 'user';
+
+
         $user = User::create([
             'username' => $request->username,
             'email' => $request->email,
             'password' => Hash::make($request->string('password')),
             'profile_incomplete' => true,
-            'role' =>  $request->role,
+            'role' => $validated['role'],
             'active_status' => $validated['role'] == 'admin' ? true : false
 
         ]);

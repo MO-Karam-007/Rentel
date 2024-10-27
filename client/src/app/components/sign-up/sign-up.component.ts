@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { AuthService } from '../../services/auth.service';
 import { Router, RouterLink } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-sign-up',
@@ -11,12 +12,13 @@ import { FormsModule } from '@angular/forms';
   styleUrl: './sign-up.component.scss'
 })
 export class SignUpComponent {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private router: Router, private toastrService: ToastrService) { }
   credentials: any = {
     username: '',
     email: '',
     password: '',
-    password_confirmation: ''
+    password_confirmation: '',
+    role: 'user'
   };
 
 
@@ -31,6 +33,7 @@ export class SignUpComponent {
     this.authService.register(this.credentials).subscribe(
       (res: any) => {
         console.log("User registration");
+        this.toastrService.success('User registered successfully');
 
         localStorage.setItem('token', res.data.token);
 

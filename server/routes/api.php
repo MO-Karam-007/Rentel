@@ -126,7 +126,7 @@ Route::get('notifications/count', [NotificationController::class, 'count'])->mid
 Route::middleware('auth:sanctum')->post('/notifications/{id}/read', [NotificationController::class, 'markAsRead']);
 Route::middleware('auth:sanctum')->post('/favorites', [FavoriteController::class, 'addFavorite']);
 
-Route::get('item/{itemId}/reviews', [ReviewController::class, 'getItemReviews']);
+Route::get('item/{itemId}/reviews', [ReviewController::class, 'getItemReviews'])->middleware('auth:sanctum');
 
 
 Route::middleware('auth:sanctum')->group(function () {

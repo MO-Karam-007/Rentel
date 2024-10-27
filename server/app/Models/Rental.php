@@ -15,8 +15,7 @@ class Rental extends Model
         'status',
         'rental_price',
         'borrower_id',
-        'item_owner_id',
-        'current_status'
+        'item_owner_id'
     ];
 
     protected $casts = [

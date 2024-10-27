@@ -48,12 +48,12 @@ export class ItemsComponent {
         this.cars = data.data; // Store the full list of items
         console.log('Items fetched:', this.cars);
 
-        this.isLoading = false; 
+        this.isLoading = false;
 
       },
       (error) => {
         console.error('Error fetching items', error);
-        this.isLoading = false; 
+        this.isLoading = false;
       }
     );
   }
@@ -82,7 +82,8 @@ export class ItemsComponent {
     const endDate = this.calculateEndDate();
     const data = {
       item_id: id,
-      end_date: endDate
+      end_date: endDate,
+      status: 'requested'
     };
 
     this.rentalService.rentItem(data, token).subscribe({

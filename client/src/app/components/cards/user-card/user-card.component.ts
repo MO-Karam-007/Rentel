@@ -55,7 +55,8 @@ export class UserCardComponent implements OnInit {
     this.authService.allUsers(token, query, this.currentPage, this.itemsPerPage).subscribe(
       (data) => {
         this.usersList = data['data']['data'];
-        this.totalItems = data['data']['total']; // Set the total items count
+        this.totalItems = data['data']['total'];
+
       },
       (error) => {
         console.error(error);
@@ -70,6 +71,7 @@ export class UserCardComponent implements OnInit {
       this.authService.unbanUser(token, user.id).subscribe(
         (response) => {
           user.banned = response.banned;
+          this.users(this.searchQuery);
           this.toastrService.success('User unbanned successfully');
         },
         (error) => {
@@ -82,8 +84,8 @@ export class UserCardComponent implements OnInit {
       this.authService.banUser(token, user.id).subscribe(
         (response) => {
           user.banned = response.banned;
+          this.users(this.searchQuery);
           this.toastrService.success('User banned successfully');
-
         },
         (error) => {
           console.error(error);

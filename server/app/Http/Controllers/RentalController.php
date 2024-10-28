@@ -91,7 +91,8 @@ class RentalController extends BaseController implements HasMiddleware
 
         $validated = $request->validate([
             'end_date' => 'required|date|after_or_equal:' . now(),
-            'item_id' => 'required|exists:items,id'
+            'item_id' => 'required|exists:items,id',
+            //'current_status' => 'required'
         ]);
 
         $item = Item::findOrFail($validated['item_id']);

@@ -1,7 +1,7 @@
 {
   "name": "rentel",
   "version": "1.0.0",
-  "description": "Rentel is a location-based platform designed to connect nearby users,\r making it easy to borrow and rent items. With Rentel, users can effortlessly find and borrow items they need,\r or offer items they own for rent. Notifications within a 6km radius ensure convenient and efficient borrowing.",
+  "description": "Rental is a location-based platform designed to connect nearby users,\r making it easy to borrow and rent items. With Rentel, users can effortlessly find and borrow items they need,\r or offer items they own for rent. Notifications within a 6km radius ensure convenient and efficient borrowing.",
   "main": "index.js",
   "scripts": {
     "start": "concurrently \"npm run serve:php\" \"npm run serve:ng\"",
